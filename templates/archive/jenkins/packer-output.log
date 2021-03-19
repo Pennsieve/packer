@@ -1,0 +1,490 @@
+==> amazon-ebs: Prevalidating AMI Name: jenkins-ami-35
+    amazon-ebs: Found Image ID: ami-03a935aafa6b52b97
+==> amazon-ebs: Creating temporary keypair: packer_5c420d81-2af5-ad91-ca53-dec8c9ba9984
+==> amazon-ebs: Launching a source AWS instance...
+    amazon-ebs: Finding spot price for Linux/UNIX (Amazon VPC) t2.micro...
+==> amazon-ebs: Adding tags to source instance
+    amazon-ebs: Adding tag: "environment_name": "build"
+    amazon-ebs: Adding tag: "Name": "Packer Builder"
+    amazon-ebs: Adding tag: "role": "ami"
+    amazon-ebs: Adding tag: "tier": "jenkins"
+    amazon-ebs: Requesting spot instance 't2.micro' for: 0.0085
+    amazon-ebs: Waiting for spot request (sir-72fr728k) to become active...
+    amazon-ebs: Instance ID: i-0a6b25356d3f09c5c
+==> amazon-ebs: Waiting for instance (i-0a6b25356d3f09c5c) to become ready...
+==> amazon-ebs: Using ssh communicator to connect: 18.215.169.26
+==> amazon-ebs: Waiting for SSH to become available...
+==> amazon-ebs: Connected to SSH!
+==> amazon-ebs: Provisioning with shell script: build_ami.sh
+    amazon-ebs: Installing Puppet
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Starting Puppet Install ****
+    amazon-ebs: --2019-01-18 17:33:48--  https://apt.puppetlabs.com/puppet5-release-xenial.deb
+    amazon-ebs: Resolving apt.puppetlabs.com (apt.puppetlabs.com)... 99.84.181.101, 99.84.181.111, 99.84.181.56, ...
+    amazon-ebs: Connecting to apt.puppetlabs.com (apt.puppetlabs.com)|99.84.181.101|:443... connected.
+    amazon-ebs: HTTP request sent, awaiting response... 200 OK
+    amazon-ebs: Length: 6850 (6.7K) [application/x-debian-package]
+    amazon-ebs: Saving to: 'puppet5-release-xenial.deb'
+    amazon-ebs:
+    amazon-ebs: puppet5-release-xen 100%[===================>]   6.69K  --.-KB/s    in 0s
+    amazon-ebs:
+    amazon-ebs: 2019-01-18 17:33:48 (1.06 GB/s) - 'puppet5-release-xenial.deb' saved [6850/6850]
+    amazon-ebs:
+    amazon-ebs: Selecting previously unselected package puppet5-release.
+    amazon-ebs: (Reading database ... 51330 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack puppet5-release-xenial.deb ...
+    amazon-ebs: Unpacking puppet5-release (5.0.0-1xenial) ...
+    amazon-ebs: Setting up puppet5-release (5.0.0-1xenial) ...
+    amazon-ebs: Ign:1 http://apt.puppetlabs.com xenial InRelease
+    amazon-ebs: Get:2 http://apt.puppetlabs.com xenial Release [70.1 kB]
+    amazon-ebs: Get:3 http://apt.puppetlabs.com xenial Release.gpg [819 B]
+    amazon-ebs: Hit:4 http://archive.ubuntu.com/ubuntu xenial InRelease
+    amazon-ebs: Get:5 http://security.ubuntu.com/ubuntu xenial-security InRelease [107 kB]
+    amazon-ebs: Get:6 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [109 kB]
+    amazon-ebs: Get:7 http://apt.puppetlabs.com xenial/puppet5 amd64 Packages [29.3 kB]
+    amazon-ebs: Get:8 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [107 kB]
+    amazon-ebs: Get:9 http://apt.puppetlabs.com xenial/puppet5 all Packages [11.2 kB]
+    amazon-ebs: Get:10 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [7532 kB]
+    amazon-ebs: Get:11 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [600 kB]
+    amazon-ebs: Get:12 http://archive.ubuntu.com/ubuntu xenial/universe Translation-en [4354 kB]
+    amazon-ebs: Get:13 http://security.ubuntu.com/ubuntu xenial-security/main Translation-en [249 kB]
+    amazon-ebs: Get:14 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [414 kB]
+    amazon-ebs: Get:15 http://security.ubuntu.com/ubuntu xenial-security/universe Translation-en [163 kB]
+    amazon-ebs: Get:16 http://archive.ubuntu.com/ubuntu xenial/multiverse amd64 Packages [144 kB]
+    amazon-ebs: Get:17 http://archive.ubuntu.com/ubuntu xenial/multiverse Translation-en [106 kB]
+    amazon-ebs: Get:18 http://security.ubuntu.com/ubuntu xenial-security/multiverse amd64 Packages [3724 B]
+    amazon-ebs: Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [902 kB]
+    amazon-ebs: Get:20 http://security.ubuntu.com/ubuntu xenial-security/multiverse Translation-en [1844 B]
+    amazon-ebs: Get:21 http://archive.ubuntu.com/ubuntu xenial-updates/main Translation-en [365 kB]
+    amazon-ebs: Get:22 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [719 kB]
+    amazon-ebs: Get:23 http://archive.ubuntu.com/ubuntu xenial-updates/universe Translation-en [295 kB]
+    amazon-ebs: Get:24 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse amd64 Packages [16.6 kB]
+    amazon-ebs: Get:25 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse Translation-en [8440 B]
+    amazon-ebs: Get:26 http://archive.ubuntu.com/ubuntu xenial-backports/main amd64 Packages [7280 B]
+    amazon-ebs: Get:27 http://archive.ubuntu.com/ubuntu xenial-backports/main Translation-en [4456 B]
+    amazon-ebs: Get:28 http://archive.ubuntu.com/ubuntu xenial-backports/universe amd64 Packages [7804 B]
+    amazon-ebs: Get:29 http://archive.ubuntu.com/ubuntu xenial-backports/universe Translation-en [4184 B]
+    amazon-ebs: Fetched 16.3 MB in 6s (2484 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   puppet-agent
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 24 not upgraded.
+    amazon-ebs: Need to get 17.4 MB of archives.
+    amazon-ebs: After this operation, 96.1 MB of additional disk space will be used.
+    amazon-ebs: Get:1 http://apt.puppetlabs.com xenial/puppet5 amd64 puppet-agent amd64 5.5.10-1xenial [17.4 MB]
+    amazon-ebs: Fetched 17.4 MB in 0s (21.9 MB/s)
+    amazon-ebs: Selecting previously unselected package puppet-agent.
+    amazon-ebs: (Reading database ... 51335 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../puppet-agent_5.5.10-1xenial_amd64.deb ...
+    amazon-ebs: Unpacking puppet-agent (5.5.10-1xenial) ...
+    amazon-ebs: Processing triggers for libc-bin (2.23-0ubuntu10) ...
+    amazon-ebs: Setting up puppet-agent (5.5.10-1xenial) ...
+    amazon-ebs: Created symlink from /etc/systemd/system/multi-user.target.wants/puppet.service to /lib/systemd/system/puppet.service.
+    amazon-ebs: Created symlink from /etc/systemd/system/multi-user.target.wants/mcollective.service to /lib/systemd/system/mcollective.service.
+    amazon-ebs: Created symlink from /etc/systemd/system/multi-user.target.wants/pxp-agent.service to /lib/systemd/system/pxp-agent.service.
+    amazon-ebs: Removed symlink /etc/systemd/system/multi-user.target.wants/pxp-agent.service.
+    amazon-ebs: Processing triggers for libc-bin (2.23-0ubuntu10) ...
+    amazon-ebs: **** Completed Puppet Install ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Puppet Modules ****
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Created target directory /home/ubuntu/modules[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppet-archive ([0;36mv2.1.0[0m)
+    amazon-ebs:   └── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /etc/puppetlabs/code/environments/production/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /etc/puppetlabs/code/environments/production/modules
+    amazon-ebs: └── puppetlabs-translate ([0;36mv0.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppetlabs-kubernetes ([0;36mv3.0.0[0m)
+    amazon-ebs:   ├── puppet-archive ([0;36mv2.1.0[0m)
+    amazon-ebs:   ├── puppet-wget ([0;36mv2.0.0[0m)
+    amazon-ebs:   ├── puppetlabs-apt ([0;36mv5.0.1[0m)
+    amazon-ebs:   ├── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs:   └── puppetlabs-translate ([0;36mv0.1.0[0m) [/etc/puppetlabs/code/environments/production/modules]
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ juniorsysadmin-chromerepo ([0;36mv0.2.0[0m)
+    amazon-ebs:   └── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppet-nodejs ([0;36mv5.0.0[0m)
+    amazon-ebs:   └── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppetlabs-docker ([0;36mv2.0.0[0m)
+    amazon-ebs:   ├── puppetlabs-apt ([0;36mv5.0.1[0m)
+    amazon-ebs:   ├── puppetlabs-powershell ([0;36mv2.2.0[0m)
+    amazon-ebs:   ├── puppetlabs-reboot ([0;36mv2.1.2[0m)
+    amazon-ebs:   ├── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs:   └── puppetlabs-translate ([0;36mv0.1.0[0m) [/etc/puppetlabs/code/environments/production/modules]
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppetlabs-helm ([0;36mv1.0.1[0m)
+    amazon-ebs:   ├── puppet-archive ([0;36mv2.1.0[0m)
+    amazon-ebs:   ├── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs:   └── puppetlabs-translate ([0;36mv0.1.0[0m) [/etc/puppetlabs/code/environments/production/modules]
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppetlabs-java ([0;36mv3.0.0[0m)
+    amazon-ebs:   ├── puppet-archive ([0;36mv2.1.0[0m)
+    amazon-ebs:   └── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppetlabs-ruby ([0;36mv1.0.0[0m)
+    amazon-ebs:   └── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ puppet-python ([0;36mv2.1.1[0m)
+    amazon-ebs:   ├── puppetlabs-stdlib ([0;36mv4.25.1[0m)
+    amazon-ebs:   └── stahnma-epel ([0;36mv1.3.1[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: └─┬ inkblot-hashicorp ([0;36mv1.4.1[0m)
+    amazon-ebs:   ├── golja-gnupg ([0;36mv1.2.3[0m)
+    amazon-ebs:   └── puppet-archive ([0;36mv2.1.0[0m)
+    amazon-ebs: **** Completed Installing Puppet Modules ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Running "puppet apply" ****
+    amazon-ebs: Warning: ModuleLoader: module 'docker' has unresolved dependencies - it will only see those that are resolved. Use 'puppet module list --tree' to see information about modules\n   (file & line not available)
+    amazon-ebs: Warning: ModuleLoader: module 'helm' has unresolved dependencies - it will only see those that are resolved. Use 'puppet module list --tree' to see information about modules\n   (file & line not available)
+    amazon-ebs: Notice: Compiled catalog for ip-10-10-103-34.ec2.internal in environment production in 0.82 seconds
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Package[debian-keyring]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Package[debian-archive-keyring]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Apt/File[preferences]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Apt/Package[dirmngr]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/Exec[Install Docker Compose 1.22.0]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose-1.22.0]/mode: mode changed '0644' to '0755'
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Helm::Binary/Archive[helm]/ensure: download archive from https://kubernetes-helm.storage.googleapis.com/helm-v2.7.0-linux-amd64.tar.gz to /tmp/helm-v2.7.0-linux-amd64.tar.gz and extracted in /usr/bin with cleanup
+    amazon-ebs: Notice: /Stage[main]/Helm::Binary/File[/usr/bin/helm-2.7.0]/mode: mode changed '0644' to '0755'
+    amazon-ebs: Notice: /Stage[main]/Helm::Binary/File[/usr/bin/helm]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Ruby/Package[ruby]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Ruby/Package[rubygems]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java-common]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java::Config/File_line[java-home-environment]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[python]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[virtualenv]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[pip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[awscli]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[boto3]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cython]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[twine]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[hiera-eyaml]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[puppet-lint]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/File[/etc/profile.d/go_path.sh]/ensure: defined content as '{md5}040629c01a3b60298ccf41e69a842834'
+    amazon-ebs: Notice: /Stage[main]/Apt/Apt::Setting[conf-update-stamp]/File[/etc/apt/apt.conf.d/15update-stamp]/content: content changed '{md5}b9de0ac9e2c9854b1bb213e362dc4e41' to '{md5}0962d70c4ec78bbfa6f3544ae0c41974'
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Ppa[ppa:gophers/archive]/Exec[add-apt-repository-ppa:gophers/archive]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Hashicorp/Gnupg_key[hashicorp]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Hashicorp/File[/var/cache/hashicorp]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Hashicorp/File[/usr/local/bin/hashicorp-download.sh]/ensure: defined content as '{md5}7cd5a936e5a0136956982b453f014589'
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Terraform/Hashicorp::Download[terraform]/Exec[download terraform 0.11.11]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Terraform/Hashicorp::Download[terraform]/File[/usr/local/bin/terraform-0.11.11]/ensure: defined content as '{md5}1b0c9f862b23a54341547a0131dbaa85'
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Terraform/Hashicorp::Download[terraform]/File[/usr/local/bin/terraform]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Packer/Hashicorp::Download[packer]/Exec[download packer 1.3.3]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Packer/Hashicorp::Download[packer]/File[/usr/local/bin/packer-1.3.3]/ensure: defined content as '{md5}dd5b18a44cb62b5961abcb2e2ff51787'
+    amazon-ebs: Notice: /Stage[main]/Hashicorp::Packer/Hashicorp::Download[packer]/File[/usr/local/bin/packer]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/Apt_key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Setting[list-docker]/File[/etc/apt/sources.list.d/docker.list]/ensure: defined content as '{md5}395ee27d70d138f3f6bdf37acbbb5c4f'
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Pin[docker]/Apt::Setting[pref-docker]/File[/etc/apt/preferences.d/docker.pref]/ensure: defined content as '{md5}ee2dbee1afbf071d58e0a88361de09f6'
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Repo::Nodesource::Apt/Apt::Source[nodesource]/Apt::Key[Add key: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280 from Apt::Source nodesource]/Apt_key[Add key: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280 from Apt::Source nodesource]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Repo::Nodesource::Apt/Apt::Source[nodesource]/Apt::Setting[list-nodesource]/File[/etc/apt/sources.list.d/nodesource.list]/ensure: defined content as '{md5}ef46d3b645e414d164d5a558d6a1061f'
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Install/File[root_npmrc]/ensure: defined content as '{md5}17626e1e7e2db5c71227460a36f6bbb8'
+    amazon-ebs: Notice: /Stage[main]/Chromerepo/Apt::Source[google-chrome]/Apt::Key[Add key: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 from Apt::Source google-chrome]/Apt_key[Add key: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 from Apt::Source google-chrome]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Chromerepo/Apt::Source[google-chrome]/Apt::Setting[list-google-chrome]/File[/etc/apt/sources.list.d/google-chrome.list]/ensure: defined content as '{md5}bfeb085d09ff37a720e52d4cf0658cb9'
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[kubernetes]/Apt::Key[Add key: D0BC747FD8CAF7117500D6FA3746C208A7317B0F from Apt::Source kubernetes]/Apt_key[Add key: D0BC747FD8CAF7117500D6FA3746C208A7317B0F from Apt::Source kubernetes]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[kubernetes]/Apt::Setting[list-kubernetes]/File[/etc/apt/sources.list.d/kubernetes.list]/ensure: defined content as '{md5}5ee6bc4f88fb807b046c8c9b045448b3'
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[yarn]/Apt::Key[Add key: 72ECF46A56B4AD39C907BBB71646B01B86E50310 from Apt::Source yarn]/Apt_key[Add key: 72ECF46A56B4AD39C907BBB71646B01B86E50310 from Apt::Source yarn]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[yarn]/Apt::Setting[list-yarn]/File[/etc/apt/sources.list.d/yarn.list]/ensure: defined content as '{md5}0c91f7c6299c78eac04b99681ba36ef2'
+    amazon-ebs: Notice: /Stage[main]/Apt::Update/Exec[apt_update]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Package[cgroup-lite]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Install/Package[docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Install/Package[nodejs]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/File[/home/ubuntu/.sbt]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/File[/home/ubuntu/.sbt/repositories]/ensure: defined content as '{md5}861b57520e94ef186e1de1fc0f330fa8'
+    amazon-ebs: Notice: /Stage[main]/Docker::Config/Docker::System_user[ubuntu]/Exec[docker-system-user-ubuntu]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d/service-overrides.conf]/ensure: defined content as '{md5}13cbf88dc22d6b8b4e1bbbd32f07dafe'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Exec[docker-systemd-reload-before-service]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker-storage]/ensure: defined content as '{md5}0f427b02d0882d0df4de752f77402f3e'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker]/content: content changed '{md5}82d6a44e99db1a3b74f7835e4f5e1b01' to '{md5}81700906b44f9d5ac50375ca10522a52'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Service[docker]: Triggered 'refresh' from 2 events
+    amazon-ebs: Notice: /Stage[main]/Main/Package[apache2-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[bc]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cmake]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[dos2unix]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ffmpeg]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[golang-1.8-go]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[google-chrome-stable]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[jq]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[kubectl]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ldap-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libcurl4-openssl-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libmysqlclient-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libpq-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[postgresql-client]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[pylint]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[xvfb]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[whois]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[yarn]/ensure: created
+    amazon-ebs: Notice: Applied catalog in 251.16 seconds
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Completed "puppet apply" ****
+    amazon-ebs:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+    amazon-ebs:                                  Dload  Upload   Total   Spent    Left  Speed
+    amazon-ebs: 100 14684  100 14684    0     0  26916      0 --:--:-- --:--:-- --:--:-- 26893
+    amazon-ebs: [KCAPSULE: Downloading dependency org.slf4j:log4j-over-slf4j:pom:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:slf4j-parent:pom:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.multiverse:multiverse-core:pom:0.7.0
+    amazon-ebs: CAPSULE: Downloading dependency org.multiverse:multiverse:pom:0.7.0
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-xml:pom:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.iq80.leveldb:leveldb-api:pom:0.10
+    amazon-ebs: CAPSULE: Downloading dependency org.iq80.leveldb:leveldb-project:pom:0.10
+    amazon-ebs: CAPSULE: Downloading dependency io.airlift:airbase:pom:77
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-kms:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-pom:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-core:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency joda-time:joda-time:pom:2.8.1
+    amazon-ebs: CAPSULE: Downloading dependency com.beust:jcommander:pom:1.35
+    amazon-ebs: CAPSULE: Downloading dependency org.sonatype.oss:oss-parent:pom:3
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:jmespath-java:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency org.jsoup:jsoup:pom:1.11.2
+    amazon-ebs: CAPSULE: Downloading dependency ch.grengine:grengine:pom:1.3.0
+    amazon-ebs: CAPSULE: Downloading dependency jline:jline:pom:2.9
+    amazon-ebs: CAPSULE: Downloading dependency org.sonatype.oss:oss-parent:pom:7
+    amazon-ebs: CAPSULE: Downloading dependency org.iq80.leveldb:leveldb:pom:0.10
+    amazon-ebs: CAPSULE: Downloading dependency javax.mail:mail:pom:1.4.7
+    amazon-ebs: CAPSULE: Downloading dependency com.sun.mail:all:pom:1.4.7
+    amazon-ebs: CAPSULE: Downloading dependency net.java:jvnet-parent:pom:1
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:jul-to-slf4j:pom:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcore:pom:4.4.9
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcomponents-core:pom:4.4.9
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcomponents-parent:pom:9
+    amazon-ebs: CAPSULE: Downloading dependency org.apache:apache:pom:18
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-core:pom:2.6.7
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson:jackson-parent:pom:2.6.2
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml:oss-parent:pom:24
+    amazon-ebs: CAPSULE: Downloading dependency ch.qos.logback:logback-classic:pom:1.1.11
+    amazon-ebs: CAPSULE: Downloading dependency ch.qos.logback:logback-parent:pom:1.1.11
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.gpars:gpars:pom:1.2.1
+    amazon-ebs: CAPSULE: Downloading dependency com.esotericsoftware.kryo:kryo:pom:2.24.0
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.ivy:ivy:pom:2.3.0
+    amazon-ebs: CAPSULE: Downloading dependency org.apache:apache:pom:7
+    amazon-ebs: CAPSULE: Downloading dependency com.googlecode.javaewah:JavaEWAH:pom:1.1.6
+    amazon-ebs: CAPSULE: Downloading dependency org.sonatype.oss:oss-parent:pom:5
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-s3fs:pom:1.0.4
+    amazon-ebs: CAPSULE: Downloading dependency javax.activation:activation:pom:1.1.1
+    amazon-ebs: CAPSULE: Downloading dependency com.jcraft:jsch:pom:0.1.54
+    amazon-ebs: CAPSULE: Downloading dependency org.sonatype.oss:oss-parent:pom:6
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-commons:pom:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-httpfs:pom:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.jsr166-mirror:jsr166y:pom:1.7.0
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:slf4j-api:pom:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpclient:pom:4.5.5
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcomponents-client:pom:4.5.5
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcomponents-parent:pom:10
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-json:pom:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-templates:pom:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency ch.qos.logback:logback-core:pom:1.1.11
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-s3:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-ec2:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:pom:2.6.7
+    amazon-ebs: CAPSULE: Downloading dependency commons-lang:commons-lang:pom:2.6
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.commons:commons-parent:pom:17
+    amazon-ebs: CAPSULE: Downloading dependency software.amazon.ion:ion-java:pom:1.0.2
+    amazon-ebs: CAPSULE: Downloading dependency org.eclipse.jgit:org.eclipse.jgit:pom:4.8.0.201706111038-r
+    amazon-ebs: CAPSULE: Downloading dependency org.eclipse.jgit:org.eclipse.jgit-parent:pom:4.8.0.201706111038-r
+    amazon-ebs: CAPSULE: Downloading dependency org.objenesis:objenesis:pom:2.1
+    amazon-ebs: CAPSULE: Downloading dependency org.objenesis:objenesis-parent:pom:2.1
+    amazon-ebs: CAPSULE: Downloading dependency org.yaml:snakeyaml:pom:1.18
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:jcl-over-slf4j:pom:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-batch:pom:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.google.guava:guava:pom:21.0
+    amazon-ebs: CAPSULE: Downloading dependency com.google.guava:guava-parent:pom:21.0
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nextflow:pom:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-databind:pom:2.6.7.1
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy:pom:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-nio:pom:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-annotations:pom:2.6.0
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson:jackson-parent:pom:2.6.1
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml:oss-parent:pom:23
+    amazon-ebs: CAPSULE: Downloading dependency commons-codec:commons-codec:pom:1.10
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.commons:commons-parent:pom:35
+    amazon-ebs: CAPSULE: Downloading dependency org.apache:apache:pom:15
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:log4j-over-slf4j:jar:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.multiverse:multiverse-core:jar:0.7.0
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-xml:jar:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.iq80.leveldb:leveldb-api:jar:0.10
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-kms:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-core:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency joda-time:joda-time:jar:2.8.1
+    amazon-ebs: CAPSULE: Downloading dependency com.beust:jcommander:jar:1.35
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:jmespath-java:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency org.jsoup:jsoup:jar:1.11.2
+    amazon-ebs: CAPSULE: Downloading dependency ch.grengine:grengine:jar:1.3.0
+    amazon-ebs: CAPSULE: Downloading dependency jline:jline:jar:2.9
+    amazon-ebs: CAPSULE: Downloading dependency org.iq80.leveldb:leveldb:jar:0.10
+    amazon-ebs: CAPSULE: Downloading dependency javax.mail:mail:jar:1.4.7
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:jul-to-slf4j:jar:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpcore:jar:4.4.9
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-core:jar:2.6.7
+    amazon-ebs: CAPSULE: Downloading dependency ch.qos.logback:logback-classic:jar:1.1.11
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.gpars:gpars:jar:1.2.1
+    amazon-ebs: CAPSULE: Downloading dependency com.esotericsoftware.kryo:kryo:jar:2.24.0
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.ivy:ivy:jar:2.3.0
+    amazon-ebs: CAPSULE: Downloading dependency com.googlecode.javaewah:JavaEWAH:jar:1.1.6
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-s3fs:jar:1.0.4
+    amazon-ebs: CAPSULE: Downloading dependency javax.activation:activation:jar:1.1.1
+    amazon-ebs: CAPSULE: Downloading dependency com.jcraft:jsch:jar:0.1.54
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-commons:jar:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nxf-httpfs:jar:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.jsr166-mirror:jsr166y:jar:1.7.0
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:slf4j-api:jar:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency org.apache.httpcomponents:httpclient:jar:4.5.5
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-json:jar:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-templates:jar:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency ch.qos.logback:logback-core:jar:1.1.11
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-s3:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-ec2:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:jar:2.6.7
+    amazon-ebs: CAPSULE: Downloading dependency commons-lang:commons-lang:jar:2.6
+    amazon-ebs: CAPSULE: Downloading dependency software.amazon.ion:ion-java:jar:1.0.2
+    amazon-ebs: CAPSULE: Downloading dependency org.eclipse.jgit:org.eclipse.jgit:jar:4.8.0.201706111038-r
+    amazon-ebs: CAPSULE: Downloading dependency org.objenesis:objenesis:jar:2.1
+    amazon-ebs: CAPSULE: Downloading dependency org.yaml:snakeyaml:jar:1.18
+    amazon-ebs: CAPSULE: Downloading dependency org.slf4j:jcl-over-slf4j:jar:1.7.25
+    amazon-ebs: CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-batch:jar:1.11.324
+    amazon-ebs: CAPSULE: Downloading dependency com.google.guava:guava:jar:21.0
+    amazon-ebs: CAPSULE: Downloading dependency io.nextflow:nextflow:jar:18.10.1
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-databind:jar:2.6.7.1
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy:jar:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency org.codehaus.groovy:groovy-nio:jar:2.5.3
+    amazon-ebs: CAPSULE: Downloading dependency com.fasterxml.jackson.core:jackson-annotations:jar:2.6.0
+    amazon-ebs: CAPSULE: Downloading dependency commons-codec:commons-codec:jar:1.10
+    amazon-ebs: Usage: nextflow [options] COMMAND [arg...]
+    amazon-ebs:
+    amazon-ebs: Options:
+    amazon-ebs:   -C
+    amazon-ebs:      Use the specified configuration file(s) overriding any defaults
+    amazon-ebs:   -D
+    amazon-ebs:      Set JVM properties
+    amazon-ebs:   -bg
+    amazon-ebs:      Execute nextflow in background
+    amazon-ebs:   -c, -config
+    amazon-ebs:      Add the specified file to configuration set
+    amazon-ebs:   -d, -dockerize
+    amazon-ebs:      Launch nextflow via Docker (experimental)
+    amazon-ebs:   -h
+    amazon-ebs:      Print this help
+    amazon-ebs:   -log
+    amazon-ebs:      Set nextflow log file path
+    amazon-ebs:   -q, -quiet
+    amazon-ebs:      Do not print information messages
+    amazon-ebs:   -syslog
+    amazon-ebs:      Send logs to syslog server (eg. localhost:514)
+    amazon-ebs:   -v, -version
+    amazon-ebs:      Print the program version
+    amazon-ebs:
+    amazon-ebs: Commands:
+    amazon-ebs:   clean         Clean up project cache and work directories
+    amazon-ebs:   clone         Clone a project into a folder
+    amazon-ebs:   cloud         Manage Nextflow clusters in the cloud
+    amazon-ebs:   config        Print a project configuration
+    amazon-ebs:   drop          Delete the local copy of a project
+    amazon-ebs:   help          Print the usage help for a command
+    amazon-ebs:   info          Print project and system runtime information
+    amazon-ebs:   kuberun       Execute a workflow in a Kubernetes cluster (experimental)
+    amazon-ebs:   list          List all downloaded projects
+    amazon-ebs:   log           Print executions log and runtime info
+    amazon-ebs:   pull          Download or update a project
+    amazon-ebs:   run           Execute a pipeline project
+    amazon-ebs:   self-update   Update nextflow runtime to the latest available version
+    amazon-ebs:   view          View project script file(s)
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Software versions installed ****
+    amazon-ebs: openjdk version "1.8.0_191"
+    amazon-ebs: OpenJDK Runtime Environment (build 1.8.0_191-8u191-b12-0ubuntu0.16.04.1-b12)
+    amazon-ebs: OpenJDK 64-Bit Server VM (build 25.191-b12, mixed mode)
+    amazon-ebs: Node version v8.15.0
+    amazon-ebs: Client:
+    amazon-ebs:  Version:           18.09.1
+    amazon-ebs:  API version:       1.39
+    amazon-ebs:  Go version:        go1.10.6
+    amazon-ebs:  Git commit:        4c52b90
+    amazon-ebs:  Built:             Wed Jan  9 19:35:23 2019
+    amazon-ebs:  OS/Arch:           linux/amd64
+    amazon-ebs:  Experimental:      false
+    amazon-ebs:
+    amazon-ebs: Server: Docker Engine - Community
+    amazon-ebs:  Engine:
+    amazon-ebs:   Version:          18.09.1
+    amazon-ebs:   API version:      1.39 (minimum version 1.12)
+    amazon-ebs:   Go version:       go1.10.6
+    amazon-ebs:   Git commit:       4c52b90
+    amazon-ebs:   Built:            Wed Jan  9 19:02:44 2019
+    amazon-ebs:   OS/Arch:          linux/amd64
+    amazon-ebs:   Experimental:     false
+    amazon-ebs: docker-compose version 1.22.0, build f46880fe
+    amazon-ebs: Packer v1.3.3
+    amazon-ebs: Terraform v0.11.11
+    amazon-ebs:
+    amazon-ebs: twine version 1.12.1 (pkginfo: 1.5.0.1, requests: 2.21.0, setuptools: 20.7.0,
+    amazon-ebs: requests-toolbelt: 0.8.0, tqdm: 4.29.1)
+==> amazon-ebs: Creating unencrypted AMI ZDO0Vno from instance i-0a6b25356d3f09c5c
+    amazon-ebs: AMI: ami-05085f06b5405c5e5
+==> amazon-ebs: Waiting for AMI to become ready...
+==> amazon-ebs: Creating Encrypted AMI Copy
+==> amazon-ebs: Copying AMI: us-east-1(ami-05085f06b5405c5e5)
+==> amazon-ebs: Waiting for AMI copy to become ready...
+==> amazon-ebs: Deregistering unencrypted AMI
+==> amazon-ebs: Deleting unencrypted snapshots
+    amazon-ebs: Deleting Snapshot ID: snap-0aa6450233f1de6f9
+==> amazon-ebs: Adding tags to AMI (ami-09f4dd8e3498c5335)...
+==> amazon-ebs: Tagging snapshot: snap-05d45b4c7ddbfd931
+==> amazon-ebs: Creating AMI tags
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-35"
+==> amazon-ebs: Creating snapshot tags
+==> amazon-ebs: Cancelling the spot request...
+==> amazon-ebs: Terminating the source AWS instance...
+==> amazon-ebs: Cleaning up any extra volumes...
+==> amazon-ebs: No volumes to clean up, skipping
+==> amazon-ebs: Deleting temporary keypair...
+Build 'amazon-ebs' finished.
+
+==> Builds finished. The artifacts of successful builds are:
+--> amazon-ebs: AMIs were created:
+us-east-1: ami-09f4dd8e3498c5335
+

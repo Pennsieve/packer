@@ -1,0 +1,5 @@
+.terraform
+iso/
+secrets.json
+.vagrant
+*console.log

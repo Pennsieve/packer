@@ -1,0 +1,16 @@
+{
+  "_comment": "Build with `packer build -var-file=ecs.json ami.json`",
+  "ami_name": "",
+  "ami_regions": "us-east-1",
+  "_ami_regions_example": "us-east-1,us-west-2",
+  "ami_users": "941165240011,740463337177",
+  "_ami_users_comment": "List of other AWS accounts to grant access to the AMI",
+  "instance_type": "t3.medium",
+  "region": "us-east-1",
+  "security_group_id": "sg-0a3a39265d4ca0a95",
+  "ssh_wait_timeout": "1000s",
+  "snapshot_users": "941165240011,740463337177",
+  "_snapshot_users_comment": "List of other AWS accounts to grant access to the volume snapshot",
+  "subnet_id": "subnet-034de2f66c9701817",
+  "vpc_id": "vpc-078b2e4ad05ce7752"
+}

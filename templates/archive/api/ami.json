@@ -1,0 +1,63 @@
+{
+ "variables": {
+    "AMI_REGIONS": "{{env `AMI_REGIONS`}}",
+    "AWS_ACCESS_KEY": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "AWS_SECRET_KEY": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "BUILD_NUMBER": "{{env `BUILD_NUMBER`}}",
+    "BUILD_TYPE": "{{env `BUILD_NUMBER`}}",
+    "SECURITY_GROUP_ID": "{{env `SECURITY_GROUP_ID`}}",
+    "SSH_USERNAME": "{{env `SSH_USERNAME`}}",
+    "SOURCE_AMI": "{{env `SOURCE_AMI`}}",
+    "SUBNET_ID": "{{env `SUBNET_ID`}}",
+    "VPC_ID": "{{env `VPC_ID`}}"
+  },
+  "builders": [
+    {
+      "access_key": "{{user `AWS_ACCESS_KEY`}}",
+      "ami_name": "{{ user `BUILD_TYPE`}}-ami-{{ user `BUILD_NUMBER`}}",
+      "ami_virtualization_type": "hvm",
+      "associate_public_ip_address": "false",
+      "encrypt_boot": "true",
+      "instance_type": "t2.medium",
+      "region": "us-east-1",
+      "security_group_id":"{{user `SECURITY_GROUP_ID`}}",
+      "secret_key": "{{user `AWS_SECRET_KEY`}}",
+      "ssh_private_ip": "true",
+      "ssh_pty": "true",
+      "ssh_username": "{{user `SSH_USERNAME`}}",
+      "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
+      "subnet_id": "{{user `SUBNET_ID`}}",
+      "type": "amazon-ebs",
+      "vpc_id": "{{user `VPC_ID`}}",
+      "tags": {
+          "Name": "{{ user `BUILD_TYPE`}}-ami-{{ user `BUILD_NUMBER`}}"
+      },
+      "run_tags":{
+        "environment_name": "dev",
+        "role": "ami_builder",
+        "service_name": "api",
+        "tier": "provision"
+      },
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "aws-elasticbeanstalk-amzn-*.*.*.x86_64-tomcat8java8-hvm-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["102837901569"],
+        "most_recent": true
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'",
+      "script": "build_ami.sh",
+      "type": "shell",
+      "environment_vars": [
+        "BUILD_TYPE={{user `BUILD_TYPE`}}",
+        "SSH_USERNAME={{user `SSH_USERNAME`}}"
+      ]
+    }
+  ]
+}

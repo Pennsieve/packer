@@ -1,0 +1,74 @@
+{
+  "builders": [
+    {
+      "ami_name": "{{ user `ami_name` }}",
+      "ami_users": "{{ user `ami_users` }}",
+      "ami_virtualization_type": "hvm",
+      "associate_public_ip_address": "false",
+      "instance_type": "{{user `instance_type`}}",
+      "region": "{{user `region`}}",
+      "security_group_id":"{{user `security_group_id`}}",
+      "ssh_pty": "true",
+      "ssh_username": "{{user `ssh_username`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "type": "amazon-ebs",
+      "vpc_id": "{{user `vpc_id`}}",
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/xvda",
+          "volume_size": 50,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/xvdcz",
+          "volume_size": 50,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ],
+      "tags": {
+          "Name": "{{ user `ami_name` }}"
+      },
+      "run_tags":{
+        "environment_name": "ops",
+        "Name": "{{ user `ami_name` }}-packer-build",
+        "name": "{{ user `ami_name` }}-packer-build",
+        "service_name": "packer",
+        "tier": "builder"
+      },
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "amzn-ami-*.*.*-amazon-ecs-optimized",
+          "root-device-type": "ebs"
+        },
+        "owners": ["591542846629"],
+        "most_recent": true
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'",
+      "script": "scripts/install_puppet.sh",
+      "type": "shell",
+      "environment_vars": [
+        "BUILD_TYPE={{user `BUILD_TYPE`}}",
+        "SSH_USERNAME={{user `SSH_USERNAME`}}"
+      ]
+    },
+    {
+      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'",
+      "script": "scripts/ecs.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "ssh_username": "ec2-user"
+  }
+}
