@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH="$PATH:/opt/puppetlabs/bin"
-PUPPET_VERSION="5"
+PUPPET_VERSION="6"
 OS_FAMILY="$(cat /etc/*release | grep ^ID= | awk -F= '{ print $2}' | sed 's/"//g')"
 
 ubuntu_puppet_install() {

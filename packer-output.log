@@ -1,0 +1,604 @@
+Warning: Warning when preparing build: "amazon-ebs"
+
+spot_price_auto_product is deprecated and no longer necessary for Packer builds.
+In future versions of Packer, inclusion of spot_price_auto_product will error
+your builds. Please take a look at our current documentation to understand how
+Packer requests Spot instances.
+
+
+==> amazon-ebs: Prevalidating any provided VPC information
+==> amazon-ebs: Prevalidating AMI Name: jenkins-ami-29
+    amazon-ebs: Found Image ID: ami-061dbd1209944525c
+==> amazon-ebs: Creating temporary keypair: packer_639a6dbb-7407-5a1f-8575-6809425def15
+==> amazon-ebs: Launching a spot AWS instance...
+==> amazon-ebs: Interpolating tags for spot instance...
+    amazon-ebs: Adding tag: "name": "jenkins-ami-29-packer-build"
+    amazon-ebs: Adding tag: "service_name": "packer"
+    amazon-ebs: Adding tag: "tier": "builder"
+    amazon-ebs: Adding tag: "environment_name": "ops"
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-29-packer-build"
+    amazon-ebs: Loading User Data File...
+    amazon-ebs: Creating Spot Fleet launch template...
+    amazon-ebs: Created Spot Fleet launch template: lt-03a9272fcefb768e5
+    amazon-ebs: Instance ID: i-05ea480605b4db68e
+==> amazon-ebs: Using SSH communicator to connect: 3.92.195.33
+==> amazon-ebs: Waiting for SSH to become available...
+==> amazon-ebs: Connected to SSH!
+==> amazon-ebs: Provisioning with shell script: scripts/install_puppet.sh
+    amazon-ebs: *********
+    amazon-ebs:
+    amazon-ebs: 	Installing Puppet 6
+    amazon-ebs:
+    amazon-ebs: *********
+    amazon-ebs: **** Starting Puppet Install ****
+    amazon-ebs: --2022-12-15 00:44:11--  https://apt.puppetlabs.com/puppet6-release-bionic.deb
+    amazon-ebs: Resolving apt.puppetlabs.com (apt.puppetlabs.com)... 13.249.39.21, 13.249.39.24, 13.249.39.19, ...
+    amazon-ebs: Connecting to apt.puppetlabs.com (apt.puppetlabs.com)|13.249.39.21|:443... connected.
+    amazon-ebs: HTTP request sent, awaiting response... 200 OK
+    amazon-ebs: Length: 11704 (11K) [application/x-debian-package]
+    amazon-ebs: Saving to: â€˜puppet6-release-bionic.debâ€™
+    amazon-ebs:
+    amazon-ebs: puppet6-release-bio 100%[===================>]  11.43K  --.-KB/s    in 0s
+    amazon-ebs:
+    amazon-ebs: 2022-12-15 00:44:11 (33.6 MB/s) - â€˜puppet6-release-bionic.debâ€™ saved [11704/11704]
+    amazon-ebs:
+    amazon-ebs: Selecting previously unselected package puppet6-release.
+    amazon-ebs: (Reading database ... 58127 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack puppet6-release-bionic.deb ...
+    amazon-ebs: Unpacking puppet6-release (6.0.0-23bionic) ...
+    amazon-ebs: Setting up puppet6-release (6.0.0-23bionic) ...
+    amazon-ebs: Get:1 http://apt.puppetlabs.com bionic InRelease [143 kB]
+    amazon-ebs: Get:2 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+    amazon-ebs: Hit:3 http://archive.ubuntu.com/ubuntu bionic InRelease
+    amazon-ebs: Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+    amazon-ebs: Get:5 http://apt.puppetlabs.com bionic/puppet6 amd64 Packages [75.9 kB]
+    amazon-ebs: Get:6 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [83.3 kB]
+    amazon-ebs: Get:7 http://apt.puppetlabs.com bionic/puppet6 all Packages [29.5 kB]
+    amazon-ebs: Get:8 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [8570 kB]
+    amazon-ebs: Get:9 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [2496 kB]
+    amazon-ebs: Get:10 http://archive.ubuntu.com/ubuntu bionic/universe Translation-en [4941 kB]
+    amazon-ebs: Get:11 http://security.ubuntu.com/ubuntu bionic-security/main Translation-en [432 kB]
+    amazon-ebs: Get:12 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1025 kB]
+    amazon-ebs: Get:13 http://security.ubuntu.com/ubuntu bionic-security/restricted Translation-en [142 kB]
+    amazon-ebs: Get:14 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1250 kB]
+    amazon-ebs: Get:15 http://security.ubuntu.com/ubuntu bionic-security/universe Translation-en [289 kB]
+    amazon-ebs: Get:16 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [19.1 kB]
+    amazon-ebs: Get:17 http://security.ubuntu.com/ubuntu bionic-security/multiverse Translation-en [3908 B]
+    amazon-ebs: Get:18 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [151 kB]
+    amazon-ebs: Get:19 http://archive.ubuntu.com/ubuntu bionic/multiverse Translation-en [108 kB]
+    amazon-ebs: Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [2831 kB]
+    amazon-ebs: Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main Translation-en [520 kB]
+    amazon-ebs: Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1055 kB]
+    amazon-ebs: Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/restricted Translation-en [147 kB]
+    amazon-ebs: Get:24 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [1862 kB]
+    amazon-ebs: Get:25 http://archive.ubuntu.com/ubuntu bionic-updates/universe Translation-en [403 kB]
+    amazon-ebs: Get:26 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [24.9 kB]
+    amazon-ebs: Get:27 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse Translation-en [6072 B]
+    amazon-ebs: Get:28 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [53.3 kB]
+    amazon-ebs: Get:29 http://archive.ubuntu.com/ubuntu bionic-backports/main Translation-en [14.6 kB]
+    amazon-ebs: Get:30 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [18.1 kB]
+    amazon-ebs: Get:31 http://archive.ubuntu.com/ubuntu bionic-backports/universe Translation-en [8668 B]
+    amazon-ebs: Fetched 26.9 MB in 9s (2944 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   puppet-agent
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 18 not upgraded.
+    amazon-ebs: Need to get 37.7 MB of archives.
+    amazon-ebs: After this operation, 141 MB of additional disk space will be used.
+    amazon-ebs: Get:1 http://apt.puppetlabs.com bionic/puppet6 amd64 puppet-agent amd64 6.28.0-1bionic [37.7 MB]
+    amazon-ebs: Fetched 37.7 MB in 1s (43.0 MB/s)
+    amazon-ebs: Selecting previously unselected package puppet-agent.
+    amazon-ebs: (Reading database ... 58132 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../puppet-agent_6.28.0-1bionic_amd64.deb ...
+    amazon-ebs: Unpacking puppet-agent (6.28.0-1bionic) ...
+    amazon-ebs: Setting up puppet-agent (6.28.0-1bionic) ...
+    amazon-ebs: Created symlink /etc/systemd/system/multi-user.target.wants/puppet.service â†’ /lib/systemd/system/puppet.service.
+    amazon-ebs: Created symlink /etc/systemd/system/multi-user.target.wants/pxp-agent.service â†’ /lib/systemd/system/pxp-agent.service.
+    amazon-ebs: Removed /etc/systemd/system/multi-user.target.wants/pxp-agent.service.
+    amazon-ebs: Processing triggers for libc-bin (2.27-3ubuntu1.6) ...
+==> amazon-ebs: Provisioning with shell script: scripts/jenkins.sh
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Configure AWS ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Creating puppet manifest ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Puppet Modules ****
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Created target directory /home/ubuntu/modules[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-apt ([0;36mv8.0.2[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv7.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppet-nodejs ([0;36mv9.0.1[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv7.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-docker ([0;36mv5.1.0[0m)
+    amazon-ebs:   â”œâ”€â”€ puppetlabs-apt ([0;36mv8.0.2[0m)
+    amazon-ebs:   â”œâ”€â”¬ puppetlabs-powershell ([0;36mv5.2.0[0m)
+    amazon-ebs:   â”‚ â””â”€â”€ puppetlabs-pwshlib ([0;36mv0.10.2[0m)
+    amazon-ebs:   â”œâ”€â”€ puppetlabs-reboot ([0;36mv4.3.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv7.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-java ([0;36mv9.0.1[0m)
+    amazon-ebs:   â”œâ”€â”€ puppet-archive ([0;36mv6.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv7.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppet-python ([0;36mv6.4.0[0m)
+    amazon-ebs:   â”œâ”€â”€ puppet-epel ([0;36mv4.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv7.1.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”€ treydock-golang ([0;36mv2.3.0[0m)
+    amazon-ebs: **** Completed Installing Puppet Modules ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Running "puppet apply" ****
+    amazon-ebs: Notice: Compiled catalog for ip-10-1-101-39.ec2.internal in environment production in 0.76 seconds
+    amazon-ebs: Notice: /Stage[main]/Apt/File[preferences]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/Exec[Install Docker Compose 1.24.1]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose-1.24.1]/mode: mode changed '0644' to '0755'
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/File[/opt/go-1.18]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/Archive[/tmp/go1.18.linux-amd64.tar.gz]/ensure: download archive from https://dl.google.com/go/go1.18.linux-amd64.tar.gz to /tmp/go1.18.linux-amd64.tar.gz and extracted in /opt/go-1.18 with cleanup
+    amazon-ebs: Notice: /Stage[main]/Golang/File[go-binary]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/File[gofmt-binary]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java-common]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[python]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[pip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[python-dev]/ensure: removed
+    amazon-ebs: Notice: /Stage[main]/Main/Package[awscli]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[boto3]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cython]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[twine]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/File[/etc/profile.d/go_path.sh]/ensure: defined content as '{md5}040629c01a3b60298ccf41e69a842834'
+    amazon-ebs: Notice: /Stage[main]/Apt/Apt::Setting[conf-update-stamp]/File[/etc/apt/apt.conf.d/15update-stamp]/content: content changed '{md5}b9de0ac9e2c9854b1bb213e362dc4e41' to '{md5}0962d70c4ec78bbfa6f3544ae0c41974'
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Ppa[ppa:gophers/archive]/Exec[add-apt-repository-ppa:gophers/archive]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/Apt_key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Setting[list-docker]/File[/etc/apt/sources.list.d/docker.list]/ensure: defined content as '{md5}9638b5df4f5bb961e801560dd12719ab'
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Pin[docker]/Apt::Setting[pref-docker]/File[/etc/apt/preferences.d/docker.pref]/ensure: defined content as '{md5}3dbbeefadc88a042643e3b3a09217684'
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Repo::Nodesource::Apt/Apt::Source[nodesource]/Apt::Key[Add key: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280 from Apt::Source nodesource]/Apt_key[Add key: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280 from Apt::Source nodesource]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Repo::Nodesource::Apt/Apt::Source[nodesource]/Apt::Setting[list-nodesource]/File[/etc/apt/sources.list.d/nodesource.list]/ensure: defined content as '{md5}c8298ee68fedaf4a241828187cea8375'
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Install/File[root_npmrc]/ensure: defined content as '{md5}17626e1e7e2db5c71227460a36f6bbb8'
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[google-chrome]/Apt::Key[Add key: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 from Apt::Source google-chrome]/Apt_key[Add key: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 from Apt::Source google-chrome]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Apt::Source[google-chrome]/Apt::Setting[list-google-chrome]/File[/etc/apt/sources.list.d/google-chrome.list]/ensure: defined content as '{md5}bfeb085d09ff37a720e52d4cf0658cb9'
+    amazon-ebs: Notice: /Stage[main]/Apt::Update/Exec[apt_update]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Package[cgroup-lite]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Install/Package[docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Nodejs::Install/Package[nodejs]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[newman]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Config/Docker::System_user[ubuntu]/Exec[docker-system-user-ubuntu]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d/service-overrides.conf]/ensure: defined content as '{md5}13cbf88dc22d6b8b4e1bbbd32f07dafe'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Exec[docker-systemd-reload-before-service]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker-storage]/ensure: defined content as '{md5}0f427b02d0882d0df4de752f77402f3e'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker]/content: content changed '{md5}82d6a44e99db1a3b74f7835e4f5e1b01' to '{md5}81700906b44f9d5ac50375ca10522a52'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Service[docker]: Triggered 'refresh' from 3 events
+    amazon-ebs: Notice: /Stage[main]/Main/Package[apache2-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cmake]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[dos2unix]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ffmpeg]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[golang-1.8-go]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[google-chrome-stable]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[jq]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ldap-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libcurl4-openssl-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libmysqlclient-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libpq-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[postgresql-client]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[python3-pip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[pylint]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[xvfb]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[unzip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[whois]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[zip]/ensure: created
+    amazon-ebs: Notice: Applied catalog in 651.33 seconds
+    amazon-ebs: 0
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Completed "puppet apply" ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Terraform 1.1.5 ****
+    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+    amazon-ebs: Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
+    amazon-ebs: Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
+    amazon-ebs: Hit:4 http://ppa.launchpad.net/gophers/archive/ubuntu bionic InRelease
+    amazon-ebs: Hit:5 http://apt.puppetlabs.com bionic InRelease
+    amazon-ebs: Hit:6 https://download.docker.com/linux/ubuntu bionic InRelease
+    amazon-ebs: Hit:7 https://deb.nodesource.com/node_12.x bionic InRelease
+    amazon-ebs: Hit:8 https://dl.google.com/linux/chrome/deb stable InRelease
+    amazon-ebs: Get:9 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+    amazon-ebs: Fetched 88.7 kB in 2s (39.5 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: gnupg is already the newest version (2.2.4-1ubuntu1.6).
+    amazon-ebs: gnupg set to manually installed.
+    amazon-ebs: software-properties-common is already the newest version (0.96.24.32.18).
+    amazon-ebs: software-properties-common set to manually installed.
+    amazon-ebs: The following packages were automatically installed and are no longer required:
+    amazon-ebs:   libpython-all-dev libpython-dev libpython2.7 libpython2.7-dev python-all
+    amazon-ebs:   python2.7-dev
+    amazon-ebs: Use 'sudo apt autoremove' to remove them.
+    amazon-ebs: 0 upgraded, 0 newly installed, 0 to remove and 13 not upgraded.
+    amazon-ebs: gpg: WARNING: unsafe ownership on homedir '/home/ubuntu/.gnupg'
+    amazon-ebs: --2022-12-15 00:56:24--  https://apt.releases.hashicorp.com/gpg
+    amazon-ebs: Resolving apt.releases.hashicorp.com (apt.releases.hashicorp.com)... 52.85.151.80, 52.85.151.64, 52.85.151.82, ...
+    amazon-ebs: Connecting to apt.releases.hashicorp.com (apt.releases.hashicorp.com)|52.85.151.80|:443... connected.
+    amazon-ebs: HTTP request sent, awaiting response... 200 OK
+    amazon-ebs: Length: 3195 (3.1K) [binary/octet-stream]
+    amazon-ebs: Saving to: â€˜STDOUTâ€™
+    amazon-ebs:
+    amazon-ebs: -                   100%[===================>]   3.12K  --.-KB/s    in 0s
+    amazon-ebs:
+    amazon-ebs: 2022-12-15 00:56:24 (158 MB/s) - written to stdout [3195/3195]
+    amazon-ebs:
+    amazon-ebs: ¡–‚ª5c<ÉSTi…«æ3…Mˆ3Û²
+    amazon-ebs: ÑM°™ƒökx+Ë@ŞÓÚ)ÑåK4£t§DW—ÀâT2-Bmæ*TwÊC—bèÜ+ÊoŞ]ZéÔ˜WÜwp"€5èœÂ®zé“ò®„è“rÖöòÊËÿÕ°–(ÔÍœºG`F¸O÷~ßØÖÌKúéo.ÌÕh³)ê6¶B•È¯°IE’Ã¡-˜»‘¤ºïËü¬SÒ6™¯<O+ò:3ÔÔQ]‹ïæëƒç¸šÚ8¶å¨®†Yà*”Ï¼ÿB&ûm9{¬´Æ{¤ål`K‰*Æø
+    amazon-ebs: áp³^·O  ´QHashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>‰N 8!è 2à”ØëN¡‰ÒpÚAŒˆ£!Ÿ{^´Næ	
+    amazon-ebs: 	€ 
+    amazon-ebs: 	ÚAŒˆ£!Ÿ{¯Öÿ]LÏõ9(½#é<“r~KÖsŠDiÎÚøWI2€ƒjBşÌ¤mË‡\şıbó¬Ï3@ë½ZgilXñ‘?
+    amazon-ebs: Õao¢c‡GÄ_ö© Hº›Ú<kS9ã$Û/Ù®Î¾à]óg‹˜};ó3!_CùV`(jŒI[ÛòS9»´û:J7ããdrsŸş›ê˜LüÜR£¬É-'1MV€Â>HÏøÒÓŒ{ğn ıï¦õGªş·J”ÿ¸i»³œÑÛ1„¿‚ğUcn¿Ú×£3yxm2±,Æ¬%³æçFz)Ú•aM}µ¼D#ÊÉ¿ìúÙ…¨`ı	±2K¤‚uĞZğhkA¿`T¶.§ÛD;\Åã0O‡šÀÃ6çKLrx*l„Ák@•#42á®ãˆh
+    amazon-ebs: ^´Næ Ğáõ¦}/tGÒ›Y¨€ÏÜÁ@QÓ`œ—]I¨©njnî4¯Ü[/7ófp\-uËüıâ¯§ñG'¾k‘R@Kor5sf‘€U?Ç*,+O—·Eä»„%ÖSƒ€Ù²¦HGd'Şv6˜{
+    amazon-ebs: nC¹åV8L#¼,¥áÀ”pê|eN)páøW]	D#ÿ&v­¹RÌW\Ø-p”²hAÕ@ëg^¡qš#û£¾èÎAc¨ìCÃîP=kZ°EÌPŸUVvCØ[B|_’‡AÚ‰]y«9	tî$#&	YÖ†÷[9¸_Ç˜ÁWv¡¨l@âBÁEB·é=S¢á?tVE¼?Íl¸ú •hmÔ*i6y¡Z[ÏBÃÊş„Œ¯8Aõu‰j×¼È‰/xÖêÎ±;^İìŒ^¤Ê¥Úê–ğç½!ÿ~ÕwmF×@¦ï¶vY¢–½ø¶ÛZå«?	‹ôYš-u¨îbSÑCÂše¡Í­^0şKBÏæBÇ‘zD›*ËéËiûÙĞ3ãâ"%óáøÈ.Š@eÀÕ¯®1Z|™^û€OÉ]ç"Jğ¦PğÇa ¬/7ÿ’nøiw<…Qé30ÿÇ9 º& (š[°œP01ZÜStpŒ˜çvCî´ß|jW«Ëùß  ‰6  !è 2à”ØëN¡‰ÒpÚAŒˆ£!Ÿ{^´Næ 
+    amazon-ebs: ø›†õ–w/âIwbzÂ(¡’‚\Y•± +ˆÖTjêcÃ'<Š‹O×ÆqÊ£²rÆo³hÍ˜YJÀ?lÖjå¯ŞÇgSlµ«­:£ô5Q3»s0®Ä¸y-Êò¨w¢(çğíïN*”ÙØ8ÚõÃÉê˜È¹gu¢{¨¯*x?îœèpë*:aÍ?~èubrúĞ‘¶¹õ;A°°åÌòşFb7
+    amazon-ebs: 	…Ÿ¬·O" …¨œS]XøÄ°YÓu5ÔtÓºzÄ³¤š|Á!œø»¾õfòÍ*8ÏÈQHÑ[lº´§ñ :c`iï‡º¡KÇ]ÿ´ò!J:¹ÿË%*;ÂĞ°i(?®íÈ³ÒŸÚ>°Ôà|k!JDÏk"`‰sÃÂjÄ¬~gpg: WARNING: unsafe ownership on homedir '/home/ubuntu/.gnupg'
+    amazon-ebs: gpg: /home/ubuntu/.gnupg/trustdb.gpg: trustdb created
+    amazon-ebs: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    amazon-ebs: -------------------------------------------------
+    amazon-ebs: pub   rsa4096 2020-05-07 [SC]
+    amazon-ebs:       E8A0 32E0 94D8 EB4E A189  D270 DA41 8C88 A321 9F7B
+    amazon-ebs: uid           [ unknown] HashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>
+    amazon-ebs: sub   rsa4096 2020-05-07 [E]
+    amazon-ebs:
+    amazon-ebs: deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg]       https://apt.releases.hashicorp.com bionic main
+    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic InRelease
+    amazon-ebs: Hit:2 http://apt.puppetlabs.com bionic InRelease
+    amazon-ebs: Hit:3 https://deb.nodesource.com/node_12.x bionic InRelease
+    amazon-ebs: Hit:4 http://security.ubuntu.com/ubuntu bionic-security InRelease
+    amazon-ebs: Hit:5 http://ppa.launchpad.net/gophers/archive/ubuntu bionic InRelease
+    amazon-ebs: Hit:6 https://download.docker.com/linux/ubuntu bionic InRelease
+    amazon-ebs: Hit:7 https://dl.google.com/linux/chrome/deb stable InRelease
+    amazon-ebs: Get:8 https://apt.releases.hashicorp.com bionic InRelease [12.0 kB]
+    amazon-ebs: Hit:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic-updates InRelease
+    amazon-ebs: Hit:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu bionic-backports InRelease
+    amazon-ebs: Get:11 https://apt.releases.hashicorp.com bionic/main amd64 Packages [74.0 kB]
+    amazon-ebs: Fetched 86.1 kB in 2s (34.5 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: 13 packages can be upgraded. Run 'apt list --upgradable' to see them.
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: The following packages were automatically installed and are no longer required:
+    amazon-ebs:   libpython-all-dev libpython-dev libpython2.7 libpython2.7-dev python-all
+    amazon-ebs:   python2.7-dev
+    amazon-ebs: Use 'sudo apt autoremove' to remove them.
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   terraform
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 13 not upgraded.
+    amazon-ebs: Need to get 18.8 MB of archives.
+    amazon-ebs: After this operation, 63.0 MB of additional disk space will be used.
+    amazon-ebs: Get:1 https://apt.releases.hashicorp.com bionic/main amd64 terraform amd64 1.1.5 [18.8 MB]
+    amazon-ebs: Fetched 18.8 MB in 1s (24.1 MB/s)
+    amazon-ebs: Selecting previously unselected package terraform.
+    amazon-ebs: (Reading database ... 119425 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../terraform_1.1.5_amd64.deb ...
+    amazon-ebs: Unpacking terraform (1.1.5) ...
+    amazon-ebs: Setting up terraform (1.1.5) ...
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Yarn ****
+    amazon-ebs: [K[?25h
+    amazon-ebs: > yarn@1.22.19 preinstall /usr/lib/node_modules/yarn
+    amazon-ebs: > :; (node ./preinstall.js > /dev/null 2>&1 || true)
+    amazon-ebs:
+    amazon-ebs: /usr/bin/yarn -> /usr/lib/node_modules/yarn/bin/yarn.js
+    amazon-ebs: /usr/bin/yarnpkg -> /usr/lib/node_modules/yarn/bin/yarn.js
+    amazon-ebs: [K[?25h+ yarn@1.22.19
+    amazon-ebs: added 1 package in 1.734s
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing sbt 1.2.8 ****
+    amazon-ebs: Getting org.scala-sbt sbt 1.2.8  (this may take some time)...
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/sbt/1.2.8/sbt-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#sbt;1.2.8!sbt.jar (76ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.7/scala-library-2.12.7.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-lang#scala-library;2.12.7!scala-library.jar (1133ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/main_2.12/1.2.8/main_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#main_2.12;1.2.8!main_2.12.jar (388ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/logic_2.12/1.2.8/logic_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#logic_2.12;1.2.8!logic_2.12.jar (12ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/actions_2.12/1.2.8/actions_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#actions_2.12;1.2.8!actions_2.12.jar (149ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/main-settings_2.12/1.2.8/main-settings_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#main-settings_2.12;1.2.8!main-settings_2.12.jar (160ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/run_2.12/1.2.8/run_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#run_2.12;1.2.8!run_2.12.jar (77ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/command_2.12/1.2.8/command_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#command_2.12;1.2.8!command_2.12.jar (84ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/collections_2.12/1.2.8/collections_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#collections_2.12;1.2.8!collections_2.12.jar (84ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/scripted-sbt-redux_2.12/1.2.8/scripted-sbt-redux_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#scripted-sbt-redux_2.12;1.2.8!scripted-sbt-redux_2.12.jar (92ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/scripted-plugin_2.12/1.2.8/scripted-plugin_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#scripted-plugin_2.12;1.2.8!scripted-plugin_2.12.jar (56ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(bundle) (161ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/launcher-interface/1.0.4/launcher-interface-1.0.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#launcher-interface;1.0.4!launcher-interface.jar (8ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.11.1/log4j-api-2.11.1.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-api;2.11.1!log4j-api.jar (79ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-core;2.11.1!log4j-core.jar (386ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-slf4j-impl/2.11.1/log4j-slf4j-impl-2.11.1.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-slf4j-impl;2.11.1!log4j-slf4j-impl.jar (17ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/github/cb372/scalacache-caffeine_2.12/0.20.0/scalacache-caffeine_2.12-0.20.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.github.cb372#scalacache-caffeine_2.12;0.20.0!scalacache-caffeine_2.12.jar (11ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/io_2.12/1.2.2/io_2.12-1.2.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#io_2.12;1.2.2!io_2.12.jar (88ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-logging_2.12/1.2.4/util-logging_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-logging_2.12;1.2.4!util-logging_2.12.jar (31ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/librarymanagement-core_2.12/1.2.4/librarymanagement-core_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#librarymanagement-core_2.12;1.2.4!librarymanagement-core_2.12.jar (63ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/librarymanagement-ivy_2.12/1.2.4/librarymanagement-ivy_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#librarymanagement-ivy_2.12;1.2.4!librarymanagement-ivy_2.12.jar (88ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/compiler-interface/1.2.5/compiler-interface-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#compiler-interface;1.2.5!compiler-interface.jar (15ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-compile_2.12/1.2.5/zinc-compile_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-compile_2.12;1.2.5!zinc-compile_2.12.jar (42ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-relation_2.12/1.2.4/util-relation_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-relation_2.12;1.2.4!util-relation_2.12.jar (8ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/sjson-new-scalajson_2.12/0.8.2/sjson-new-scalajson_2.12-0.8.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#sjson-new-scalajson_2.12;0.8.2!sjson-new-scalajson_2.12.jar (69ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-position_2.12/1.2.4/util-position_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-position_2.12;1.2.4!util-position_2.12.jar (13ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/sjson-new-core_2.12/0.8.2/sjson-new-core_2.12-0.8.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#sjson-new-core_2.12;0.8.2!sjson-new-core_2.12.jar (22ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/shaded-scalajson_2.12/1.0.0-M4/shaded-scalajson_2.12-1.0.0-M4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#shaded-scalajson_2.12;1.0.0-M4!shaded-scalajson_2.12.jar (47ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/spire-math/jawn-parser_2.12/0.10.4/jawn-parser_2.12-0.10.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.spire-math#jawn-parser_2.12;0.10.4!jawn-parser_2.12.jar (8ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.7/scala-reflect-2.12.7.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.12.7!scala-reflect.jar (314ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/completion_2.12/1.2.8/completion_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#completion_2.12;1.2.8!completion_2.12.jar (77ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/task-system_2.12/1.2.8/task-system_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#task-system_2.12;1.2.8!task-system_2.12.jar (10ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/tasks_2.12/1.2.8/tasks_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#tasks_2.12;1.2.8!tasks_2.12.jar (67ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/testing_2.12/1.2.8/testing_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#testing_2.12;1.2.8!testing_2.12.jar (76ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-tracking_2.12/1.2.4/util-tracking_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-tracking_2.12;1.2.4!util-tracking_2.12.jar (12ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-classpath_2.12/1.2.5/zinc-classpath_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-classpath_2.12;1.2.5!zinc-classpath_2.12.jar (68ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-apiinfo_2.12/1.2.5/zinc-apiinfo_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-apiinfo_2.12;1.2.5!zinc-apiinfo_2.12.jar (23ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-ivy-integration_2.12/1.2.5/zinc-ivy-integration_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-ivy-integration_2.12;1.2.5!zinc-ivy-integration_2.12.jar (68ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc_2.12/1.2.5/zinc_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc_2.12;1.2.5!zinc_2.12.jar (68ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] jline#jline;2.14.6!jline.jar (24ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-control_2.12/1.2.4/util-control_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-control_2.12;1.2.4!util-control_2.12.jar (69ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/swoval/apple-file-events/1.3.2/apple-file-events-1.3.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.swoval#apple-file-events;1.3.2!apple-file-events.jar (72ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.5.0/jna-4.5.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] net.java.dev.jna#jna;4.5.0!jna.jar (157ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.5.0/jna-platform-4.5.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] net.java.dev.jna#jna-platform;4.5.0!jna-platform.jar (246ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-interface/1.2.4/util-interface-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-interface;1.2.4!util-interface.jar (76ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/lmax/disruptor/3.4.2/disruptor-3.4.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.lmax#disruptor;3.4.2!disruptor.jar (8ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-cache_2.12/1.2.4/util-cache_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-cache_2.12;1.2.4!util-cache_2.12.jar (68ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/sjson-new-murmurhash_2.12/0.8.2/sjson-new-murmurhash_2.12-0.8.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#sjson-new-murmurhash_2.12;0.8.2!sjson-new-murmurhash_2.12.jar (76ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/test-agent/1.2.8/test-agent-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#test-agent;1.2.8!test-agent.jar (10ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#test-interface;1.0!test-interface.jar (69ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/compiler-bridge_2.12/1.2.5/compiler-bridge_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#compiler-bridge_2.12;1.2.5!compiler-bridge_2.12.jar (14ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-classfile_2.12/1.2.5/zinc-classfile_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-classfile_2.12;1.2.5!zinc-classfile_2.12.jar (65ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.7/scala-compiler-2.12.7.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.12.7!scala-compiler.jar (1038ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.jcraft#jsch;0.1.54!jsch.jar (19ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/gigahorse-okhttp_2.12/0.3.0/gigahorse-okhttp_2.12-0.3.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#gigahorse-okhttp_2.12;0.3.0!gigahorse-okhttp_2.12.jar (71ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp-urlconnection/3.7.0/okhttp-urlconnection-3.7.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.squareup.okhttp3#okhttp-urlconnection;3.7.0!okhttp-urlconnection.jar (73ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/eed3si9n/gigahorse-core_2.12/0.3.0/gigahorse-core_2.12-0.3.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.eed3si9n#gigahorse-core_2.12;0.3.0!gigahorse-core_2.12.jar (75ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/3.7.0/okhttp-3.7.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.squareup.okhttp3#okhttp;3.7.0!okhttp.jar (15ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/typesafe/ssl-config-core_2.12/0.2.2/ssl-config-core_2.12-0.2.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.typesafe#ssl-config-core_2.12;0.2.2!ssl-config-core_2.12.jar(bundle) (10ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/reactivestreams/reactive-streams/1.0.0/reactive-streams-1.0.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.reactivestreams#reactive-streams;1.0.0!reactive-streams.jar (7ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.slf4j#slf4j-api;1.7.25!slf4j-api.jar (48ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.0/config-1.2.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.typesafe#config;1.2.0!config.jar(bundle) (11ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/squareup/okio/okio/1.12.0/okio-1.12.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.squareup.okio#okio;1.12.0!okio.jar (9ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-compile-core_2.12/1.2.5/zinc-compile-core_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-compile-core_2.12;1.2.5!zinc-compile-core_2.12.jar (17ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.5/scala-parser-combinators_2.12-1.0.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.12;1.0.5!scala-parser-combinators_2.12.jar(bundle) (55ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-core_2.12/1.2.5/zinc-core_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-core_2.12;1.2.5!zinc-core_2.12.jar (11ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/zinc-persist_2.12/1.2.5/zinc-persist_2.12-1.2.5.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#zinc-persist_2.12;1.2.5!zinc-persist_2.12.jar (81ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/trueaccord/scalapb/scalapb-runtime_2.12/0.6.0/scalapb-runtime_2.12-0.6.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.trueaccord.scalapb#scalapb-runtime_2.12;0.6.0!scalapb-runtime_2.12.jar (28ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/sbinary_2.12/0.5.0/sbinary_2.12-0.5.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#sbinary_2.12;0.5.0!sbinary_2.12.jar (53ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/trueaccord/lenses/lenses_2.12/0.4.12/lenses_2.12-0.4.12.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.trueaccord.lenses#lenses_2.12;0.4.12!lenses_2.12.jar (12ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/lihaoyi/fastparse_2.12/0.4.2/fastparse_2.12-0.4.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.lihaoyi#fastparse_2.12;0.4.2!fastparse_2.12.jar (14ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.3.1/protobuf-java-3.3.1.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.google.protobuf#protobuf-java;3.3.1!protobuf-java.jar(bundle) (132ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/lihaoyi/fastparse-utils_2.12/0.4.2/fastparse-utils_2.12-0.4.2.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.lihaoyi#fastparse-utils_2.12;0.4.2!fastparse-utils_2.12.jar (8ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.12/0.1.3/sourcecode_2.12-0.1.3.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.lihaoyi#sourcecode_2.12;0.1.3!sourcecode_2.12.jar (7ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/core-macros_2.12/1.2.8/core-macros_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#core-macros_2.12;1.2.8!core-macros_2.12.jar (9ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/protocol_2.12/1.2.8/protocol_2.12-1.2.8.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#protocol_2.12;1.2.8!protocol_2.12.jar (59ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/template-resolver/0.1/template-resolver-0.1.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#template-resolver;0.1!template-resolver.jar (28ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/ipcsocket/ipcsocket/1.0.0/ipcsocket-1.0.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt.ipcsocket#ipcsocket;1.0.0!ipcsocket.jar (26ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/util-scripted_2.12/1.2.4/util-scripted_2.12-1.2.4.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt#util-scripted_2.12;1.2.4!util-scripted_2.12.jar (9ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/github/cb372/scalacache-core_2.12/0.20.0/scalacache-core_2.12-0.20.0.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.github.cb372#scalacache-core_2.12;0.20.0!scalacache-core_2.12.jar (24ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/com/github/ben-manes/caffeine/caffeine/2.5.6/caffeine-2.5.6.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] com.github.ben-manes.caffeine#caffeine;2.5.6!caffeine.jar (29ms)
+    amazon-ebs: downloading https://repo1.maven.org/maven2/org/scala-sbt/ivy/ivy/2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar ...
+    amazon-ebs: 	[SUCCESSFUL ] org.scala-sbt.ivy#ivy;2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832!ivy.jar (81ms)
+    amazon-ebs: :: retrieving :: org.scala-sbt#boot-app
+    amazon-ebs: 	confs: [default]
+    amazon-ebs: 	80 artifacts copied, 0 already retrieved (28561kB/476ms)
+    amazon-ebs: Getting Scala 2.12.7 (for sbt)...
+    amazon-ebs: :: retrieving :: org.scala-sbt#boot-scala
+    amazon-ebs: 	confs: [default]
+    amazon-ebs: 	5 artifacts copied, 0 already retrieved (19715kB/160ms)
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mUpdated file /home/ubuntu/project/build.properties: set sbt.version to 1.2.8[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mLoading project definition from /home/ubuntu/project[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mUpdating ProjectRef(uri("file:/home/ubuntu/project/"), "ubuntu-build")...[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mdownloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1-tests.jar ...[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0m	[SUCCESSFUL ] org.apache.logging.log4j#log4j-core;2.11.1!log4j-core.jar(test-jar) (667ms)[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mDone updating.[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mSet current project to ubuntu (in build file:/home/ubuntu/)[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0m1.2.8[0m
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: *************************************
+    amazon-ebs: *    Software versions installed    *
+    amazon-ebs: *************************************
+    amazon-ebs:
+    amazon-ebs: ******* Java version information *******
+    amazon-ebs: openjdk version "1.8.0_352"
+    amazon-ebs: OpenJDK Runtime Environment (build 1.8.0_352-8u352-ga-1~18.04-b08)
+    amazon-ebs: OpenJDK 64-Bit Server VM (build 25.352-b08, mixed mode)
+    amazon-ebs:
+    amazon-ebs: ******* Docker version information *******
+    amazon-ebs: Client: Docker Engine - Community
+    amazon-ebs:  Version:           20.10.21
+    amazon-ebs:  API version:       1.41
+    amazon-ebs:  Go version:        go1.18.7
+    amazon-ebs:  Git commit:        baeda1f
+    amazon-ebs:  Built:             Tue Oct 25 18:02:00 2022
+    amazon-ebs:  OS/Arch:           linux/amd64
+    amazon-ebs:  Context:           default
+    amazon-ebs:  Experimental:      true
+    amazon-ebs:
+    amazon-ebs: Server: Docker Engine - Community
+    amazon-ebs:  Engine:
+    amazon-ebs:   Version:          20.10.21
+    amazon-ebs:   API version:      1.41 (minimum version 1.12)
+    amazon-ebs:   Go version:       go1.18.7
+    amazon-ebs:   Git commit:       3056208
+    amazon-ebs:   Built:            Tue Oct 25 17:59:53 2022
+    amazon-ebs:   OS/Arch:          linux/amd64
+    amazon-ebs:   Experimental:     false
+    amazon-ebs:  containerd:
+    amazon-ebs:   Version:          1.6.12
+    amazon-ebs:   GitCommit:        a05d175400b1145e5e6a735a6710579d181e7fb0
+    amazon-ebs:  runc:
+    amazon-ebs:   Version:          1.1.4
+    amazon-ebs:   GitCommit:        v1.1.4-0-g5fd4c4d
+    amazon-ebs:  docker-init:
+    amazon-ebs:   Version:          0.19.0
+    amazon-ebs:   GitCommit:        de40ad0
+    amazon-ebs: docker-compose version 1.24.1, build 4667896b
+    amazon-ebs:
+    amazon-ebs: ******* Node and node modules version information *******
+    amazon-ebs: Node version v12.22.12
+    amazon-ebs: Newman version 5.3.2
+    amazon-ebs:
+    amazon-ebs: ******* Packer version information *******
+    amazon-ebs: /tmp/script_6044.sh: line 244: packer: command not found
+    amazon-ebs:
+    amazon-ebs: ******* sbt version information *******
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mLoading project definition from /home/ubuntu/project[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mSet current project to ubuntu (in build file:/home/ubuntu/)[0m
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0m1.2.8[0m
+    amazon-ebs:
+    amazon-ebs: ******* Terraform version information *******
+    amazon-ebs: Terraform v1.1.5
+    amazon-ebs: on linux_amd64
+    amazon-ebs:
+    amazon-ebs: Your version of Terraform is out of date! The latest version
+    amazon-ebs: is 1.3.6. You can update by downloading from https://www.terraform.io/downloads.html
+    amazon-ebs:
+    amazon-ebs: ******* Twine version information *******
+    amazon-ebs: twine version 1.15.0 (pkginfo: 1.8.3, requests: 2.27.1, setuptools: 39.0.1,
+    amazon-ebs: requests-toolbelt: 0.10.1, tqdm: 4.64.1)
+    amazon-ebs:
+    amazon-ebs: ******* Yarn version information *******
+    amazon-ebs: 1.22.19
+    amazon-ebs:
+    amazon-ebs: ******* Golang version information *******
+    amazon-ebs: go version go1.18 linux/amd64
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Cleaning up AMI ****
+==> amazon-ebs: Creating AMI jenkins-ami-29 from instance i-05ea480605b4db68e
+    amazon-ebs: AMI: ami-0fe4453afa67a4be3
+==> amazon-ebs: Waiting for AMI to become ready...
+==> amazon-ebs: Skipping Enable AMI deprecation...
+==> amazon-ebs: Modifying attributes on AMI (ami-0fe4453afa67a4be3)...
+    amazon-ebs: Modifying: users
+==> amazon-ebs: Modifying attributes on snapshot (snap-09801452fb7570940)...
+    amazon-ebs: Modifying: users
+==> amazon-ebs: Adding tags to AMI (ami-0fe4453afa67a4be3)...
+==> amazon-ebs: Tagging snapshot: snap-09801452fb7570940
+==> amazon-ebs: Creating AMI tags
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-29"
+==> amazon-ebs: Creating snapshot tags
+==> amazon-ebs: Terminating the source AWS instance...
+==> amazon-ebs: Cleaning up any extra volumes...
+==> amazon-ebs: Deleting temporary keypair...
+Build 'amazon-ebs' finished after 23 minutes 38 seconds.
+
+==> Wait completed after 23 minutes 38 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> amazon-ebs: AMIs were created:
+us-east-1: ami-0fe4453afa67a4be3
+

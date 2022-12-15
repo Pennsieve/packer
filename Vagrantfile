@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-BOX = "ubuntu/xenial64"
+BOX = "ubuntu/bionic64"
 CPUS = "2"
 HOST_NAME = "puppettest"
 MEMORY = "2048"

@@ -22,6 +22,37 @@ EOF
   chown ubuntu:ubuntu /home/ubuntu/.aws/config
 }
 
+install_terraform() {
+  tf_version=1.1.5
+
+  echo -e "\n\n**** Installing Terraform $tf_version ****"
+  cd $HOME
+
+  sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+  wget -O- https://apt.releases.hashicorp.com/gpg | \
+      gpg --dearmor | \
+      sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+  gpg --no-default-keyring \
+      --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+      --fingerprint
+
+  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+      https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+      sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+  sudo apt update
+
+  sudo apt-get install terraform=$tf_version
+
+}
+
+install_yarn() {
+  echo -e "\n\n**** Installing Yarn ****"
+  cd $HOME
+  npm install -g yarn
+}
+
 install_sbt() {
   sbt_version=1.2.8
 
@@ -34,50 +65,49 @@ install_sbt() {
   sbt sbtVersion
 }
 
-install_nextflow() {
-  NEXTFLOW_DIR="/usr/local/bin/"
+#install_nextflow() {
+#  NEXTFLOW_DIR="/usr/local/bin/"
+#
+#  echo -e "\n\n**** Installing Nextflow ****"
+#  cd $NEXTFLOW_DIR
+#
+#  curl -fsSL https://get.nextflow.io | bash &>/dev/null
+#
+#  # This allows us to test local S3 resources via localstack
+#  echo "127.0.0.1       local-uploads-pennsieve.localhost" >> /etc/hosts
+#  echo "127.0.0.1       local-storage-pennsieve.localhost" >> /etc/hosts
+#
+#  /usr/local/bin/nextflow
+#
+#  cd $HOME
+#}
 
-  echo -e "\n\n**** Installing Nextflow ****"
-  cd $NEXTFLOW_DIR
-  
-  curl -fsSL https://get.nextflow.io | bash &>/dev/null
-
-  # This allows us to test local S3 resources via localstack
-  echo "127.0.0.1       local-uploads-pennsieve.localhost" >> /etc/hosts
-  echo "127.0.0.1       local-storage-pennsieve.localhost" >> /etc/hosts
-
-  /usr/local/bin/nextflow
-
-  cd $HOME
-}
-
-install_kube_tools() {
-  kops_version="1.12.2"
-  kubectl_version="1.15.0"
-
-  echo -e "\n\n**** Installing kops ****"
-  curl -LO https://github.com/kubernetes/kops/releases/download/${kops_version}/kops-linux-amd64
-  chmod +x kops-linux-amd64
-  mv kops-linux-amd64 /usr/local/bin/kops
-
-  echo -e "\n\n**** Installing kubectl ****"
-  curl -LO https://storage.googleapis.com/kubernetes-release/release/v${kubectl_version}/bin/linux/amd64/kubectl
-  chmod +x kubectl
-  mv kubectl /usr/local/bin/kubectl
-}
+#install_kube_tools() {
+#  kops_version="1.12.2"
+#  kubectl_version="1.15.0"
+#
+#  echo -e "\n\n**** Installing kops ****"
+#  curl -LO https://github.com/kubernetes/kops/releases/download/${kops_version}/kops-linux-amd64
+#  chmod +x kops-linux-amd64
+#  mv kops-linux-amd64 /usr/local/bin/kops
+#
+#  echo -e "\n\n**** Installing kubectl ****"
+#  curl -LO https://storage.googleapis.com/kubernetes-release/release/v${kubectl_version}/bin/linux/amd64/kubectl
+#  chmod +x kubectl
+#  mv kubectl /usr/local/bin/kubectl
+#}
 
 install_puppet_modules() {
   echo -e "\n\n**** Installing Puppet Modules ****"
   set -e
 
-  puppet module install -i ./modules puppetlabs-apt --version 7.0.0
-  puppet module install -i ./modules puppet-nodejs --version 7.0.0
-  puppet module install -i ./modules initforthe-yarn --version 1.0.3
-  puppet module install -i ./modules puppetlabs-docker --version 3.8.0
-  puppet module install -i ./modules puppetlabs-java --version 3.3.0
-  puppet module install -i ./modules puppetlabs-ruby --version 1.0.0
-  puppet module install -i ./modules puppet-python --version 2.1.1
-  puppet module install -i ./modules inkblot-hashicorp --version 1.4.1
+  puppet module install -i ./modules puppetlabs-apt --version 8.0.2
+  puppet module install -i ./modules puppet-nodejs --version 9.0.1
+  puppet module install -i ./modules puppetlabs-docker --version 5.1.0
+  puppet module install -i ./modules puppetlabs-java --version 9.0.1
+  puppet module install -i ./modules puppet-python --version 6.4.0
+  puppet module install -i ./modules treydock-golang --version 2.3.0 --ignore-dependencies
+
   set +e
   echo "**** Completed Installing Puppet Modules ****"
 }
@@ -96,25 +126,27 @@ class { 'docker::compose':
   ensure => present,
 }
 
-class { '::ruby': }
+#class { '::ruby': }
 
 class { 'nodejs': }
 
-class { 'yarn': }
+#class { 'yarn': }
 
-Package['nodejs'] -> Package['yarn']
+class { 'golang':
+  version => '1.18',
+}
 
 class { 'java':
-  distribution => 'jdk',
+  package => 'openjdk-8-jdk',
 }
 
 class { 'python' :
   version    => 'system',
   pip        => 'present',
-  dev        => 'present',
-  virtualenv => 'present',
+  dev        => 'absent',
   gunicorn   => 'absent',
 }
+
 
 apt::source { 'google-chrome':
   location => 'http://dl.google.com/linux/chrome/deb/',
@@ -145,11 +177,11 @@ ensure_packages([ 'awscli', 'boto3', 'cython', 'twine' ], {
   require  => Class['python'],
 })
 
-ensure_packages([ 'hiera-eyaml', 'puppet-lint' ], {
-  ensure   => present,
-  provider => 'gem',
-  require  => Class['ruby'],
-})
+#ensure_packages([ 'hiera-eyaml', 'puppet-lint' ], {
+#  ensure   => present,
+#  provider => 'gem',
+#  require  => Class['ruby'],
+#})
 
 ensure_packages([ 'newman' ], {
   ensure   => present,
@@ -163,13 +195,6 @@ file { '/etc/profile.d/go_path.sh':
   mode    => '0644',
 }
 
-class { 'hashicorp::terraform':
-  version => '0.14.0'
-}
-
-class { 'hashicorp::packer':
-  version => '1.4.2'
-}
 EOF
 }
 
@@ -205,11 +230,11 @@ get_versions() {
   docker version
   docker-compose --version
 
-  echo -e "\n******* Kops version information *******"
-  kops version
-
-  echo -e "\n******* Nextflow version information *******"
-  nextflow -v
+#  echo -e "\n******* Kops version information *******"
+#  kops version
+#
+#  echo -e "\n******* Nextflow version information *******"
+#  nextflow -v
 
   echo -e "\n******* Node and node modules version information *******"
   echo "Node version $(node -v)"
@@ -229,6 +254,9 @@ get_versions() {
 
   echo -e "\n******* Yarn version information *******"
   yarn -v
+
+  echo -e "\n******* Golang version information *******"
+  go version
 }
 
 ######### START SCRIPT #########
@@ -241,9 +269,9 @@ create_manifest
 install_puppet_modules
 puppet_apply
 
+install_terraform
+install_yarn
 install_sbt
-install_nextflow
-install_kube_tools
 
 get_versions
 clean_up
