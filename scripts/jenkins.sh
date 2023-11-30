@@ -47,10 +47,23 @@ install_terraform() {
 
 }
 
+install_nodejs() {
+  echo -e "\n\n**** Installing Node.js ****"
+  cd $HOME
+  curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
+  sudo apt update
+  sudo apt -y install nodejs
+}
+
 install_yarn() {
   echo -e "\n\n**** Installing Yarn ****"
   cd $HOME
   npm install -g yarn
+}
+
+install_newman() {
+  echo -e "\n\n**** Installing NewMan ****"
+  npm install -g newman
 }
 
 install_sbt() {
@@ -65,51 +78,26 @@ install_sbt() {
   sbt sbtVersion
 }
 
-#install_nextflow() {
-#  NEXTFLOW_DIR="/usr/local/bin/"
-#
-#  echo -e "\n\n**** Installing Nextflow ****"
-#  cd $NEXTFLOW_DIR
-#
-#  curl -fsSL https://get.nextflow.io | bash &>/dev/null
-#
-#  # This allows us to test local S3 resources via localstack
-#  echo "127.0.0.1       local-uploads-pennsieve.localhost" >> /etc/hosts
-#  echo "127.0.0.1       local-storage-pennsieve.localhost" >> /etc/hosts
-#
-#  /usr/local/bin/nextflow
-#
-#  cd $HOME
-#}
-
-#install_kube_tools() {
-#  kops_version="1.12.2"
-#  kubectl_version="1.15.0"
-#
-#  echo -e "\n\n**** Installing kops ****"
-#  curl -LO https://github.com/kubernetes/kops/releases/download/${kops_version}/kops-linux-amd64
-#  chmod +x kops-linux-amd64
-#  mv kops-linux-amd64 /usr/local/bin/kops
-#
-#  echo -e "\n\n**** Installing kubectl ****"
-#  curl -LO https://storage.googleapis.com/kubernetes-release/release/v${kubectl_version}/bin/linux/amd64/kubectl
-#  chmod +x kubectl
-#  mv kubectl /usr/local/bin/kubectl
-#}
+install_java() {
+  sudo apt-get update
+  sudo apt-get install openjdk-8-jdk
+}
 
 install_puppet_modules() {
   echo -e "\n\n**** Installing Puppet Modules ****"
   set -e
 
-  puppet module install -i ./modules puppetlabs-apt --version 8.0.2
-  puppet module install -i ./modules puppet-nodejs --version 9.0.1
-  puppet module install -i ./modules puppetlabs-docker --version 5.1.0
-  puppet module install -i ./modules puppetlabs-java --version 9.0.1
-  puppet module install -i ./modules puppet-python --version 6.4.0
+  puppet module install -i ./modules puppetlabs-apt --version 9.1.0
+  puppet module install -i ./modules puppet-nodejs --version 10.0.0
+  puppet module install -i ./modules puppetlabs-docker --version 9.1.0
+  puppet module install -i ./modules puppetlabs-java --version 10.1.2
+  puppet module install -i ./modules puppet-python --version 7.0.0
   puppet module install -i ./modules treydock-golang --version 2.3.0 --ignore-dependencies
 
   set +e
   echo "**** Completed Installing Puppet Modules ****"
+
+
 }
 
 create_manifest() {
@@ -122,15 +110,8 @@ class { 'docker':
 }
 
 class { 'docker::compose':
-  version => '1.24.1',
   ensure => present,
 }
-
-#class { '::ruby': }
-
-class { 'nodejs': }
-
-#class { 'yarn': }
 
 class { 'golang':
   version => '1.18',
@@ -147,46 +128,16 @@ class { 'python' :
   gunicorn   => 'absent',
 }
 
+$aptpackages = [ 'git', 'apache2-utils', 'bc', 'build-essential', 'cmake', 'dos2unix', 'ffmpeg', 'g++',
+                 'jq', 'ldap-utils', 'libcurl4-openssl-dev', 'libmysqlclient-dev',
+                 'libpq-dev', 'postgresql-client', 'pylint', 'xvfb', 'unzip', 'vim', 'whois', 'zip' ]
 
-apt::source { 'google-chrome':
-  location => 'http://dl.google.com/linux/chrome/deb/',
-  repos   => 'main',
-  release => 'stable',
-  key      => {
-    'id'     => '4CCA1EAF950CEE4AB83976DCA040830F7FAC5991',
-    'source' => 'http://dl-ssl.google.com/linux/linux_signing_key.pub'
-  },
-}
-
-apt::ppa { 'ppa:gophers/archive': }
-
-$aptpackages = [ 'apache2-utils', 'bc', 'build-essential', 'cmake', 'dos2unix', 'ffmpeg', 'g++', 'golang-1.8-go',
-                 'google-chrome-stable', 'jq', 'ldap-utils', 'libcurl4-openssl-dev', 'libmysqlclient-dev',
-                 'libpq-dev', 'postgresql-client', 'python3-pip', 'pylint', 'xvfb', 'unzip', 'vim', 'whois', 'zip' ]
-
-package { $aptpackages:
-  require => [
-    Apt::Source['google-chrome'],
-    Apt::Ppa['ppa:gophers/archive']
-  ]
-}
+package { $aptpackages:ensure => 'installed' }
 
 ensure_packages([ 'awscli', 'boto3', 'cython', 'twine' ], {
   ensure   => present,
   provider => 'pip',
   require  => Class['python'],
-})
-
-#ensure_packages([ 'hiera-eyaml', 'puppet-lint' ], {
-#  ensure   => present,
-#  provider => 'gem',
-#  require  => Class['ruby'],
-#})
-
-ensure_packages([ 'newman' ], {
-  ensure   => present,
-  provider => 'npm',
-  require  => Class['nodejs'],
 })
 
 file { '/etc/profile.d/go_path.sh':
@@ -230,15 +181,8 @@ get_versions() {
   docker version
   docker-compose --version
 
-#  echo -e "\n******* Kops version information *******"
-#  kops version
-#
-#  echo -e "\n******* Nextflow version information *******"
-#  nextflow -v
-
   echo -e "\n******* Node and node modules version information *******"
-  echo "Node version $(node -v)"
-  echo "Newman version $(newman -v)"
+  sudo -u ubuntu echo "Node version $(node -v)"
 
   echo -e "\n******* Packer version information *******"
   packer version
@@ -267,9 +211,10 @@ cd $HOME
 config_aws
 create_manifest
 install_puppet_modules
-puppet_apply
-
+install_nodejs
+install_newman
 install_terraform
+puppet_apply
 install_yarn
 install_sbt
 

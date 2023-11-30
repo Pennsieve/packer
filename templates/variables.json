@@ -5,7 +5,7 @@
   "_ami_regions_example": "us-east-1,us-west-2",
   "ami_users": "941165240011,740463337177",
   "_ami_users_comment": "List of other AWS accounts to grant access to the AMI",
-  "instance_type": "t3.medium",
+  "instance_type": "t3.xlarge",
   "region": "us-east-1",
   "security_group_id": "sg-0a3a39265d4ca0a95",
   "ssh_wait_timeout": "1000s",
