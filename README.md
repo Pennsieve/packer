@@ -13,8 +13,9 @@
 ### Example: Build a New ECS AMI
 
 1. [Download Packer](https://www.packer.io/downloads.html)
-2. Run `./create_ami.sh ecs`
-3. Issue the git commands when the build completes to create a tagged release of the AMI
+2. Run `packer plugins install github.com/hashicorp/amazon`. This is only necessary when you first install Packer.
+3. Run `./create_ami.sh ecs`
+4. Issue the git commands when the build completes to create a tagged release of the AMI
 
 ## Testing Builds
 

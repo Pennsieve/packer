@@ -114,7 +114,7 @@ class { 'docker::compose':
 }
 
 class { 'golang':
-  version => '1.18',
+  version => '1.21.5',
 }
 
 class { 'java':
