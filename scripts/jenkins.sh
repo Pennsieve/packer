@@ -49,20 +49,61 @@ install_terraform() {
 
 install_nodejs() {
   echo -e "\n\n**** Installing Node.js ****"
-  cd $HOME
-  curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
-  sudo apt update
-  sudo apt -y install nodejs
+#  cd $HOME
+#  curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
+#  sudo apt update
+#  sudo apt -y install nodejs
+  export -f install_nvm
+  su ubuntu -c "bash -c install_nvm"
+
+}
+
+install_nvm() {
+  echo -e "\n\n**** Installing NVM in ubuntu user ****"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+  {
+    echo 'export NVM_DIR="$HOME/.nvm"'
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+  } >> "${HOME}"/.profile
+
+  {
+      echo 'export NVM_DIR="$HOME/.nvm"'
+      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+      echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+    } >> "${HOME}"/.profile
+
+  nvm install 14.21.1
+  npm install -g yarn
+  npm install -g newman
+
+  nvm install 18.17.1
+  npm install -g yarn
+  npm install -g newman
+
+
 }
 
 install_yarn() {
   echo -e "\n\n**** Installing Yarn ****"
   cd $HOME
+  nvm use 18.17.1
+  npm install -g yarn
+
+  nvm use 14.21.1
   npm install -g yarn
 }
 
 install_newman() {
   echo -e "\n\n**** Installing NewMan ****"
+  cd $HOME
+  nvm use 18.17.1
+  npm install -g newman
+
+  nvm use 14.21.1
   npm install -g newman
 }
 
@@ -212,10 +253,8 @@ config_aws
 create_manifest
 install_puppet_modules
 install_nodejs
-install_newman
 install_terraform
 puppet_apply
-install_yarn
 install_sbt
 
 get_versions
