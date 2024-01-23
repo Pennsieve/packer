@@ -3,3 +3,4 @@ iso/
 secrets.json
 .vagrant
 *console.log
+.idea/

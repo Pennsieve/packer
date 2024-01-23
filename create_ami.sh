@@ -57,7 +57,7 @@ packer_build() {
 generate_git_tag_commands() {
   [  -f "${LOG_FILE}" ] || { echo "'${LOG_FILE}' is either empty or does not exist, not updating the AMI's Terraform variables" && exit 1; }
 
-  AMI_ID=$(awk '/us-east-1: a/ {print $2}' packer-output.log)
+  AMI_ID=$(grep --text '^us-east-1: a' packer-output.log | awk '{print $2}')
   SNAPSHOT_ID=$(aws ec2 describe-images --image-ids $AMI_ID --output text --query 'Images[*].BlockDeviceMappings[*].Ebs.SnapshotId')
 
   if [ "$BUILD_TYPE" = jenkins ]; then
