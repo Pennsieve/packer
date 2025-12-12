@@ -54,7 +54,7 @@ install_nodejs() {
 #  sudo apt update
 #  sudo apt -y install nodejs
   export -f install_nvm
-  su ubuntu -c "bash -c install_nvm"
+  su - ubuntu -c "bash -c install_nvm"
 
 }
 
@@ -87,36 +87,14 @@ install_nvm() {
 
 }
 
-install_yarn() {
-  echo -e "\n\n**** Installing Yarn ****"
-  cd $HOME
-  nvm use 18.17.1
-  npm install -g yarn
-
-  nvm use 14.21.1
-  npm install -g yarn
-}
-
-install_newman() {
-  echo -e "\n\n**** Installing NewMan ****"
-  cd $HOME
-  nvm use 18.17.1
-  npm install -g newman
-
-  nvm use 14.21.1
-  npm install -g newman
-}
-
 install_sbt() {
-  sbt_version=1.2.8
+  sbt_version=1.11.7
 
   echo -e "\n\n**** Installing sbt $sbt_version ****"
   cd $HOME
   curl -fsSL "https://github.com/sbt/sbt/releases/download/v$sbt_version/sbt-$sbt_version.tgz" | tar zx && \
   mv sbt /usr/local/share
   ln -s /usr/local/share/sbt/bin/sbt /usr/local/bin/sbt
-
-  sbt sbtVersion
 }
 
 install_java() {
@@ -204,8 +182,9 @@ puppet_apply() {
 clean_up() {
   echo -e "\n\n**** Cleaning up AMI ****"
   cd $HOME
-  chown -R ubuntu:ubuntu $HOME/.* || true
-  chown -R ubuntu:ubuntu $HOME/*  || true
+  shopt -s dotglob # dotglob avoids matching . and .. in HOME.
+  chown -R ubuntu:ubuntu $HOME/* || true
+  shopt -u dotglob
   rm -rf project modules || true
   rm local_manifest.pp || true
 }
@@ -223,13 +202,13 @@ get_versions() {
   docker-compose --version
 
   echo -e "\n******* Node and node modules version information *******"
-  sudo -u ubuntu echo "Node version $(node -v)"
+  sudo -u ubuntu bash -c 'source ~/.nvm/nvm.sh && echo "Node version $(node -v)"'
 
   echo -e "\n******* Packer version information *******"
   packer version
 
   echo -e "\n******* sbt version information *******"
-  sbt sbtVersion
+  sbt --allow-empty sbtVersion
 
   echo -e "\n******* Terraform version information *******"
   terraform version
@@ -238,7 +217,7 @@ get_versions() {
   twine --version
 
   echo -e "\n******* Yarn version information *******"
-  yarn -v
+  sudo -u ubuntu bash -c 'source ~/.nvm/nvm.sh && yarn -v'
 
   echo -e "\n******* Golang version information *******"
   go version

@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-BOX = "ubuntu/bionic64"
+BOX = "cloud-image/ubuntu-24.04"
 CPUS = "2"
 HOST_NAME = "puppettest"
 MEMORY = "2048"
@@ -20,6 +20,13 @@ Vagrant.configure("2") do |config|
    vb.customize ["modifyvm", :id, "--ioapic", "on"]
    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    if ! id -u ubuntu &>/dev/null; then
+      useradd -m -s /bin/bash -G sudo ubuntu
+      echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu
+    fi
+  SHELL
 
   config.vm.provision "shell", path: "scripts/install_puppet.sh"
   config.vm.provision "shell", path: "scripts/jenkins.sh"

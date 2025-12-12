@@ -21,7 +21,7 @@
 
 Requirement: vagrant
 
-To test a buid script, update the `Vagrantfile` to point to the script you want to test. The following example will test a Jenkins build:
+To test a build script, update the `Vagrantfile` to point to the script you want to test. The following example will test a Jenkins build:
 
 ``` 
 ...
