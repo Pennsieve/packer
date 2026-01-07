@@ -47,5 +47,6 @@ Then run `test-on-ec2.sh` to build and example instance and examine the console 
 `test-output.log`. The test script takes care of terminating the test instance.
 
 Run `test-on-ec2.sh --keep` to keep the instance running after the script exits. You are then responsible for
-terminating the instance.
+terminating the instance. You can ssh into the instance to look around using the `ssh` command output by the test
+script. 
 

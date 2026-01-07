@@ -21,7 +21,7 @@ EOF
 region = us-east-1
 EOF
 
-  chown ubuntu:ubuntu /home/ubuntu/.aws/config
+  chown -R ubuntu:ubuntu /home/ubuntu/.aws
 }
 
 install_terraform() {
@@ -168,13 +168,12 @@ puppet_apply() {
 }
 
 clean_up() {
-  echo -e "\n\n**** Cleaning up AMI ****"
-  cd $HOME
+  echo -e "\n\n**** Cleaning up $HOME for AMI ****"
+  cd $HOME # this will be /root
   shopt -s dotglob # dotglob matches dot files, but not . or ..
   chown -R ubuntu:ubuntu $HOME/* || true
   shopt -u dotglob
-  rm -rf project modules || true
-  rm local_manifest.pp || true
+  rm -rf local_manifest.pp modules || true
 }
 
 get_nvm_versions() {
