@@ -12,7 +12,7 @@ else
     echo "ERROR: $ENV_FILE not found"
     echo "Create one with the following variables:"
     cat <<EOF
-INSTANCE_TYPE="t3.micro"
+INSTANCE_TYPE="t3.small"
 KEY_NAME="your-key-name"
 KEY_PATH="~/.ssh/your-key.pem"
 SECURITY_GROUP="sg-xxxxxxxx"
@@ -22,11 +22,23 @@ EOF
     exit 1
 fi
 
-# Scripts to test (in order)
+# Build scripts to test (in order)
 SCRIPTS=(
     "scripts/install_puppet.sh"
     "scripts/jenkins.sh"
 )
+
+# Read the template file to get the source AMI filters
+TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
+if [ ! -f "$TEMPLATE_FILE" ]; then
+    echo "ERROR: $TEMPLATE_FILE not found"
+    exit 1
+fi
+
+AMI_NAME_FILTER=$(jq -r '.builders[0].source_ami_filter.filters.name' "$TEMPLATE_FILE")
+AMI_OWNER=$(jq -r '.builders[0].source_ami_filter.owners[0]' "$TEMPLATE_FILE")
+AMI_VIRT_TYPE=$(jq -r '.builders[0].source_ami_filter.filters["virtualization-type"]' "$TEMPLATE_FILE")
+AMI_ROOT_TYPE=$(jq -r '.builders[0].source_ami_filter.filters["root-device-type"]' "$TEMPLATE_FILE")
 
 # Parse args
 KEEP_RUNNING=false
@@ -46,17 +58,6 @@ echo "==> Writing to $LOG_FILE"
 
 # Find AMI using filters from jenkins.json
 echo "==> Finding latest AMI..."
-TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
-
-if [ ! -f "$TEMPLATE_FILE" ]; then
-    echo "ERROR: $TEMPLATE_FILE not found"
-    exit 1
-fi
-
-AMI_NAME_FILTER=$(jq -r '.builders[0].source_ami_filter.filters.name' "$TEMPLATE_FILE")
-AMI_OWNER=$(jq -r '.builders[0].source_ami_filter.owners[0]' "$TEMPLATE_FILE")
-AMI_VIRT_TYPE=$(jq -r '.builders[0].source_ami_filter.filters["virtualization-type"]' "$TEMPLATE_FILE")
-AMI_ROOT_TYPE=$(jq -r '.builders[0].source_ami_filter.filters["root-device-type"]' "$TEMPLATE_FILE")
 
 AMI_ID=$(aws ec2 describe-images \
     --owners "$AMI_OWNER" \

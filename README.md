@@ -2,11 +2,13 @@
 
 ## How to use this repo
 
-[Packer](https://www.packer.io/intro/index.html) allows you to build Amazon Machine Images (AMI) in a reproducible fashion. By commiting the `packer-output.log` and creating a tag, we can track and audit the software in our AMIs. 
+[Packer](https://www.packer.io/intro/index.html) allows you to build Amazon Machine Images (AMI) in a reproducible
+fashion. By commiting the `packer-output.log` and creating a tag, we can track and audit the software in our AMIs.
 
 ### Repository Breakdown
 
-- `create_ami.sh` script - pass in the type of AMI you want to build. Run without any options to view the supported build types
+- `create_ami.sh` script - pass in the type of AMI you want to build. Run without any options to view the supported
+  build types
 - `templates` directory - contains `json` files that Packer uses to create AMIs for ecs, jenkins, etc
 - `scripts` directory - contains the scripts that will be run on the EC2 instance during a specific build
 
@@ -19,13 +21,31 @@
 
 ## Testing Builds
 
-Requirement: vagrant
+Requirement: AWS CLI v2 and jq
 
-To test a build script, update the `Vagrantfile` to point to the script you want to test. The following example will test a Jenkins build:
+The test script `test-on-ec2.sh` creates a new EC2 instance in the pennsieve-cc account using a provided template to
+determine the base AMI and runs provided build scripts to test the build.
+
+To test a build script:
+
+Copy `test.env.example` to `test.env` and update `test.env` with real values.
+
+Update the `test-on-ec2.sh` to point to the template and scripts you want to test. The following example will
+test a Jenkins build:
 
 ``` 
 ...
-  config.vm.provision "shell", path: "scripts/install_puppet.sh"
-  config.vm.provision "shell", path: "scripts/jenkins.sh"
+  SCRIPTS=(
+    "scripts/install_puppet.sh"
+    "scripts/jenkins.sh"
+  )
+  TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
 ...
 ```
+
+Then run `test-on-ec2.sh` to build and example instance and examine the console output. The output is also written to
+`test-output.log`. The test script takes care of terminating the test instance.
+
+Run `test-on-ec2.sh --keep` to keep the instance running after the script exits. You are then responsible for
+terminating the instance.
+

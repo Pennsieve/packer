@@ -3,6 +3,8 @@
 PATH="$PATH:/opt/puppetlabs/bin"
 export GOPATH="/usr/lib/go-1.8/bin/"
 
+NODE_VERSIONS=(14.21.1 18.17.1)
+
 config_aws () {
   echo -e "\n\n**** Configure AWS ****"
  
@@ -47,43 +49,34 @@ install_terraform() {
 
 }
 
-install_nodejs() {
-  echo -e "\n\n**** Installing Node.js ****"
-#  cd $HOME
-#  curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
-#  sudo apt update
-#  sudo apt -y install nodejs
-  export -f install_nvm
-  su - ubuntu -c "bash -c install_nvm"
-
-}
-
 install_nvm() {
   echo -e "\n\n**** Installing NVM in ubuntu user ****"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-  {
-    echo 'export NVM_DIR="$HOME/.nvm"'
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-  } >> "${HOME}"/.profile
+  local versions="${NODE_VERSIONS[*]}"
 
-  {
-      echo 'export NVM_DIR="$HOME/.nvm"'
-      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-      echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-    } >> "${HOME}"/.profile
+  sudo -Hu ubuntu bash << EOSU
+    cd \$HOME
 
-  nvm install 14.21.1
-  npm install -g yarn
-  npm install -g newman
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+    export NVM_DIR="\$HOME/.nvm"
+    [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" # This loads nvm
 
-  nvm install 18.17.1
-  npm install -g yarn
-  npm install -g newman
+    {
+      echo 'export NVM_DIR="\$HOME/.nvm"'
+      echo '[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"'
+      echo '[ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion"'
+    } >> "\${HOME}"/.profile
 
+    for version in $versions; do
+          echo "Installing Node \$version to \$NVM_DIR ..."
+          nvm install \$version
+          echo "npm cache: \$(npm config get cache)"
+          echo "npm prefix: \$(npm config get prefix)"
+          npm config list
+          npm install -g yarn newman
+    done
+
+EOSU
 
 }
 
@@ -95,11 +88,6 @@ install_sbt() {
   curl -fsSL "https://github.com/sbt/sbt/releases/download/v$sbt_version/sbt-$sbt_version.tgz" | tar zx && \
   mv sbt /usr/local/share
   ln -s /usr/local/share/sbt/bin/sbt /usr/local/bin/sbt
-}
-
-install_java() {
-  sudo apt-get update
-  sudo apt-get install openjdk-8-jdk
 }
 
 install_puppet_modules() {
@@ -141,7 +129,7 @@ class { 'java':
 }
 
 class { 'python' :
-  version    => 'system',
+  version    => 'python3',
   pip        => 'present',
   dev        => 'absent',
   gunicorn   => 'absent',
@@ -182,11 +170,28 @@ puppet_apply() {
 clean_up() {
   echo -e "\n\n**** Cleaning up AMI ****"
   cd $HOME
-  shopt -s dotglob # dotglob avoids matching . and .. in HOME.
+  shopt -s dotglob # dotglob matches dot files, but not . or ..
   chown -R ubuntu:ubuntu $HOME/* || true
   shopt -u dotglob
   rm -rf project modules || true
   rm local_manifest.pp || true
+}
+
+get_nvm_versions() {
+  local versions="${NODE_VERSIONS[*]}"
+
+  sudo -Hu ubuntu bash << EOSU
+    cd \$HOME
+    export NVM_DIR="\$HOME/.nvm"
+    [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
+
+    for version in $versions; do
+      nvm use \$version > /dev/null
+      echo "Node \$(node -v): yarn \$(yarn -v 2>/dev/null || echo 'not found'), newman \$(newman -v 2>/dev/null || echo 'not found')"
+    done
+
+    echo "Default: \$(nvm alias default | awk '{print \$3}')"
+EOSU
 }
 
 get_versions() {
@@ -202,22 +207,17 @@ get_versions() {
   docker-compose --version
 
   echo -e "\n******* Node and node modules version information *******"
-  sudo -u ubuntu bash -c 'source ~/.nvm/nvm.sh && echo "Node version $(node -v)"'
-
-  echo -e "\n******* Packer version information *******"
-  packer version
+  get_nvm_versions
 
   echo -e "\n******* sbt version information *******"
-  sbt --allow-empty sbtVersion
+  # warms the sbt cache a little for the ubuntu user
+  sudo -Hu ubuntu bash -c 'cd ~ && sbt --allow-empty sbtVersion && rm -fr ~/project ~/target'
 
   echo -e "\n******* Terraform version information *******"
   terraform version
 
   echo -e "\n******* Twine version information *******"
   twine --version
-
-  echo -e "\n******* Yarn version information *******"
-  sudo -u ubuntu bash -c 'source ~/.nvm/nvm.sh && yarn -v'
 
   echo -e "\n******* Golang version information *******"
   go version
@@ -231,7 +231,7 @@ cd $HOME
 config_aws
 create_manifest
 install_puppet_modules
-install_nodejs
+install_nvm
 install_terraform
 puppet_apply
 install_sbt
