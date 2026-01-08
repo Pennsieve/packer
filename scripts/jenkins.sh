@@ -3,7 +3,7 @@
 PATH="$PATH:/opt/puppetlabs/bin"
 export GOPATH="/usr/lib/go-1.8/bin/"
 
-NODE_VERSIONS=(14.21.1 18.17.1)
+NODE_VERSIONS=(18.17.1)
 
 config_aws () {
   echo -e "\n\n**** Configure AWS ****"
@@ -50,7 +50,7 @@ install_terraform() {
 }
 
 install_nvm() {
-  echo -e "\n\n**** Installing NVM in ubuntu user ****"
+  echo -e "\n\n**** Installing NVM and Node versions in ubuntu user ****"
 
   local versions="${NODE_VERSIONS[*]}"
 
@@ -70,10 +70,6 @@ install_nvm() {
     for version in $versions; do
           echo "Installing Node \$version to \$NVM_DIR ..."
           nvm install \$version
-          echo "npm cache: \$(npm config get cache)"
-          echo "npm prefix: \$(npm config get prefix)"
-          npm config list
-          npm install -g yarn newman
     done
 
 EOSU
@@ -168,12 +164,17 @@ puppet_apply() {
 }
 
 clean_up() {
-  echo -e "\n\n**** Cleaning up $HOME for AMI ****"
-  cd $HOME # this will be /root
-  shopt -s dotglob # dotglob matches dot files, but not . or ..
-  chown -R ubuntu:ubuntu $HOME/* || true
-  shopt -u dotglob
+  echo -e "\n\n**** Cleaning up AMI ****"
+  echo -e "\n**** Cleaning $HOME ****"
+  cd $HOME
   rm -rf local_manifest.pp modules || true
+
+  sudo -Hu ubuntu bash << EOSU
+    echo -e "\n**** Cleaning \$HOME ****"
+    # sbtVersion creates project and target dirs
+    rm -rf ~/project ~/target || true
+EOSU
+
 }
 
 get_nvm_versions() {
@@ -186,7 +187,7 @@ get_nvm_versions() {
 
     for version in $versions; do
       nvm use \$version > /dev/null
-      echo "Node \$(node -v): yarn \$(yarn -v 2>/dev/null || echo 'not found'), newman \$(newman -v 2>/dev/null || echo 'not found')"
+      echo "Node \$(node -v)"
     done
 
     echo "Default: \$(nvm alias default | awk '{print \$3}')"
@@ -210,7 +211,7 @@ get_versions() {
 
   echo -e "\n******* sbt version information *******"
   # warms the sbt cache a little for the ubuntu user
-  sudo -Hu ubuntu bash -c 'cd ~ && sbt --allow-empty sbtVersion && rm -fr ~/project ~/target'
+  sudo -Hu ubuntu bash -c 'cd ~ && sbt --allow-empty sbtVersion'
 
   echo -e "\n******* Terraform version information *******"
   terraform version
