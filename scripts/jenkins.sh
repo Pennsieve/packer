@@ -164,17 +164,10 @@ puppet_apply() {
 }
 
 clean_up() {
-  echo -e "\n\n**** Cleaning up AMI ****"
-  echo -e "\n**** Cleaning $HOME ****"
+  echo -e "\n\n**** Cleaning up $HOME on AMI ****"
   cd $HOME
   rm -rf local_manifest.pp modules || true
-
-  sudo -Hu ubuntu bash << EOSU
-    echo -e "\n**** Cleaning \$HOME ****"
-    # sbtVersion creates project and target dirs
-    rm -rf ~/project ~/target || true
-EOSU
-
+  chown -R ubuntu:ubuntu /home/ubuntu || true
 }
 
 get_nvm_versions() {
@@ -211,7 +204,7 @@ get_versions() {
 
   echo -e "\n******* sbt version information *******"
   # warms the sbt cache a little for the ubuntu user
-  sudo -Hu ubuntu bash -c 'cd ~ && sbt --allow-empty sbtVersion'
+  sudo -Hu ubuntu bash -c 'cd /tmp && sbt --allow-empty sbtVersion'
 
   echo -e "\n******* Terraform version information *******"
   terraform version
@@ -227,6 +220,8 @@ get_versions() {
 [ "$(whoami)" = root ]     || { echo "Please run this script as root" && exit 1; }
 [ ! -z "$(which puppet)" ] || { echo "Installing Puppet" && install_puppet; }
 
+# The running user is root, but packer runs this script using sudo -E which preserves the ssh user's (ubuntu in this case) environment.
+# So in particular, $HOME will be /home/ubuntu, not /root
 cd $HOME
 config_aws
 create_manifest

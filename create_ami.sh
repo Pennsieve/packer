@@ -61,7 +61,7 @@ generate_git_tag_commands() {
   SNAPSHOT_ID=$(aws ec2 describe-images --image-ids $AMI_ID --output text --query 'Images[*].BlockDeviceMappings[*].Ebs.SnapshotId')
 
   if [ "$BUILD_TYPE" = jenkins ]; then
-    echo -e "\nUpdate the \"Block device mapping\" in the Jenkins Configuration:\n/dev/sda1=$SNAPSHOT_ID:750:true:gp2"
+    echo -e "\nUpdate the \"Block device mapping\" in the Jenkins Configuration:\n/dev/sda1=$SNAPSHOT_ID:50:true:gp2"
   fi
 
   echo -e "\nCommit and push new tag:"

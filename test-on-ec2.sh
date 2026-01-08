@@ -126,8 +126,10 @@ echo "==> Running provisioning scripts..."
 for script in "${SCRIPTS[@]}"; do
     script_name=$(basename "$script")
     echo "--- Running $script_name ---"
+    ## sudo -E is used to match provisioners.execute_command in jenkins.json and ecs.json. This means that HOME is set to
+    ## the home dir of the ssh-ing user, in this case ubuntu, even though the script is running as root. As verified by both install_puppet.sh and jenkins.sh
     ssh -o StrictHostKeyChecking=no -i "$KEY_PATH" "$SSH_USER@$INSTANCE_IP" \
-        "sudo bash ~/scripts/$script_name"
+        "sudo -E bash ~/scripts/$script_name"
 done
 
 echo "==> All scripts completed successfully!"
