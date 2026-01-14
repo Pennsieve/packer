@@ -7,23 +7,23 @@ Packer requests Spot instances.
 
 
 ==> amazon-ebs: Prevalidating any provided VPC information
-==> amazon-ebs: Prevalidating AMI Name: jenkins-ami-61
+==> amazon-ebs: Prevalidating AMI Name: jenkins-ami-62
     amazon-ebs: Found Image ID: ami-0030e4319cbf4dbf2
-==> amazon-ebs: Creating temporary keypair: packer_695ffae5-67cc-b400-1ec8-e101a8be9567
+==> amazon-ebs: Creating temporary keypair: packer_69601493-0508-9d7b-e1f5-8773bd254c69
 ==> amazon-ebs: Launching a spot AWS instance...
 ==> amazon-ebs: Interpolating tags for spot instance...
-    amazon-ebs: Adding tag: "name": "jenkins-ami-61-packer-build"
+    amazon-ebs: Adding tag: "name": "jenkins-ami-62-packer-build"
     amazon-ebs: Adding tag: "service_name": "packer"
     amazon-ebs: Adding tag: "tier": "builder"
     amazon-ebs: Adding tag: "environment_name": "ops"
-    amazon-ebs: Adding tag: "Name": "jenkins-ami-61-packer-build"
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-62-packer-build"
     amazon-ebs: Loading User Data File...
     amazon-ebs: Creating Spot Fleet launch template...
 ==> amazon-ebs: changing public IP address config to true for instance on subnet "subnet-034de2f66c9701817"
-    amazon-ebs: Created Spot Fleet launch template: lt-0db3f627eb1e12f13
-    amazon-ebs: Instance ID: i-0016080f807fa94ad
-==> amazon-ebs: Waiting for instance (i-0016080f807fa94ad) to become ready...
-==> amazon-ebs: Using SSH communicator to connect: 44.204.92.163
+    amazon-ebs: Created Spot Fleet launch template: lt-09164df10e63cdb94
+    amazon-ebs: Instance ID: i-028b8470970155377
+==> amazon-ebs: Waiting for instance (i-028b8470970155377) to become ready...
+==> amazon-ebs: Using SSH communicator to connect: 54.164.3.219
 ==> amazon-ebs: Waiting for SSH to become available...
 ==> amazon-ebs: Connected to SSH!
 ==> amazon-ebs: Provisioning with shell script: scripts/install_puppet.sh
@@ -33,66 +33,66 @@ Packer requests Spot instances.
     amazon-ebs:
     amazon-ebs: *********
     amazon-ebs: **** Starting Puppet Install ****
-    amazon-ebs: --2026-01-08 18:44:14--  https://apt.puppetlabs.com/puppet8-release-jammy.deb
-    amazon-ebs: Resolving apt.puppetlabs.com (apt.puppetlabs.com)... 13.226.238.84, 13.226.238.57, 13.226.238.25, ...
-    amazon-ebs: Connecting to apt.puppetlabs.com (apt.puppetlabs.com)|13.226.238.84|:443... connected.
+    amazon-ebs: --2026-01-08 20:33:45--  https://apt.puppetlabs.com/puppet8-release-jammy.deb
+    amazon-ebs: Resolving apt.puppetlabs.com (apt.puppetlabs.com)... 13.226.238.25, 13.226.238.57, 13.226.238.59, ...
+    amazon-ebs: Connecting to apt.puppetlabs.com (apt.puppetlabs.com)|13.226.238.25|:443... connected.
     amazon-ebs: HTTP request sent, awaiting response... 200 OK
     amazon-ebs: Length: 3786 (3.7K) [application/vnd.debian.binary-package]
     amazon-ebs: Saving to: â€˜puppet8-release-jammy.debâ€™
     amazon-ebs:
     amazon-ebs: puppet8-release-jam 100%[===================>]   3.70K  --.-KB/s    in 0s
     amazon-ebs:
-    amazon-ebs: 2026-01-08 18:44:14 (1.88 GB/s) - â€˜puppet8-release-jammy.debâ€™ saved [3786/3786]
+    amazon-ebs: 2026-01-08 20:33:45 (1.93 GB/s) - â€˜puppet8-release-jammy.debâ€™ saved [3786/3786]
     amazon-ebs:
     amazon-ebs: Selecting previously unselected package puppet8-release.
     amazon-ebs: (Reading database ... 65997 files and directories currently installed.)
     amazon-ebs: Preparing to unpack puppet8-release-jammy.deb ...
     amazon-ebs: Unpacking puppet8-release (1.0.0-10jammy) ...
     amazon-ebs: Setting up puppet8-release (1.0.0-10jammy) ...
-    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
-    amazon-ebs: Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
-    amazon-ebs: Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
-    amazon-ebs: Get:4 http://apt.puppet.com jammy InRelease [113 kB]
-    amazon-ebs: Get:5 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
-    amazon-ebs: Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
-    amazon-ebs: Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
-    amazon-ebs: Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
-    amazon-ebs: Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
-    amazon-ebs: Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
-    amazon-ebs: Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
-    amazon-ebs: Get:12 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3162 kB]
-    amazon-ebs: Get:13 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [485 kB]
-    amazon-ebs: Get:14 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [19.1 kB]
-    amazon-ebs: Get:15 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5043 kB]
-    amazon-ebs: Get:16 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [644 B]
-    amazon-ebs: Get:17 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1245 kB]
-    amazon-ebs: Get:18 http://apt.puppet.com jammy/puppet8 amd64 Packages [14.8 kB]
-    amazon-ebs: Get:19 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [310 kB]
-    amazon-ebs: Get:20 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [30.0 kB]
-    amazon-ebs: Get:21 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [57.6 kB]
-    amazon-ebs: Get:22 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [13.2 kB]
-    amazon-ebs: Get:23 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [600 B]
-    amazon-ebs: Get:24 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [69.4 kB]
-    amazon-ebs: Get:25 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.5 kB]
-    amazon-ebs: Get:26 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [412 B]
-    amazon-ebs: Get:27 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
-    amazon-ebs: Get:28 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [31.7 kB]
-    amazon-ebs: Get:29 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.9 kB]
-    amazon-ebs: Get:30 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [672 B]
-    amazon-ebs: Get:31 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
-    amazon-ebs: Get:32 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [2902 kB]
-    amazon-ebs: Get:33 http://apt.puppet.com jammy/puppet8 all Packages [9208 B]
-    amazon-ebs: Get:34 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [417 kB]
-    amazon-ebs: Get:35 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [14.0 kB]
-    amazon-ebs: Get:36 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [4883 kB]
-    amazon-ebs: Get:37 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [917 kB]
-    amazon-ebs: Get:38 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1008 kB]
-    amazon-ebs: Get:39 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [221 kB]
-    amazon-ebs: Get:40 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [22.4 kB]
-    amazon-ebs: Get:41 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [50.5 kB]
-    amazon-ebs: Get:42 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [10.2 kB]
-    amazon-ebs: Get:43 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [376 B]
-    amazon-ebs: Fetched 41.8 MB in 6s (6628 kB/s)
+    amazon-ebs: Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+    amazon-ebs: Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+    amazon-ebs: Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+    amazon-ebs: Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+    amazon-ebs: Get:5 http://apt.puppet.com jammy InRelease [113 kB]
+    amazon-ebs: Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+    amazon-ebs: Get:7 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [2903 kB]
+    amazon-ebs: Get:8 http://archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+    amazon-ebs: Get:9 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [418 kB]
+    amazon-ebs: Get:10 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [14.0 kB]
+    amazon-ebs: Get:11 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [4883 kB]
+    amazon-ebs: Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+    amazon-ebs: Get:13 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+    amazon-ebs: Get:14 http://archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+    amazon-ebs: Get:15 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+    amazon-ebs: Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3162 kB]
+    amazon-ebs: Get:17 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [917 kB]
+    amazon-ebs: Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [485 kB]
+    amazon-ebs: Get:19 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1008 kB]
+    amazon-ebs: Get:20 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [221 kB]
+    amazon-ebs: Get:21 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [22.4 kB]
+    amazon-ebs: Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [19.1 kB]
+    amazon-ebs: Get:23 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [50.5 kB]
+    amazon-ebs: Get:24 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [10.2 kB]
+    amazon-ebs: Get:25 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [376 B]
+    amazon-ebs: Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5043 kB]
+    amazon-ebs: Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [644 B]
+    amazon-ebs: Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1245 kB]
+    amazon-ebs: Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [310 kB]
+    amazon-ebs: Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [30.0 kB]
+    amazon-ebs: Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [57.6 kB]
+    amazon-ebs: Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [13.2 kB]
+    amazon-ebs: Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [600 B]
+    amazon-ebs: Get:34 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [69.4 kB]
+    amazon-ebs: Get:35 http://archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.5 kB]
+    amazon-ebs: Get:36 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [412 B]
+    amazon-ebs: Get:37 http://archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+    amazon-ebs: Get:38 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [31.7 kB]
+    amazon-ebs: Get:39 http://archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.9 kB]
+    amazon-ebs: Get:40 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [672 B]
+    amazon-ebs: Get:41 http://archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+    amazon-ebs: Get:42 http://apt.puppet.com jammy/puppet8 amd64 Packages [14.8 kB]
+    amazon-ebs: Get:43 http://apt.puppet.com jammy/puppet8 all Packages [9208 B]
+    amazon-ebs: Fetched 41.8 MB in 7s (5631 kB/s)
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Building dependency tree... Done
@@ -103,7 +103,7 @@ Packer requests Spot instances.
     amazon-ebs: Need to get 36.0 MB of archives.
     amazon-ebs: After this operation, 125 MB of additional disk space will be used.
     amazon-ebs: Get:1 http://apt.puppet.com jammy/puppet8 amd64 puppet-agent amd64 8.10.0-1jammy [36.0 MB]
-    amazon-ebs: Fetched 36.0 MB in 0s (92.2 MB/s)
+    amazon-ebs: Fetched 36.0 MB in 0s (73.0 MB/s)
     amazon-ebs: Selecting previously unselected package puppet-agent.
     amazon-ebs: (Reading database ... 66002 files and directories currently installed.)
     amazon-ebs: Preparing to unpack .../puppet-agent_8.10.0-1jammy_amd64.deb ...
@@ -183,14 +183,14 @@ Packer requests Spot instances.
     amazon-ebs: **** Installing NVM and Node versions in ubuntu user ****
     amazon-ebs:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
     amazon-ebs:                                  Dload  Upload   Total   Spent    Left  Speed
-    amazon-ebs: 100 15916  100 15916    0     0   239k      0 --:--:-- --:--:-- --:--:--  242k
+    amazon-ebs: 100 15916  100 15916    0     0   150k      0 --:--:-- --:--:-- --:--:--  150k
     amazon-ebs: => Downloading nvm from git to '/home/ubuntu/.nvm'
     amazon-ebs: => Cloning into '/home/ubuntu/.nvm'...
     amazon-ebs: remote: Enumerating objects: 384, done.[K
     amazon-ebs: remote: Counting objects: 100% (384/384), done.[K
     amazon-ebs: remote: Compressing objects: 100% (328/328), done.[K
     amazon-ebs: remote: Total 384 (delta 42), reused 181 (delta 28), pack-reused 0 (from 0)[K
-    amazon-ebs: Receiving objects: 100% (384/384), 392.50 KiB | 28.04 MiB/s, done.
+    amazon-ebs: Receiving objects: 100% (384/384), 392.50 KiB | 23.09 MiB/s, done.
     amazon-ebs: Resolving deltas: 100% (42/42), done.
     amazon-ebs: * [32m(HEAD detached at FETCH_HEAD)[m
     amazon-ebs:   master[m
@@ -214,11 +214,44 @@ Packer requests Spot instances.
     amazon-ebs:
     amazon-ebs:
     amazon-ebs: **** Installing Terraform 1.1.5 ****
-    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
-    amazon-ebs: Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
-    amazon-ebs: Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
-    amazon-ebs: Hit:4 http://apt.puppet.com jammy InRelease
+    amazon-ebs: Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+    amazon-ebs: Hit:2 http://apt.puppet.com jammy InRelease
+    amazon-ebs: Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+    amazon-ebs: Get:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
     amazon-ebs: Hit:5 http://security.ubuntu.com/ubuntu jammy-security InRelease
+    amazon-ebs: Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1395 kB]
+    amazon-ebs: Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main Translation-en [510 kB]
+    amazon-ebs: Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main amd64 c-n-f Metadata [30.3 kB]
+    amazon-ebs: Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [129 kB]
+    amazon-ebs: Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/restricted Translation-en [18.6 kB]
+    amazon-ebs: Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/restricted amd64 c-n-f Metadata [488 B]
+    amazon-ebs: Get:12 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+    amazon-ebs: Get:13 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+    amazon-ebs: Get:14 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+    amazon-ebs: Get:15 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+    amazon-ebs: Get:16 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+    amazon-ebs: Get:17 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+    amazon-ebs: Get:18 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3162 kB]
+    amazon-ebs: Get:19 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [485 kB]
+    amazon-ebs: Get:20 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [19.1 kB]
+    amazon-ebs: Get:21 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5043 kB]
+    amazon-ebs: Get:22 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [944 kB]
+    amazon-ebs: Get:23 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [644 B]
+    amazon-ebs: Get:24 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1245 kB]
+    amazon-ebs: Get:25 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [310 kB]
+    amazon-ebs: Get:26 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [30.0 kB]
+    amazon-ebs: Get:27 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [57.6 kB]
+    amazon-ebs: Get:28 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [13.2 kB]
+    amazon-ebs: Get:29 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [600 B]
+    amazon-ebs: Get:30 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [69.4 kB]
+    amazon-ebs: Get:31 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.5 kB]
+    amazon-ebs: Get:32 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [412 B]
+    amazon-ebs: Get:33 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+    amazon-ebs: Get:34 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [31.7 kB]
+    amazon-ebs: Get:35 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.9 kB]
+    amazon-ebs: Get:36 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [672 B]
+    amazon-ebs: Get:37 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+    amazon-ebs: Fetched 34.4 MB in 5s (7007 kB/s)
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Building dependency tree... Done
@@ -233,7 +266,7 @@ Packer requests Spot instances.
     amazon-ebs: The following packages will be upgraded:
     amazon-ebs:   dirmngr gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client
     amazon-ebs:   gpg-wks-server gpgconf gpgsm gpgv
-    amazon-ebs: 11 upgraded, 0 newly installed, 0 to remove and 5 not upgraded.
+    amazon-ebs: 11 upgraded, 0 newly installed, 0 to remove and 6 not upgraded.
     amazon-ebs: Need to get 2248 kB of archives.
     amazon-ebs: After this operation, 0 B of additional disk space will be used.
     amazon-ebs: Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-client amd64 2.2.27-3ubuntu2.5 [62.7 kB]
@@ -247,7 +280,7 @@ Packer requests Spot instances.
     amazon-ebs: Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg all 2.2.27-3ubuntu2.5 [315 kB]
     amazon-ebs: Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgsm amd64 2.2.27-3ubuntu2.5 [197 kB]
     amazon-ebs: Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgv amd64 2.2.27-3ubuntu2.5 [137 kB]
-    amazon-ebs: Fetched 2248 kB in 0s (40.9 MB/s)
+    amazon-ebs: Fetched 2248 kB in 0s (45.7 MB/s)
     amazon-ebs: (Reading database ... 76843 files and directories currently installed.)
     amazon-ebs: Preparing to unpack .../00-gpg-wks-client_2.2.27-3ubuntu2.5_amd64.deb ...
     amazon-ebs: Unpacking gpg-wks-client (2.2.27-3ubuntu2.5) over (2.2.27-3ubuntu2.4) ...
@@ -296,8 +329,8 @@ Packer requests Spot instances.
     amazon-ebs: No user sessions are running outdated binaries.
     amazon-ebs:
     amazon-ebs: No VM guests are running outdated hypervisor (qemu) binaries on this host.
-    amazon-ebs: --2026-01-08 18:45:15--  https://apt.releases.hashicorp.com/gpg
-    amazon-ebs: Resolving apt.releases.hashicorp.com (apt.releases.hashicorp.com)... 18.160.10.126, 18.160.10.45, 18.160.10.69, ...
+    amazon-ebs: --2026-01-08 20:34:56--  https://apt.releases.hashicorp.com/gpg
+    amazon-ebs: Resolving apt.releases.hashicorp.com (apt.releases.hashicorp.com)... 18.160.10.126, 18.160.10.71, 18.160.10.69, ...
     amazon-ebs: Connecting to apt.releases.hashicorp.com (apt.releases.hashicorp.com)|18.160.10.126|:443... connected.
     amazon-ebs: HTTP request sent, awaiting response... 200 OK
     amazon-ebs: Length: 3980 (3.9K) [binary/octet-stream]
@@ -305,7 +338,7 @@ Packer requests Spot instances.
     amazon-ebs:
     amazon-ebs: -                   100%[===================>]   3.89K  --.-KB/s    in 0s
     amazon-ebs:
-    amazon-ebs: 2026-01-08 18:45:15 (2.20 GB/s) - written to stdout [3980/3980]
+    amazon-ebs: 2026-01-08 20:34:56 (1.82 GB/s) - written to stdout [3980/3980]
     amazon-ebs:
     amazon-ebs: ÊTj:/È³h¶h©á“çNf—Ãä¼Òíc¡…cœ´ÀôW{5!ÀQ´Çøæ6&¬Yïb[Á¥Ò°‹‘ö…¶RÏä«Ô§î÷éÙaß}k57¢R]€Œ ¨´®µŸ#ßzÍ¸×=º~×³dL¼ÑƒÃE°vş…´£Èm­07ÿmÚHuCş8'p$g>ÒŞøD†XL£wÔ
     amazon-ebs: cë4A±àkã‡f»Ñ¨AXHí;¶”~«  ´QHashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>‰T >	
@@ -338,21 +371,21 @@ Packer requests Spot instances.
     amazon-ebs: Hit:5 http://apt.puppet.com jammy InRelease
     amazon-ebs: Hit:6 http://security.ubuntu.com/ubuntu jammy-security InRelease
     amazon-ebs: Get:7 https://apt.releases.hashicorp.com jammy/main amd64 Packages [216 kB]
-    amazon-ebs: Fetched 229 kB in 1s (317 kB/s)
+    amazon-ebs: Fetched 229 kB in 1s (396 kB/s)
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Building dependency tree... Done
     amazon-ebs: Reading state information... Done
-    amazon-ebs: 5 packages can be upgraded. Run 'apt list --upgradable' to see them.
+    amazon-ebs: 6 packages can be upgraded. Run 'apt list --upgradable' to see them.
     amazon-ebs: Reading package lists... Done
     amazon-ebs: Building dependency tree... Done
     amazon-ebs: Reading state information... Done
     amazon-ebs: The following NEW packages will be installed:
     amazon-ebs:   terraform
-    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 5 not upgraded.
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 6 not upgraded.
     amazon-ebs: Need to get 18.8 MB of archives.
     amazon-ebs: After this operation, 63.0 MB of additional disk space will be used.
     amazon-ebs: Get:1 https://apt.releases.hashicorp.com jammy/main amd64 terraform amd64 1.1.5 [18.8 MB]
-    amazon-ebs: Fetched 18.8 MB in 0s (83.6 MB/s)
+    amazon-ebs: Fetched 18.8 MB in 0s (90.5 MB/s)
     amazon-ebs: Selecting previously unselected package terraform.
     amazon-ebs: (Reading database ... 76843 files and directories currently installed.)
     amazon-ebs: Preparing to unpack .../terraform_1.1.5_amd64.deb ...
@@ -373,7 +406,7 @@ Packer requests Spot instances.
     amazon-ebs:
     amazon-ebs:
     amazon-ebs: **** Running "puppet apply" ****
-    amazon-ebs: Notice: Compiled catalog for ip-10-1-101-138.ec2.internal in environment production in 0.60 seconds
+    amazon-ebs: Notice: Compiled catalog for ip-10-1-101-43.ec2.internal in environment production in 0.62 seconds
     amazon-ebs: Notice: /Stage[main]/Apt/File[preferences]/ensure: created
     amazon-ebs: Notice: /Stage[main]/Docker::Compose/Exec[Install Docker Compose 1.29.2]/returns: executed successfully
     amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose-1.29.2]/mode: mode changed '0644' to '0755'
@@ -420,7 +453,7 @@ Packer requests Spot instances.
     amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker-storage]/ensure: defined content as '{sha256}1a0bfc5c866936867a3519a80104980d85c5ba5c91a5575f0fc0c5266cc98571'
     amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker]/content: content changed '{sha256}3177ea62729e9f63474e41b5a740aeacd5c73eecd9c7b6cc499266adbc09d21b' to '{sha256}f601c95aa6bb7f9f490ec066780a4c44a2e8d8837aa94ece46d0a1d544839479'
     amazon-ebs: Notice: /Stage[main]/Docker::Service/Service[docker]: Triggered 'refresh' from 3 events
-    amazon-ebs: Notice: Applied catalog in 189.51 seconds
+    amazon-ebs: Notice: Applied catalog in 193.00 seconds
     amazon-ebs: 0
     amazon-ebs:
     amazon-ebs:
@@ -476,42 +509,42 @@ Packer requests Spot instances.
     amazon-ebs: ******* sbt version information *******
     amazon-ebs: [info] [launcher] getting org.scala-sbt sbt 1.11.7  (this may take some time)...
     amazon-ebs: [info] [launcher] getting Scala 2.12.20 (for sbt)...
-    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mUpdated file /home/ubuntu/project/build.properties: set sbt.version to 1.11.7[0m[0J
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mUpdated file /tmp/project/build.properties: set sbt.version to 1.11.7[0m[0J
     amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0mwelcome to sbt 1.11.7 (Private Build Java 1.8.0_472)[0m[0J
-    amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0mloading project definition from /home/ubuntu/project[0m[0J
+    amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0mloading project definition from /tmp/project[0m[0J
     amazon-ebs: [0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / dependencyPositions 0s
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
     amazon-ebs: [2K[2A[1000D[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / update 0s
-    amazon-ebs: [2K[2A[1000D[0m[[0m[0minfo[0m] [0m[0mUpdating ubuntu-build[0m[0J
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
+    amazon-ebs: [2K[2A[1000D[0m[[0m[0minfo[0m] [0m[0mUpdating tmp-build[0m[0J
     amazon-ebs: [0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / update 0s
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
     amazon-ebs: [2K[2A[1000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
     amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
     amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
     amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
     amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
-    amazon-ebs: [2K  100.0% [##########] 19.4 KiB (269.8 KiB / s)
+    amazon-ebs: [2K  100.0% [##########] 19.4 KiB (259.0 KiB / s)
     amazon-ebs: [10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
     amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
     amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
-    amazon-ebs: [2K  100.0% [##########] 6.4 KiB (145.8 KiB / s)
-    amazon-ebs: [2A[10000D[2K[1B[2K[1B[2A[0m[[0m[0minfo[0m] [0m[0mResolved ubuntu-build dependencies[0m[0J
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+    amazon-ebs: [2K  100.0% [##########] 6.4 KiB (110.6 KiB / s)
+    amazon-ebs: [10000D[0m[[0m[0minfo[0m] [0m[0mResolved tmp-build dependencies[0m[0J
     amazon-ebs: [0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / update 0s
-    amazon-ebs: [2K[2A[1000D[0m[[0m[0minfo[0m] [0m[0mFetching artifacts of ubuntu-build[0m[0J
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
+    amazon-ebs: [2K[2A[1000D[0m[[0m[0minfo[0m] [0m[0mFetching artifacts of tmp-build[0m[0J
     amazon-ebs: [0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / update 0s
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
     amazon-ebs: [2K[2A[1000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar
     amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
-    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar
-    amazon-ebs: [2K  100.0% [##########] 262.5 KiB (6.9 MiB / s)
-    amazon-ebs: [10000D[0m[[0m[0minfo[0m] [0m[0mFetched artifacts of ubuntu-build[0m[0J
+    amazon-ebs: [2A[10000D[2K[1B[2K[1B[2A[0m[[0m[0minfo[0m] [0m[0mFetched artifacts of tmp-build[0m[0J
     amazon-ebs: [0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / update 0s
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
     amazon-ebs: [2K[2A[1000D[0J[0J[0J[1000D
-    amazon-ebs: [2K[2K  | => ubuntu-build / Compile / compileIncremental 0s
-    amazon-ebs: [2K[2A[1000D[0J[0m[[0m[0minfo[0m] [0m[0mset current project to ubuntu (in build file:/home/ubuntu/)[0m[0J
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / compileIncremental 0s
+    amazon-ebs: [2K[2A[1000D[0J[0m[[0m[0minfo[0m] [0m[0mset current project to tmp (in build file:/tmp/)[0m[0J
     amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0m1.11.7[0m[0J
     amazon-ebs: [0J[0J
     amazon-ebs: ******* Terraform version information *******
@@ -529,33 +562,29 @@ Packer requests Spot instances.
     amazon-ebs: go version go1.21.5 linux/amd64
     amazon-ebs:
     amazon-ebs:
-    amazon-ebs: **** Cleaning up AMI ****
-    amazon-ebs:
-    amazon-ebs: **** Cleaning /home/ubuntu ****
-    amazon-ebs:
-    amazon-ebs: **** Cleaning /home/ubuntu ****
-==> amazon-ebs: Creating AMI jenkins-ami-61 from instance i-0016080f807fa94ad
-    amazon-ebs: AMI: ami-0625c8e96fb66fc4b
+    amazon-ebs: **** Cleaning up /home/ubuntu on AMI ****
+==> amazon-ebs: Creating AMI jenkins-ami-62 from instance i-028b8470970155377
+    amazon-ebs: AMI: ami-0d31244ace306cf78
 ==> amazon-ebs: Waiting for AMI to become ready...
 ==> amazon-ebs: Skipping Enable AMI deprecation...
-==> amazon-ebs: Modifying attributes on AMI (ami-0625c8e96fb66fc4b)...
+==> amazon-ebs: Modifying attributes on AMI (ami-0d31244ace306cf78)...
     amazon-ebs: Modifying: users
-==> amazon-ebs: Modifying attributes on snapshot (snap-0eeb856c868ca750a)...
+==> amazon-ebs: Modifying attributes on snapshot (snap-07d249ee98f33382d)...
     amazon-ebs: Modifying: users
-==> amazon-ebs: Adding tags to AMI (ami-0625c8e96fb66fc4b)...
-==> amazon-ebs: Tagging snapshot: snap-0eeb856c868ca750a
+==> amazon-ebs: Adding tags to AMI (ami-0d31244ace306cf78)...
+==> amazon-ebs: Tagging snapshot: snap-07d249ee98f33382d
 ==> amazon-ebs: Creating AMI tags
-    amazon-ebs: Adding tag: "Name": "jenkins-ami-61"
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-62"
 ==> amazon-ebs: Creating snapshot tags
 ==> amazon-ebs: Terminating the source AWS instance...
 ==> amazon-ebs: Cleaning up any extra volumes...
 ==> amazon-ebs: No volumes to clean up, skipping
 ==> amazon-ebs: Deleting temporary keypair...
-Build 'amazon-ebs' finished after 13 minutes 25 seconds.
+Build 'amazon-ebs' finished after 12 minutes 58 seconds.
 
-==> Wait completed after 13 minutes 25 seconds
+==> Wait completed after 12 minutes 58 seconds
 
 ==> Builds finished. The artifacts of successful builds are:
 --> amazon-ebs: AMIs were created:
-us-east-1: ami-0625c8e96fb66fc4b
+us-east-1: ami-0d31244ace306cf78
 
