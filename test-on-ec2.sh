@@ -25,11 +25,11 @@ fi
 # Build scripts to test (in order)
 SCRIPTS=(
     "scripts/install_puppet.sh"
-    "scripts/jenkins.sh"
+    "scripts/ecs.sh"
 )
 
 # Read the template file to get the source AMI filters
-TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
+TEMPLATE_FILE="${SCRIPT_DIR}/templates/ecs.json"
 if [ ! -f "$TEMPLATE_FILE" ]; then
     echo "ERROR: $TEMPLATE_FILE not found"
     exit 1
