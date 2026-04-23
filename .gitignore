@@ -4,3 +4,5 @@ secrets.json
 .vagrant
 *console.log
 .idea/
+*.env
+/test-output.log
