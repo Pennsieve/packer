@@ -26,18 +26,16 @@ determine the base AMI and runs provided build scripts to test the build.
 
 To test a build script:
 
+You will need to be on the VPN and have a ssh key in the CC account.
+
 Copy `test.env.example` to `test.env` and update `test.env` with real values.
 
-Update the `test-on-ec2.sh` to point to the template and scripts you want to test. The following example will
-test a Jenkins build:
+Update `test-on-ec2.sh` to point to the template and scripts you want to test by editing the `BUILD_TYPE` variable in 
+the script to be either `"ecs"` or `"jenkins"`:
 
 ``` 
 ...
-  SCRIPTS=(
-    "scripts/install_puppet.sh"
-    "scripts/jenkins.sh"
-  )
-  TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
+ BUILD_TYPE="ecs"
 ...
 ```
 
