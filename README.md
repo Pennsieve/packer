@@ -19,13 +19,29 @@
 
 ## Testing Builds
 
-Requirement: vagrant
+Requirement: AWS CLI v2 and jq
 
-To test a buid script, update the `Vagrantfile` to point to the script you want to test. The following example will test a Jenkins build:
+The test script `test-on-ec2.sh` creates a new EC2 instance in the pennsieve-cc account using a provided template to
+determine the base AMI and runs provided build scripts to test the build.
+
+To test a build script:
+
+You will need to be on the VPN and have a ssh key in the CC account.
+
+Copy `test.env.example` to `test.env` and update `test.env` with real values.
+
+Update `test-on-ec2.sh` to point to the template and scripts you want to test by editing the `BUILD_TYPE` variable in 
+the script to be either `"ecs"` or `"jenkins"`:
 
 ``` 
 ...
-  config.vm.provision "shell", path: "scripts/install_puppet.sh"
-  config.vm.provision "shell", path: "scripts/jenkins.sh"
+ BUILD_TYPE="ecs"
 ...
 ```
+
+Then run `test-on-ec2.sh` to build and example instance and examine the console output. The output is also written to
+`test-output.log`. The test script takes care of terminating the test instance.
+
+Run `test-on-ec2.sh --keep` to keep the instance running after the script exits. You are then responsible for
+terminating the instance. You can ssh into the instance to look around using the `ssh` command output by the test
+script. 

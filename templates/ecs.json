@@ -42,7 +42,7 @@
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
-          "name": "amzn-ami-*.*.*-amazon-ecs-optimized",
+          "name": "al2023-ami-ecs-hvm-*-x86_64",
           "root-device-type": "ebs"
         },
         "owners": ["591542846629"],
