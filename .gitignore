@@ -5,5 +5,4 @@ secrets.json
 *console.log
 .idea/
 *.env
-
 /test-output.log

@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="${SCRIPT_DIR}/test.env"
+BUILD_TYPE="ecs"
 
 # Load config from .env file
 if [ -f "$ENV_FILE" ]; then
@@ -17,7 +18,7 @@ KEY_NAME="your-key-name"
 KEY_PATH="~/.ssh/your-key.pem"
 SECURITY_GROUP="sg-xxxxxxxx"
 SUBNET_ID="subnet-xxxxxxxx"
-SSH_USER="ubuntu"
+SSH_USER="xxxx"
 EOF
     exit 1
 fi
@@ -25,11 +26,11 @@ fi
 # Build scripts to test (in order)
 SCRIPTS=(
     "scripts/install_puppet.sh"
-    "scripts/jenkins.sh"
+    "scripts/${BUILD_TYPE}.sh"
 )
 
 # Read the template file to get the source AMI filters
-TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
+TEMPLATE_FILE="${SCRIPT_DIR}/templates/${BUILD_TYPE}.json"
 if [ ! -f "$TEMPLATE_FILE" ]; then
     echo "ERROR: $TEMPLATE_FILE not found"
     exit 1

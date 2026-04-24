@@ -2,13 +2,11 @@
 
 ## How to use this repo
 
-[Packer](https://www.packer.io/intro/index.html) allows you to build Amazon Machine Images (AMI) in a reproducible
-fashion. By commiting the `packer-output.log` and creating a tag, we can track and audit the software in our AMIs.
+[Packer](https://www.packer.io/intro/index.html) allows you to build Amazon Machine Images (AMI) in a reproducible fashion. By commiting the `packer-output.log` and creating a tag, we can track and audit the software in our AMIs. 
 
 ### Repository Breakdown
 
-- `create_ami.sh` script - pass in the type of AMI you want to build. Run without any options to view the supported
-  build types
+- `create_ami.sh` script - pass in the type of AMI you want to build. Run without any options to view the supported build types
 - `templates` directory - contains `json` files that Packer uses to create AMIs for ecs, jenkins, etc
 - `scripts` directory - contains the scripts that will be run on the EC2 instance during a specific build
 
@@ -28,18 +26,16 @@ determine the base AMI and runs provided build scripts to test the build.
 
 To test a build script:
 
+You will need to be on the VPN and have a ssh key in the CC account.
+
 Copy `test.env.example` to `test.env` and update `test.env` with real values.
 
-Update the `test-on-ec2.sh` to point to the template and scripts you want to test. The following example will
-test a Jenkins build:
+Update `test-on-ec2.sh` to point to the template and scripts you want to test by editing the `BUILD_TYPE` variable in 
+the script to be either `"ecs"` or `"jenkins"`:
 
 ``` 
 ...
-  SCRIPTS=(
-    "scripts/install_puppet.sh"
-    "scripts/jenkins.sh"
-  )
-  TEMPLATE_FILE="${SCRIPT_DIR}/templates/jenkins.json"
+ BUILD_TYPE="ecs"
 ...
 ```
 
@@ -49,4 +45,3 @@ Then run `test-on-ec2.sh` to build and example instance and examine the console 
 Run `test-on-ec2.sh --keep` to keep the instance running after the script exits. You are then responsible for
 terminating the instance. You can ssh into the instance to look around using the `ssh` command output by the test
 script. 
-
