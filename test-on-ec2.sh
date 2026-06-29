@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="${SCRIPT_DIR}/test.env"
-BUILD_TYPE="ecs"
+BUILD_TYPE="jenkins"
 
 # Load config from .env file
 if [ -f "$ENV_FILE" ]; then

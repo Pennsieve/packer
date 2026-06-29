@@ -95,7 +95,7 @@ install_puppet_modules() {
   puppet module install -i ./modules puppetlabs-docker --version 9.1.0
   puppet module install -i ./modules puppetlabs-java --version 10.1.2
   puppet module install -i ./modules puppet-python --version 7.0.0
-  puppet module install -i ./modules treydock-golang --version 2.3.0 --ignore-dependencies
+  puppet module install -i ./modules treydock-golang --version 4.0.0
 
   set +e
   echo "**** Completed Installing Puppet Modules ****"
@@ -117,7 +117,7 @@ class { 'docker::compose':
 }
 
 class { 'golang':
-  version => '1.21.5',
+  version => '1.25.11',
 }
 
 class { 'java':
