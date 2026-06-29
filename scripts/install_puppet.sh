@@ -16,8 +16,11 @@ ubuntu_puppet_install() {
   wget https://apt.puppetlabs.com/${repo_package}.deb
   apt-get install -y ./${repo_package}.deb
 
-  apt-get update -y
-  apt-get install -y puppet-agent
+  # apt-daily / unattended-upgrades can run a concurrent `apt-get update` on a
+  # fresh boot and rewrite /var/lib/apt/lists out from under us. Retrying the
+  # update+install together rebuilds the lists and recovers.
+  retry_rpm_cmd "puppet-agent install" \
+    bash -c 'apt-get update -y && apt-get install -y puppet-agent'
 }
 
 ## Getting intermittent yum errors when some other process had a lock on the RPM database.

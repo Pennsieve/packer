@@ -136,7 +136,7 @@ $aptpackages = [ 'git', 'apache2-utils', 'bc', 'build-essential', 'cmake', 'dos2
 
 package { $aptpackages:ensure => 'installed' }
 
-ensure_packages([ 'awscli', 'boto3', 'cython', 'twine', 'requests' ], {
+ensure_packages([ 'awscli', 'boto3', 'cython', 'twine' ], {
   ensure   => present,
   provider => 'pip',
   require  => Class['python'],
