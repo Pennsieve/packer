@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 PATH="$PATH:/opt/puppetlabs/bin"
-export GOPATH="/usr/lib/go-1.8/bin/"
 
 NODE_VERSIONS=(18.17.1)
 
@@ -137,17 +136,11 @@ $aptpackages = [ 'git', 'apache2-utils', 'bc', 'build-essential', 'cmake', 'dos2
 
 package { $aptpackages:ensure => 'installed' }
 
-ensure_packages([ 'awscli', 'boto3', 'cython', 'twine' ], {
+ensure_packages([ 'awscli', 'boto3', 'cython', 'twine', 'requests' ], {
   ensure   => present,
   provider => 'pip',
   require  => Class['python'],
 })
-
-file { '/etc/profile.d/go_path.sh':
-  ensure  => 'present',
-  content => 'export "PATH=$PATH:/usr/lib/go-1.8/bin/:/usr/lib/go-1.8/bin/bin/"',
-  mode    => '0644',
-}
 
 EOF
 }

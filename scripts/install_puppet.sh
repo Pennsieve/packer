@@ -7,11 +7,14 @@ ubuntu_puppet_install() {
   ubuntu_release="$(lsb_release -c | awk '{print $2}')"
   repo_package="puppet${PUPPET_VERSION}-release-${ubuntu_release}"
 
+  # Wait for the dpkg/apt lock instead of failing if a boot-time job
+  # (unattended-upgrades, cloud-init) is mid-transaction.
+  echo 'DPKG::Lock::Timeout "120";' > /etc/apt/apt.conf.d/99lock-timeout
+
   echo -e "*********\n\n\tInstalling Puppet ${PUPPET_VERSION}\n\n*********"
   echo "**** Starting Puppet Install ****"
   wget https://apt.puppetlabs.com/${repo_package}.deb
-  dpkg -i ${repo_package}.deb
-  rm ${repo_package}.deb
+  apt-get install -y ./${repo_package}.deb
 
   apt-get update -y
   apt-get install -y puppet-agent
