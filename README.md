@@ -10,6 +10,9 @@
 - `templates` directory - contains `json` files that Packer uses to create AMIs for ecs, jenkins, etc
 - `scripts` directory - contains the scripts that will be run on the EC2 instance during a specific build
 
+It seems like `ecs` builds require a different `subnet_id` in `templates/variables.json` than `jenkins` builds. See PR history
+to get working examples.
+
 ### Example: Build a New ECS AMI
 
 1. [Download Packer](https://www.packer.io/downloads.html)

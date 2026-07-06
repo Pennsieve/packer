@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
 PATH="$PATH:/opt/puppetlabs/bin"
-export GOPATH="/usr/lib/go-1.8/bin/"
+
+NODE_VERSIONS=(18.17.1)
 
 config_aws () {
   echo -e "\n\n**** Configure AWS ****"
@@ -19,7 +20,7 @@ EOF
 region = us-east-1
 EOF
 
-  chown ubuntu:ubuntu /home/ubuntu/.aws/config
+  chown -R ubuntu:ubuntu /home/ubuntu/.aws
 }
 
 install_terraform() {
@@ -47,81 +48,41 @@ install_terraform() {
 
 }
 
-install_nodejs() {
-  echo -e "\n\n**** Installing Node.js ****"
-#  cd $HOME
-#  curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
-#  sudo apt update
-#  sudo apt -y install nodejs
-  export -f install_nvm
-  su ubuntu -c "bash -c install_nvm"
-
-}
-
 install_nvm() {
-  echo -e "\n\n**** Installing NVM in ubuntu user ****"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  echo -e "\n\n**** Installing NVM and Node versions in ubuntu user ****"
 
-  {
-    echo 'export NVM_DIR="$HOME/.nvm"'
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-  } >> "${HOME}"/.profile
+  local versions="${NODE_VERSIONS[*]}"
 
-  {
-      echo 'export NVM_DIR="$HOME/.nvm"'
-      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-      echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-    } >> "${HOME}"/.profile
+  sudo -Hu ubuntu bash << EOSU
+    cd \$HOME
 
-  nvm install 14.21.1
-  npm install -g yarn
-  npm install -g newman
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+    export NVM_DIR="\$HOME/.nvm"
+    [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" # This loads nvm
 
-  nvm install 18.17.1
-  npm install -g yarn
-  npm install -g newman
+    {
+      echo 'export NVM_DIR="\$HOME/.nvm"'
+      echo '[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"'
+      echo '[ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion"'
+    } >> "\${HOME}"/.profile
 
+    for version in $versions; do
+          echo "Installing Node \$version to \$NVM_DIR ..."
+          nvm install \$version
+    done
 
-}
+EOSU
 
-install_yarn() {
-  echo -e "\n\n**** Installing Yarn ****"
-  cd $HOME
-  nvm use 18.17.1
-  npm install -g yarn
-
-  nvm use 14.21.1
-  npm install -g yarn
-}
-
-install_newman() {
-  echo -e "\n\n**** Installing NewMan ****"
-  cd $HOME
-  nvm use 18.17.1
-  npm install -g newman
-
-  nvm use 14.21.1
-  npm install -g newman
 }
 
 install_sbt() {
-  sbt_version=1.2.8
+  sbt_version=1.11.7
 
   echo -e "\n\n**** Installing sbt $sbt_version ****"
   cd $HOME
   curl -fsSL "https://github.com/sbt/sbt/releases/download/v$sbt_version/sbt-$sbt_version.tgz" | tar zx && \
   mv sbt /usr/local/share
   ln -s /usr/local/share/sbt/bin/sbt /usr/local/bin/sbt
-
-  sbt sbtVersion
-}
-
-install_java() {
-  sudo apt-get update
-  sudo apt-get install openjdk-8-jdk
 }
 
 install_puppet_modules() {
@@ -133,7 +94,7 @@ install_puppet_modules() {
   puppet module install -i ./modules puppetlabs-docker --version 9.1.0
   puppet module install -i ./modules puppetlabs-java --version 10.1.2
   puppet module install -i ./modules puppet-python --version 7.0.0
-  puppet module install -i ./modules treydock-golang --version 2.3.0 --ignore-dependencies
+  puppet module install -i ./modules treydock-golang --version 4.0.0
 
   set +e
   echo "**** Completed Installing Puppet Modules ****"
@@ -155,7 +116,7 @@ class { 'docker::compose':
 }
 
 class { 'golang':
-  version => '1.21.5',
+  version => '1.25.11',
 }
 
 class { 'java':
@@ -163,7 +124,7 @@ class { 'java':
 }
 
 class { 'python' :
-  version    => 'system',
+  version    => 'python3',
   pip        => 'present',
   dev        => 'absent',
   gunicorn   => 'absent',
@@ -181,12 +142,6 @@ ensure_packages([ 'awscli', 'boto3', 'cython', 'twine' ], {
   require  => Class['python'],
 })
 
-file { '/etc/profile.d/go_path.sh':
-  ensure  => 'present',
-  content => 'export "PATH=$PATH:/usr/lib/go-1.8/bin/:/usr/lib/go-1.8/bin/bin/"',
-  mode    => '0644',
-}
-
 EOF
 }
 
@@ -202,12 +157,27 @@ puppet_apply() {
 }
 
 clean_up() {
-  echo -e "\n\n**** Cleaning up AMI ****"
+  echo -e "\n\n**** Cleaning up $HOME on AMI ****"
   cd $HOME
-  chown -R ubuntu:ubuntu $HOME/.* || true
-  chown -R ubuntu:ubuntu $HOME/*  || true
-  rm -rf project modules || true
-  rm local_manifest.pp || true
+  rm -rf local_manifest.pp modules || true
+  chown -R ubuntu:ubuntu /home/ubuntu || true
+}
+
+get_nvm_versions() {
+  local versions="${NODE_VERSIONS[*]}"
+
+  sudo -Hu ubuntu bash << EOSU
+    cd \$HOME
+    export NVM_DIR="\$HOME/.nvm"
+    [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
+
+    for version in $versions; do
+      nvm use \$version > /dev/null
+      echo "Node \$(node -v)"
+    done
+
+    echo "Default: \$(nvm alias default | awk '{print \$3}')"
+EOSU
 }
 
 get_versions() {
@@ -223,22 +193,17 @@ get_versions() {
   docker-compose --version
 
   echo -e "\n******* Node and node modules version information *******"
-  sudo -u ubuntu echo "Node version $(node -v)"
-
-  echo -e "\n******* Packer version information *******"
-  packer version
+  get_nvm_versions
 
   echo -e "\n******* sbt version information *******"
-  sbt sbtVersion
+  # warms the sbt cache a little for the ubuntu user
+  sudo -Hu ubuntu bash -c 'cd /tmp && sbt --allow-empty sbtVersion'
 
   echo -e "\n******* Terraform version information *******"
   terraform version
 
   echo -e "\n******* Twine version information *******"
   twine --version
-
-  echo -e "\n******* Yarn version information *******"
-  yarn -v
 
   echo -e "\n******* Golang version information *******"
   go version
@@ -248,11 +213,13 @@ get_versions() {
 [ "$(whoami)" = root ]     || { echo "Please run this script as root" && exit 1; }
 [ ! -z "$(which puppet)" ] || { echo "Installing Puppet" && install_puppet; }
 
+# The running user is root, but packer runs this script using sudo -E which preserves the ssh user's (ubuntu in this case) environment.
+# So in particular, $HOME will be /home/ubuntu, not /root
 cd $HOME
 config_aws
 create_manifest
 install_puppet_modules
-install_nodejs
+install_nvm
 install_terraform
 puppet_apply
 install_sbt

@@ -1,170 +1,767 @@
+Warning: Warning when preparing build: "amazon-ebs"
+
+spot_price_auto_product is deprecated and no longer necessary for Packer builds.
+In future versions of Packer, inclusion of spot_price_auto_product will error
+your builds. Please take a look at our current documentation to understand how
+Packer requests Spot instances.
+
+
 ==> amazon-ebs: Prevalidating any provided VPC information
-==> amazon-ebs: Prevalidating AMI Name: ecs-ami-3
-    amazon-ebs: Found Image ID: ami-0102a36b3e9d5e4df
-==> amazon-ebs: Creating temporary keypair: packer_69ebc50f-beae-5451-8672-72e1f50789af
-==> amazon-ebs: Launching a source AWS instance...
-    amazon-ebs: Adding tag: "Name": "ecs-ami-3-packer-build"
-    amazon-ebs: Adding tag: "name": "ecs-ami-3-packer-build"
-    amazon-ebs: Adding tag: "service_name": "packer"
+==> amazon-ebs: Prevalidating AMI Name: jenkins-ami-63
+    amazon-ebs: Found Image ID: ami-070f933cecb5cf502
+==> amazon-ebs: Creating temporary keypair: packer_6a43f495-4195-e021-0dff-8a4d72861273
+==> amazon-ebs: Launching a spot AWS instance...
+==> amazon-ebs: Interpolating tags for spot instance...
     amazon-ebs: Adding tag: "tier": "builder"
     amazon-ebs: Adding tag: "environment_name": "ops"
-==> amazon-ebs: changing public IP address config to false for instance on subnet "subnet-0ea803f251fd18c64"
-    amazon-ebs: Instance ID: i-04bad54b96e532e2f
-==> amazon-ebs: Waiting for instance (i-04bad54b96e532e2f) to become ready...
-==> amazon-ebs: Using SSH communicator to connect: 10.1.1.18
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-63-packer-build"
+    amazon-ebs: Adding tag: "name": "jenkins-ami-63-packer-build"
+    amazon-ebs: Adding tag: "service_name": "packer"
+    amazon-ebs: Loading User Data File...
+    amazon-ebs: Creating Spot Fleet launch template...
+==> amazon-ebs: changing public IP address config to true for instance on subnet "subnet-034de2f66c9701817"
+    amazon-ebs: Created Spot Fleet launch template: lt-04b198b636975cc62
+    amazon-ebs: Instance ID: i-03f56959ecc77abcd
+==> amazon-ebs: Waiting for instance (i-03f56959ecc77abcd) to become ready...
+==> amazon-ebs: Using SSH communicator to connect: 44.201.245.160
 ==> amazon-ebs: Waiting for SSH to become available...
 ==> amazon-ebs: Connected to SSH!
 ==> amazon-ebs: Provisioning with shell script: scripts/install_puppet.sh
-    amazon-ebs: which: no puppet in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/snapd/snap/bin:/opt/puppetlabs/bin)
     amazon-ebs: *********
     amazon-ebs:
     amazon-ebs: 	Installing Puppet 8
     amazon-ebs:
     amazon-ebs: *********
-    amazon-ebs: root        2164  0.0  0.0   2672  1024 ?        S    19:32   0:00 timeout 30s /usr/bin/dnf --debuglevel 2 updateinfo
-    amazon-ebs: root        2166 23.3  0.3 453612 56336 ?        R    19:32   0:00 /usr/bin/python3 /usr/bin/dnf --debuglevel 2 updateinfo
-    amazon-ebs: root        2316  0.0  0.0 222312  2128 pts/1    S+   19:32   0:00 grep -E yum|dnf|rpm
-    amazon-ebs: Retrieving https://yum.puppet.com/puppet8/amazon/2023/x86_64/puppet8-release-1.0.0-9.amazon2023.noarch.rpm
-    amazon-ebs: warning: /var/tmp/rpm-tmp.H67cZT: Header V4 RSA/SHA512 Signature, key ID 9e61ef26: NOKEY
-    amazon-ebs: Verifying...                                                            (100%)#                                 (100%)##                                (100%)###                               (100%)####                              (100%)#####                             (100%)######                            (100%)#######                           (100%)########                          (100%)#########                         (100%)##########                        (100%)###########                       (100%)############                      (100%)#############                     (100%)##############                    (100%)###############                   (100%)################                  (100%)#################                 (100%)##################                (100%)###################               (100%)####################              (100%)#####################             (100%)######################            (100%)#######################           (100%)########################          (100%)#########################         (100%)##########################        (100%)###########################       (100%)############################      (100%)#############################     (100%)##############################    (100%)###############################   (100%)################################  (100%)################################# (100%)################################# [100%]
-    amazon-ebs: Preparing...                                                            (100%)#                                 (100%)##                                (100%)###                               (100%)####                              (100%)#####                             (100%)######                            (100%)#######                           (100%)########                          (100%)#########                         (100%)##########                        (100%)###########                       (100%)############                      (100%)#############                     (100%)##############                    (100%)###############                   (100%)################                  (100%)#################                 (100%)##################                (100%)###################               (100%)####################              (100%)#####################             (100%)######################            (100%)#######################           (100%)########################          (100%)#########################         (100%)##########################        (100%)###########################       (100%)############################      (100%)#############################     (100%)##############################    (100%)###############################   (100%)################################  (100%)################################# (100%)################################# [100%]
-    amazon-ebs: Updating / installing...
-    amazon-ebs:    1:puppet8-release-1.0.0-9.amazon202                                  ( 79%)#                                 ( 79%)##                                ( 79%)###                               ( 79%)####                              ( 79%)#####                             ( 79%)######                            ( 79%)#######                           ( 79%)########                          ( 79%)#########                         ( 79%)##########                        ( 79%)###########                       ( 79%)############                      ( 79%)#############                     ( 79%)##############                    ( 79%)###############                   ( 79%)################                  ( 79%)#################                 ( 79%)##################                ( 79%)###################               ( 79%)####################              ( 79%)#####################             ( 79%)######################            ( 79%)#######################           ( 79%)########################          ( 79%)#########################         ( 79%)##########################        ( 79%)###########################       ( 95%)############################      ( 95%)#############################     ( 95%)##############################    ( 95%)###############################   ( 95%)################################  (100%)################################# (100%)################################# [100%]
-    amazon-ebs: Waiting for process with pid 2166 to finish.
-    amazon-ebs: Amazon Linux 2023 Kernel Livepatch repository   151 kB/s |  31 kB     00:00
-    amazon-ebs: Puppet 8 Repository amazon 2023 - x86_64        1.7 MB/s | 596 kB     00:00
-    amazon-ebs: Dependencies resolved.
-    amazon-ebs: ================================================================================
-    amazon-ebs:  Package            Architecture Version                    Repository     Size
-    amazon-ebs: ================================================================================
-    amazon-ebs: Installing:
-    amazon-ebs:  [1m[32mpuppet-agent      (B[m x86_64       8.10.0-1.amazon2023        puppet8        25 M
+    amazon-ebs: **** Starting Puppet Install ****
+    amazon-ebs: --2026-06-30 16:54:23--  https://apt.puppetlabs.com/puppet8-release-jammy.deb
+    amazon-ebs: Resolving apt.puppetlabs.com (apt.puppetlabs.com)... 13.226.238.84, 13.226.238.59, 13.226.238.57, ...
+    amazon-ebs: Connecting to apt.puppetlabs.com (apt.puppetlabs.com)|13.226.238.84|:443... connected.
+    amazon-ebs: HTTP request sent, awaiting response... 200 OK
+    amazon-ebs: Length: 3786 (3.7K) [application/vnd.debian.binary-package]
+    amazon-ebs: Saving to: â€˜puppet8-release-jammy.debâ€™
     amazon-ebs:
-    amazon-ebs: Transaction Summary
-    amazon-ebs: ================================================================================
-    amazon-ebs: Install  1 Package
+    amazon-ebs: puppet8-release-jam 100%[===================>]   3.70K  --.-KB/s    in 0s
     amazon-ebs:
-    amazon-ebs: Total download size: 25 M
-    amazon-ebs: Installed size: 115 M
-    amazon-ebs: Downloading Packages:
-    amazon-ebs: puppet-agent-8.10.0-1.amazon2023.x86_64.rpm      70 MB/s |  25 MB     00:00
-    amazon-ebs: --------------------------------------------------------------------------------
-    amazon-ebs: Total                                            69 MB/s |  25 MB     00:00
-    amazon-ebs: Puppet 8 Repository amazon 2023 - x86_64        1.6 MB/s | 1.7 kB     00:00
-    amazon-ebs: Importing GPG key 0x9E61EF26:
-    amazon-ebs:  Userid     : "Puppet, Inc. Release Key (Puppet, Inc. Release Key) <release@puppet.com>"
-    amazon-ebs:  Fingerprint: D681 1ED3 ADEE B844 1AF5 AA8F 4528 B6CD 9E61 EF26
-    amazon-ebs:  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-2025-04-06-puppet8-release
-    amazon-ebs: warning: waiting for transaction lock on /var/lib/rpm/.rpm.lock
-    amazon-ebs: Key imported successfully
-    amazon-ebs: Running transaction check
-    amazon-ebs: Transaction check succeeded.
-    amazon-ebs: Running transaction test
-    amazon-ebs: Transaction test succeeded.
-    amazon-ebs: Running transaction
-    amazon-ebs:   Preparing        :                                                        1/1
-    amazon-ebs:   Running scriptlet: puppet-agent-8.10.0-1.amazon2023.x86_64                1/1
-    amazon-ebs:   Installing       : puppet-agent-8.10.0-1.amazon2023.x86_64                1/1
-    amazon-ebs:   Running scriptlet: puppet-agent-8.10.0-1.amazon2023.x86_64                1/1
-    amazon-ebs:   Verifying        : puppet-agent-8.10.0-1.amazon2023.x86_64                1/1
+    amazon-ebs: 2026-06-30 16:54:23 (520 MB/s) - â€˜puppet8-release-jammy.debâ€™ saved [3786/3786]
     amazon-ebs:
-    amazon-ebs: Installed:
-    amazon-ebs:   puppet-agent-8.10.0-1.amazon2023.x86_64
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree... Done
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: Note, selecting 'puppet8-release' instead of './puppet8-release-jammy.deb'
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   puppet8-release
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+    amazon-ebs: Need to get 0 B/3786 B of archives.
+    amazon-ebs: After this operation, 2048 B of additional disk space will be used.
+    amazon-ebs: Get:1 /home/ubuntu/puppet8-release-jammy.deb puppet8-release all 1.0.0-10jammy [3786 B]
+    amazon-ebs: debconf: delaying package configuration, since apt-utils is not installed
+    amazon-ebs: Selecting previously unselected package puppet8-release.
+    amazon-ebs: (Reading database ... 52083 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../puppet8-release-jammy.deb ...
+    amazon-ebs: Unpacking puppet8-release (1.0.0-10jammy) ...
+    amazon-ebs: Setting up puppet8-release (1.0.0-10jammy) ...
+    amazon-ebs: debconf: unable to initialize frontend: Dialog
+    amazon-ebs: debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78.)
+    amazon-ebs: debconf: falling back to frontend: Readline
+    amazon-ebs: Scanning processes...
+    amazon-ebs: Scanning linux images...
     amazon-ebs:
-    amazon-ebs: Complete!
-==> amazon-ebs: Provisioning with shell script: scripts/ecs.sh
-    amazon-ebs: *********
+    amazon-ebs: Running kernel seems to be up-to-date.
     amazon-ebs:
-    amazon-ebs: 	Verifying pre-installed tools
+    amazon-ebs: No services need to be restarted.
     amazon-ebs:
-    amazon-ebs: *********
-    amazon-ebs: jq: jq-1.7.1 (/usr/bin/jq)
-    amazon-ebs: aws: aws-cli/2.33.15 Python/3.9.25 Linux/6.1.166-197.305.amzn2023.x86_64 source/x86_64.amzn.2023 (/usr/bin/aws)
-    amazon-ebs: Creating AWS CLI config file.
+    amazon-ebs: No containers need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No user sessions are running outdated binaries.
+    amazon-ebs:
+    amazon-ebs: No VM guests are running outdated hypervisor (qemu) binaries on this host.
+    amazon-ebs: N: Download is performed unsandboxed as root as file '/home/ubuntu/puppet8-release-jammy.deb' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)
+    amazon-ebs: Get:1 http://apt.puppet.com jammy InRelease [113 kB]
+    amazon-ebs: Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+    amazon-ebs: Get:3 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+    amazon-ebs: Hit:4 https://esm.ubuntu.com/apps/ubuntu jammy-apps-security InRelease
+    amazon-ebs: Hit:5 https://esm.ubuntu.com/infra/ubuntu jammy-infra-security InRelease
+    amazon-ebs: Get:6 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+    amazon-ebs: Get:7 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+    amazon-ebs: Get:8 http://ppa.launchpad.net/cloud-images/eks-01.11.0/ubuntu jammy InRelease [18.1 kB]
+    amazon-ebs: Get:9 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3327 kB]
+    amazon-ebs: Get:10 http://apt.puppet.com jammy/puppet8 all Packages [9208 B]
+    amazon-ebs: Get:11 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [471 kB]
+    amazon-ebs: Get:12 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [5925 kB]
+    amazon-ebs: Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1395 kB]
+    amazon-ebs: Get:14 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [1131 kB]
+    amazon-ebs: Get:15 http://apt.puppet.com jammy/puppet8 amd64 Packages [14.8 kB]
+    amazon-ebs: Get:16 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1041 kB]
+    amazon-ebs: Get:17 http://archive.ubuntu.com/ubuntu jammy/main Translation-en [510 kB]
+    amazon-ebs: Get:18 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [129 kB]
+    amazon-ebs: Get:19 http://archive.ubuntu.com/ubuntu jammy/restricted Translation-en [18.6 kB]
+    amazon-ebs: Get:20 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [232 kB]
+    amazon-ebs: Get:21 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+    amazon-ebs: Get:22 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [64.3 kB]
+    amazon-ebs: Get:23 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [12.6 kB]
+    amazon-ebs: Get:24 http://archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+    amazon-ebs: Get:25 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+    amazon-ebs: Get:26 http://archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+    amazon-ebs: Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3596 kB]
+    amazon-ebs: Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [540 kB]
+    amazon-ebs: Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6144 kB]
+    amazon-ebs: Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [1171 kB]
+    amazon-ebs: Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1277 kB]
+    amazon-ebs: Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [320 kB]
+    amazon-ebs: Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [71.6 kB]
+    amazon-ebs: Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [15.5 kB]
+    amazon-ebs: Get:35 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [70.2 kB]
+    amazon-ebs: Get:36 http://archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.4 kB]
+    amazon-ebs: Get:37 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [30.8 kB]
+    amazon-ebs: Get:38 http://archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.9 kB]
+    amazon-ebs: Get:39 http://ppa.launchpad.net/cloud-images/eks-01.11.0/ubuntu jammy/main amd64 Packages [828 B]
+    amazon-ebs: Get:40 http://ppa.launchpad.net/cloud-images/eks-01.11.0/ubuntu jammy/main Translation-en [536 B]
+    amazon-ebs: Fetched 48.4 MB in 8s (5938 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree... Done
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   puppet-agent
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+    amazon-ebs: Need to get 36.0 MB of archives.
+    amazon-ebs: After this operation, 125 MB of additional disk space will be used.
+    amazon-ebs: Get:1 http://apt.puppet.com jammy/puppet8 amd64 puppet-agent amd64 8.10.0-1jammy [36.0 MB]
+    amazon-ebs: Fetched 36.0 MB in 0s (85.1 MB/s)
+    amazon-ebs: debconf: delaying package configuration, since apt-utils is not installed
+    amazon-ebs: Selecting previously unselected package puppet-agent.
+    amazon-ebs: (Reading database ... 52088 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../puppet-agent_8.10.0-1jammy_amd64.deb ...
+    amazon-ebs: Unpacking puppet-agent (8.10.0-1jammy) ...
+    amazon-ebs: Setting up puppet-agent (8.10.0-1jammy) ...
+    amazon-ebs: Created symlink /etc/systemd/system/multi-user.target.wants/pxp-agent.service â†’ /lib/systemd/system/pxp-agent.service.
+    amazon-ebs: Created symlink /etc/systemd/system/multi-user.target.wants/puppet.service â†’ /lib/systemd/system/puppet.service.
+    amazon-ebs: Removed /etc/systemd/system/multi-user.target.wants/pxp-agent.service.
+    amazon-ebs: Processing triggers for libc-bin (2.35-0ubuntu3.13) ...
+    amazon-ebs: debconf: unable to initialize frontend: Dialog
+    amazon-ebs: debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78.)
+    amazon-ebs: debconf: falling back to frontend: Readline
+    amazon-ebs: Scanning processes...
+    amazon-ebs: Scanning linux images...
+    amazon-ebs:
+    amazon-ebs: Running kernel seems to be up-to-date.
+    amazon-ebs:
+    amazon-ebs: No services need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No containers need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No user sessions are running outdated binaries.
+    amazon-ebs:
+    amazon-ebs: No VM guests are running outdated hypervisor (qemu) binaries on this host.
+==> amazon-ebs: Provisioning with shell script: scripts/jenkins.sh
     amazon-ebs:
     amazon-ebs:
-    amazon-ebs: **** Software versions installed ****
-    amazon-ebs: Client:
-    amazon-ebs:  Version:           25.0.14
-    amazon-ebs:  API version:       1.44
-    amazon-ebs:  Go version:        go1.25.8 X:nodwarf5
-    amazon-ebs:  Git commit:        0bab007
-    amazon-ebs:  Built:             Tue Mar 24 00:00:00 2026
+    amazon-ebs: **** Configure AWS ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Creating puppet manifest ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Puppet Modules ****
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Created target directory /home/ubuntu/modules[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-apt ([0;36mv9.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppet-nodejs ([0;36mv10.0.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-docker ([0;36mv9.1.0[0m)
+    amazon-ebs:   â”œâ”€â”€ puppetlabs-apt ([0;36mv9.1.0[0m)
+    amazon-ebs:   â”œâ”€â”¬ puppetlabs-powershell ([0;36mv6.1.0[0m)
+    amazon-ebs:   â”‚ â””â”€â”€ puppetlabs-pwshlib ([0;36mv2.0.1[0m)
+    amazon-ebs:   â”œâ”€â”€ puppetlabs-reboot ([0;36mv5.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppetlabs-java ([0;36mv10.1.2[0m)
+    amazon-ebs:   â”œâ”€â”€ puppet-archive ([0;36mv7.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ puppet-python ([0;36mv7.0.0[0m)
+    amazon-ebs:   â”œâ”€â”€ puppet-epel ([0;36mv4.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: [mNotice: Preparing to install into /home/ubuntu/modules ...[0m
+    amazon-ebs: [mNotice: Downloading from https://forgeapi.puppet.com ...[0m
+    amazon-ebs: [mNotice: Installing -- do not interrupt ...[0m
+    amazon-ebs: /home/ubuntu/modules
+    amazon-ebs: â””â”€â”¬ treydock-golang ([0;36mv4.0.0[0m)
+    amazon-ebs:   â”œâ”€â”€ puppet-archive ([0;36mv7.1.0[0m)
+    amazon-ebs:   â””â”€â”€ puppetlabs-stdlib ([0;36mv9.7.0[0m)
+    amazon-ebs: **** Completed Installing Puppet Modules ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing NVM and Node versions in ubuntu user ****
+    amazon-ebs:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+    amazon-ebs:                                  Dload  Upload   Total   Spent    Left  Speed
+    amazon-ebs: 100 15916  100 15916    0     0   258k      0 --:--:-- --:--:-- --:--:--  263k
+    amazon-ebs: => Downloading nvm as script to '/home/ubuntu/.nvm'
+    amazon-ebs:
+    amazon-ebs: => Appending nvm source string to /home/ubuntu/.bashrc
+    amazon-ebs: => Appending bash_completion source string to /home/ubuntu/.bashrc
+    amazon-ebs: => Close and reopen your terminal to start using nvm or run the following to use it now:
+    amazon-ebs:
+    amazon-ebs: export NVM_DIR="$HOME/.nvm"
+    amazon-ebs: [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    amazon-ebs: [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    amazon-ebs: Installing Node 18.17.1 to /home/ubuntu/.nvm ...
+    amazon-ebs: Downloading and installing node v18.17.1...
+    amazon-ebs: Downloading https://nodejs.org/dist/v18.17.1/node-v18.17.1-linux-x64.tar.xz...
+    amazon-ebs: ######################################################################## 100.0%
+    amazon-ebs: Computing checksum with sha256sum
+    amazon-ebs: Checksums matched!
+    amazon-ebs: Now using node v18.17.1 (npm v9.6.7)
+    amazon-ebs: Creating default alias: [0;32mdefault[0m [0;90m->[0m [0;32m18.17.1[0m ([0;90m->[0m [0;32mv18.17.1[0m)
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing Terraform 1.1.5 ****
+    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+    amazon-ebs: Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
+    amazon-ebs: Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
+    amazon-ebs: Hit:4 http://apt.puppet.com jammy InRelease
+    amazon-ebs: Hit:5 http://security.ubuntu.com/ubuntu jammy-security InRelease
+    amazon-ebs: Hit:6 http://ppa.launchpad.net/cloud-images/eks-01.11.0/ubuntu jammy InRelease
+    amazon-ebs: Hit:7 https://esm.ubuntu.com/apps/ubuntu jammy-apps-security InRelease
+    amazon-ebs: Hit:8 https://esm.ubuntu.com/infra/ubuntu jammy-infra-security InRelease
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree... Done
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: gnupg is already the newest version (2.2.27-3ubuntu2.5).
+    amazon-ebs: The following additional packages will be installed:
+    amazon-ebs:   iso-codes libappstream4 libcurl3-gnutls libglib2.0-bin libgstreamer1.0-0
+    amazon-ebs:   libstemmer0d libxml2 libxmlb2 packagekit packagekit-tools policykit-1
+    amazon-ebs:   python3-software-properties
+    amazon-ebs: Suggested packages:
+    amazon-ebs:   isoquery gstreamer1.0-tools appstream
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   iso-codes libappstream4 libcurl3-gnutls libglib2.0-bin libgstreamer1.0-0
+    amazon-ebs:   libstemmer0d libxml2 libxmlb2 packagekit packagekit-tools policykit-1
+    amazon-ebs:   python3-software-properties software-properties-common
+    amazon-ebs: 0 upgraded, 13 newly installed, 0 to remove and 1 not upgraded.
+    amazon-ebs: Need to get 6515 kB of archives.
+    amazon-ebs: After this operation, 30.4 MB of additional disk space will be used.
+    amazon-ebs: Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main amd64 iso-codes all 4.9.0-1 [3459 kB]
+    amazon-ebs: Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.12 [765 kB]
+    amazon-ebs: Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.24 [285 kB]
+    amazon-ebs: Get:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main amd64 libstemmer0d amd64 2.2.0-1build1 [165 kB]
+    amazon-ebs: Get:5 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxmlb2 amd64 0.3.24-1~ubuntu0.22.04.1 [67.9 kB]
+    amazon-ebs: Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/main amd64 libappstream4 amd64 0.15.2-2 [192 kB]
+    amazon-ebs: Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 libglib2.0-bin amd64 2.72.4-0ubuntu2.9 [80.9 kB]
+    amazon-ebs: Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgstreamer1.0-0 amd64 1.20.3-0ubuntu1.1 [984 kB]
+    amazon-ebs: Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 policykit-1 amd64 0.105-33ubuntu0.1 [2438 B]
+    amazon-ebs: Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 packagekit amd64 1.2.5-2ubuntu3.1 [442 kB]
+    amazon-ebs: Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 packagekit-tools amd64 1.2.5-2ubuntu3.1 [28.8 kB]
+    amazon-ebs: Get:12 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-software-properties all 0.99.22.9 [28.8 kB]
+    amazon-ebs: Get:13 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 software-properties-common all 0.99.22.9 [14.1 kB]
+    amazon-ebs: Fetched 6515 kB in 0s (48.6 MB/s)
+    amazon-ebs: debconf: delaying package configuration, since apt-utils is not installed
+    amazon-ebs: Selecting previously unselected package iso-codes.
+    amazon-ebs: (Reading database ... 62937 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../00-iso-codes_4.9.0-1_all.deb ...
+    amazon-ebs: Unpacking iso-codes (4.9.0-1) ...
+    amazon-ebs: Selecting previously unselected package libxml2:amd64.
+    amazon-ebs: Preparing to unpack .../01-libxml2_2.9.13+dfsg-1ubuntu0.12_amd64.deb ...
+    amazon-ebs: Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.12) ...
+    amazon-ebs: Selecting previously unselected package libcurl3-gnutls:amd64.
+    amazon-ebs: Preparing to unpack .../02-libcurl3-gnutls_7.81.0-1ubuntu1.24_amd64.deb ...
+    amazon-ebs: Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.24) ...
+    amazon-ebs: Selecting previously unselected package libstemmer0d:amd64.
+    amazon-ebs: Preparing to unpack .../03-libstemmer0d_2.2.0-1build1_amd64.deb ...
+    amazon-ebs: Unpacking libstemmer0d:amd64 (2.2.0-1build1) ...
+    amazon-ebs: Selecting previously unselected package libxmlb2:amd64.
+    amazon-ebs: Preparing to unpack .../04-libxmlb2_0.3.24-1~ubuntu0.22.04.1_amd64.deb ...
+    amazon-ebs: Unpacking libxmlb2:amd64 (0.3.24-1~ubuntu0.22.04.1) ...
+    amazon-ebs: Selecting previously unselected package libappstream4:amd64.
+    amazon-ebs: Preparing to unpack .../05-libappstream4_0.15.2-2_amd64.deb ...
+    amazon-ebs: Unpacking libappstream4:amd64 (0.15.2-2) ...
+    amazon-ebs: Selecting previously unselected package libglib2.0-bin.
+    amazon-ebs: Preparing to unpack .../06-libglib2.0-bin_2.72.4-0ubuntu2.9_amd64.deb ...
+    amazon-ebs: Unpacking libglib2.0-bin (2.72.4-0ubuntu2.9) ...
+    amazon-ebs: Selecting previously unselected package libgstreamer1.0-0:amd64.
+    amazon-ebs: Preparing to unpack .../07-libgstreamer1.0-0_1.20.3-0ubuntu1.1_amd64.deb ...
+    amazon-ebs: Unpacking libgstreamer1.0-0:amd64 (1.20.3-0ubuntu1.1) ...
+    amazon-ebs: Selecting previously unselected package policykit-1.
+    amazon-ebs: Preparing to unpack .../08-policykit-1_0.105-33ubuntu0.1_amd64.deb ...
+    amazon-ebs: Unpacking policykit-1 (0.105-33ubuntu0.1) ...
+    amazon-ebs: Selecting previously unselected package packagekit.
+    amazon-ebs: Preparing to unpack .../09-packagekit_1.2.5-2ubuntu3.1_amd64.deb ...
+    amazon-ebs: Unpacking packagekit (1.2.5-2ubuntu3.1) ...
+    amazon-ebs: Selecting previously unselected package packagekit-tools.
+    amazon-ebs: Preparing to unpack .../10-packagekit-tools_1.2.5-2ubuntu3.1_amd64.deb ...
+    amazon-ebs: Unpacking packagekit-tools (1.2.5-2ubuntu3.1) ...
+    amazon-ebs: Selecting previously unselected package python3-software-properties.
+    amazon-ebs: Preparing to unpack .../11-python3-software-properties_0.99.22.9_all.deb ...
+    amazon-ebs: Unpacking python3-software-properties (0.99.22.9) ...
+    amazon-ebs: Selecting previously unselected package software-properties-common.
+    amazon-ebs: Preparing to unpack .../12-software-properties-common_0.99.22.9_all.deb ...
+    amazon-ebs: Unpacking software-properties-common (0.99.22.9) ...
+    amazon-ebs: Setting up libxmlb2:amd64 (0.3.24-1~ubuntu0.22.04.1) ...
+    amazon-ebs: Setting up libglib2.0-bin (2.72.4-0ubuntu2.9) ...
+    amazon-ebs: Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.24) ...
+    amazon-ebs: Setting up libstemmer0d:amd64 (2.2.0-1build1) ...
+    amazon-ebs: Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.12) ...
+    amazon-ebs: Setting up policykit-1 (0.105-33ubuntu0.1) ...
+    amazon-ebs: Setting up iso-codes (4.9.0-1) ...
+    amazon-ebs: Setting up libgstreamer1.0-0:amd64 (1.20.3-0ubuntu1.1) ...
+    amazon-ebs: Setcap worked! gst-ptp-helper is not suid!
+    amazon-ebs: Setting up libappstream4:amd64 (0.15.2-2) ...
+    amazon-ebs: Setting up python3-software-properties (0.99.22.9) ...
+    amazon-ebs: Setting up packagekit (1.2.5-2ubuntu3.1) ...
+    amazon-ebs: Created symlink /etc/systemd/user/sockets.target.wants/pk-debconf-helper.socket â†’ /usr/lib/systemd/user/pk-debconf-helper.socket.
+    amazon-ebs: Setting up packagekit-tools (1.2.5-2ubuntu3.1) ...
+    amazon-ebs: Setting up software-properties-common (0.99.22.9) ...
+    amazon-ebs: Processing triggers for libc-bin (2.35-0ubuntu3.13) ...
+    amazon-ebs: Processing triggers for dbus (1.12.20-2ubuntu4.1) ...
+    amazon-ebs: debconf: unable to initialize frontend: Dialog
+    amazon-ebs: debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78.)
+    amazon-ebs: debconf: falling back to frontend: Readline
+    amazon-ebs: Scanning processes...
+    amazon-ebs: Scanning linux images...
+    amazon-ebs:
+    amazon-ebs: Running kernel seems to be up-to-date.
+    amazon-ebs:
+    amazon-ebs: No services need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No containers need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No user sessions are running outdated binaries.
+    amazon-ebs:
+    amazon-ebs: No VM guests are running outdated hypervisor (qemu) binaries on this host.
+    amazon-ebs: --2026-06-30 16:55:31--  https://apt.releases.hashicorp.com/gpg
+    amazon-ebs: Resolving apt.releases.hashicorp.com (apt.releases.hashicorp.com)... 18.160.10.71, 18.160.10.69, 18.160.10.126, ...
+    amazon-ebs: Connecting to apt.releases.hashicorp.com (apt.releases.hashicorp.com)|18.160.10.71|:443... connected.
+    amazon-ebs: HTTP request sent, awaiting response... 200 OK
+    amazon-ebs: Length: 3980 (3.9K) [binary/octet-stream]
+    amazon-ebs: Saving to: â€˜STDOUTâ€™
+    amazon-ebs:
+    amazon-ebs: -                   100%[===================>]   3.89K  --.-KB/s    in 0s
+    amazon-ebs:
+    amazon-ebs: 2026-06-30 16:55:31 (4.78 GB/s) - written to stdout [3980/3980]
+    amazon-ebs:
+    amazon-ebs: ÊTj:/È³h¶h©á“çNf—Ãä¼Òíc¡…cœ´ÀôW{5!ÀQ´Çøæ6&¬Yïb[Á¥Ò°‹‘ö…¶RÏä«Ô§î÷éÙaß}k57¢R]€Œ ¨´®µŸ#ßzÍ¸×=º~×³dL¼ÑƒÃE°vş…´£Èm­07ÿmÚHuCş8'p$g>ÒŞøD†XL£wÔ
+    amazon-ebs: cë4A±àkã‡f»Ñ¨AXHí;¶”~«  ´QHashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>‰T >	
+    amazon-ebs: 	€!yŠìeN\BŒBîªü¼¦!çc½¼=		fÚ 
+    amazon-ebs: Dœ9fSuÁ!d†
+    amazon-ebs: c½¼ Òë{ˆ¢ãöÃœ§™şUù= “i6+¬ïXxëÄ•Õ ,šKÍÎa%À	ú<Iò„¶ZñùèA|ûtÜfñ[§
+    amazon-ebs: ö|{Pıx ı×tGSÖÙæ‡u
+    amazon-ebs: -ÒjEÙ½;×ÀıôÈiÄÀ­MÕ[¡ØñR®şÕ4Û8ç]v­;9>£ ·ÅÒxÙûÒÛ8¸Ñúg«“×.¼›zéûà-Y:¦·¸ûÃj¶XˆrÑŞ»½¶~b:áÃÿŸ¾óÆPmbQF¦Òy¹²¹¯12¡Â¡êÀœiûLÜ]€Y!”}Gø÷&¦un¶Í(g2ûÖÿ–ïÑ¯øì–~åY
+    amazon-ebs: fÖÿ3µ¡nsFIG¼‘üç•qIŸEâpÛî6Rá5À@õúÍté7†’``<àÆ$‘Ï¸ÏÄ™ö 7ƒBfv5_t§I§R?#³|Çåoµêº½ãÎÔtEl&¤;`ıWÉ¯sáUD²…Y+Wˆ†Â¶	ÚGË¨´¥¿ø(±ª4y§#(È°x~sŒŞiÓpœFé±&ùÓdƒr‚’:›ôÅ±`BD@T§şäqµpı™ïeµï¾Ç¡íÛ-§ic
+    amazon-ebs: ³øı.^»7"	zş8æ]şÑ5ÒG £‘bQ[’ZC  ‰r &!yŠìeN\BŒBîªü¼¦!çc½¼		f€@	ªü¼¦!çÁt  !ë
+    amazon-ebs: õâ™IiYo™‡>pnfƒiÀ…éc½¼ 
+    amazon-ebs: 	pnfƒiÀ…éÏQ Šb4[ªœ‡§
+    amazon-ebs: õ£ÿÓVOV°°õÜmåvB¡ŸKåsñ'Àı]şô9oÄ[7ŒDmyK]ÖWÇ¿Ê½ıŒ7å‹zz}Lf{YŠc*ö9Ô$_iåîcrÁoáÆ‰£ì”âæŞDµø¾ı¿‰2¾A:ñ_›ßí©@‹:ıÉ!¯W
+    amazon-ebs: •·°¼¢šfHå²:dGQ’Qîr¯N‘g/Æ­K!CkŠ5nM”İ©N±Å’òï1'øŒrƒHµûz¢ZLUÜÏ	:ç
+    amazon-ebs: Œ4•?ôA­§mJ@Ø§@°X¸ø0i²4‹Ğåæ Ö¯—Ÿ½˜Ù>F<uH„Ä)J‡[Àö~¿'—ëÅ‡éíß±ğ_ÂÑ6jÑu0‡B±€s~oØ\àZrkàÔcâIM4{veÀ@
+    amazon-ebs: V!›ï^ŸÕÀ„¶>× æ‚íŠ¡gpg: directory '/home/ubuntu/.gnupg' created
+    amazon-ebs: gpg: /home/ubuntu/.gnupg/trustdb.gpg: trustdb created
+    amazon-ebs: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    amazon-ebs: -------------------------------------------------
+    amazon-ebs: pub   rsa4096 2023-01-10 [SC] [expires: 2028-01-09]
+    amazon-ebs:       798A EC65 4E5C 1542 8C8E  42EE AA16 FCBC A621 E701
+    amazon-ebs: uid           [ unknown] HashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>
+    amazon-ebs: sub   rsa4096 2023-01-10 [S] [expires: 2028-01-09]
+    amazon-ebs:
+    amazon-ebs: deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg]       https://apt.releases.hashicorp.com jammy main
+    amazon-ebs: Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+    amazon-ebs: Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
+    amazon-ebs: Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
+    amazon-ebs: Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+    amazon-ebs: Get:5 https://apt.releases.hashicorp.com jammy InRelease [12.9 kB]
+    amazon-ebs: Hit:6 https://esm.ubuntu.com/apps/ubuntu jammy-apps-security InRelease
+    amazon-ebs: Hit:7 https://esm.ubuntu.com/infra/ubuntu jammy-infra-security InRelease
+    amazon-ebs: Hit:8 http://apt.puppet.com jammy InRelease
+    amazon-ebs: Hit:9 http://ppa.launchpad.net/cloud-images/eks-01.11.0/ubuntu jammy InRelease
+    amazon-ebs: Get:10 https://apt.releases.hashicorp.com jammy/main amd64 Packages [243 kB]
+    amazon-ebs: Fetched 256 kB in 1s (260 kB/s)
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree... Done
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: 1 package can be upgraded. Run 'apt list --upgradable' to see it.
+    amazon-ebs: Reading package lists... Done
+    amazon-ebs: Building dependency tree... Done
+    amazon-ebs: Reading state information... Done
+    amazon-ebs: The following NEW packages will be installed:
+    amazon-ebs:   terraform
+    amazon-ebs: 0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+    amazon-ebs: Need to get 18.8 MB of archives.
+    amazon-ebs: After this operation, 63.0 MB of additional disk space will be used.
+    amazon-ebs: Get:1 https://apt.releases.hashicorp.com jammy/main amd64 terraform amd64 1.1.5 [18.8 MB]
+    amazon-ebs: Fetched 18.8 MB in 0s (46.4 MB/s)
+    amazon-ebs: debconf: delaying package configuration, since apt-utils is not installed
+    amazon-ebs: Selecting previously unselected package terraform.
+    amazon-ebs: (Reading database ... 64346 files and directories currently installed.)
+    amazon-ebs: Preparing to unpack .../terraform_1.1.5_amd64.deb ...
+    amazon-ebs: Unpacking terraform (1.1.5) ...
+    amazon-ebs: Setting up terraform (1.1.5) ...
+    amazon-ebs: debconf: unable to initialize frontend: Dialog
+    amazon-ebs: debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78.)
+    amazon-ebs: debconf: falling back to frontend: Readline
+    amazon-ebs: Scanning processes...
+    amazon-ebs: Scanning linux images...
+    amazon-ebs:
+    amazon-ebs: Running kernel seems to be up-to-date.
+    amazon-ebs:
+    amazon-ebs: No services need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No containers need to be restarted.
+    amazon-ebs:
+    amazon-ebs: No user sessions are running outdated binaries.
+    amazon-ebs:
+    amazon-ebs: No VM guests are running outdated hypervisor (qemu) binaries on this host.
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Running "puppet apply" ****
+    amazon-ebs: Notice: Compiled catalog for ip-10-1-101-82.ec2.internal in environment production in 0.59 seconds
+    amazon-ebs: Notice: /Stage[main]/Apt/File[preferences]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/Exec[Install Docker Compose 1.29.2]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose-1.29.2]/mode: mode changed '0644' to '0755'
+    amazon-ebs: Notice: /Stage[main]/Docker::Compose/File[/usr/local/bin/docker-compose]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/File[/opt/go-1.25.11]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/Archive[/tmp/go1.25.11.linux-amd64.tar.gz]/ensure: download archive from https://dl.google.com/go/go1.25.11.linux-amd64.tar.gz to /tmp/go1.25.11.linux-amd64.tar.gz and extracted in /opt/go-1.25.11 with cleanup
+    amazon-ebs: Notice: /Stage[main]/Golang/File[go-binary]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Golang/File[gofmt-binary]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java-common]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Java/Package[java]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[pip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Python::Install/Package[python-dev]/ensure: removed
+    amazon-ebs: Notice: /Stage[main]/Main/Package[git]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[apache2-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cmake]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[dos2unix]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ffmpeg]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[ldap-utils]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libcurl4-openssl-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libmysqlclient-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[libpq-dev]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[postgresql-client]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[pylint]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[xvfb]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[unzip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[vim]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[whois]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[zip]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[awscli]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[boto3]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[cython]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Main/Package[twine]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Apt/Apt::Setting[conf-update-stamp]/File[/etc/apt/apt.conf.d/15update-stamp]/content: content changed '{sha256}174cdb519fd06372847e23c20db869b2ff4b593252c0d2a6274d770eae2d92c9' to '{sha256}2e6eb1f5f20262bfc6b7dfb26a302f00b4ab5fee803abd9e07ad8378cce067d5'
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/Apt_key[Add key: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88 from Apt::Source docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Source[docker]/Apt::Setting[list-docker]/File[/etc/apt/sources.list.d/docker.list]/ensure: defined content as '{sha256}576496fcadb053646d616b073c786b27edaac3ff7256a58db96cb27a55b57842'
+    amazon-ebs: Notice: /Stage[main]/Apt::Update/Exec[apt_update]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Package[cgroup-lite]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Repos/Apt::Pin[docker]/Apt::Setting[pref-docker]/File[/etc/apt/preferences.d/docker.pref]/ensure: defined content as '{sha256}12cae9612e6a952ae692f1aefcb0990e030f5ffe5c8dbd53c6b13accd57feaff'
+    amazon-ebs: Notice: /Stage[main]/Docker::Install/Package[docker]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Config/Docker::System_user[ubuntu]/Exec[docker-system-user-ubuntu]/returns: executed successfully
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d]/ensure: created
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/systemd/system/docker.service.d/service-overrides.conf]/ensure: defined content as '{sha256}06c187898ec3d1d803c12b2656c041e63587acaf2a55bbbeb6d2a87291d0a0e1'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Exec[docker-systemd-reload-before-service]: Triggered 'refresh' from 1 event
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker-storage]/ensure: defined content as '{sha256}1a0bfc5c866936867a3519a80104980d85c5ba5c91a5575f0fc0c5266cc98571'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/File[/etc/default/docker]/content: content changed '{sha256}3177ea62729e9f63474e41b5a740aeacd5c73eecd9c7b6cc499266adbc09d21b' to '{sha256}f601c95aa6bb7f9f490ec066780a4c44a2e8d8837aa94ece46d0a1d544839479'
+    amazon-ebs: Notice: /Stage[main]/Docker::Service/Service[docker]: Triggered 'refresh' from 3 events
+    amazon-ebs: Notice: Applied catalog in 419.72 seconds
+    amazon-ebs: 0
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Completed "puppet apply" ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Installing sbt 1.11.7 ****
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: *************************************
+    amazon-ebs: *    Software versions installed    *
+    amazon-ebs: *************************************
+    amazon-ebs:
+    amazon-ebs: ******* Java version information *******
+    amazon-ebs: openjdk version "1.8.0_492"
+    amazon-ebs: OpenJDK Runtime Environment (build 1.8.0_492-8u492-ga~us2-0ubuntu1~22.04.1-b09)
+    amazon-ebs: OpenJDK 64-Bit Server VM (build 25.492-b09, mixed mode)
+    amazon-ebs:
+    amazon-ebs: ******* Docker version information *******
+    amazon-ebs: Client: Docker Engine - Community
+    amazon-ebs:  Version:           29.6.1
+    amazon-ebs:  API version:       1.55
+    amazon-ebs:  Go version:        go1.26.4
+    amazon-ebs:  Git commit:        8900f1d
+    amazon-ebs:  Built:             Fri Jun 26 11:40:26 2026
     amazon-ebs:  OS/Arch:           linux/amd64
     amazon-ebs:  Context:           default
     amazon-ebs:
-    amazon-ebs: Server:
+    amazon-ebs: Server: Docker Engine - Community
     amazon-ebs:  Engine:
-    amazon-ebs:   Version:          25.0.14
-    amazon-ebs:   API version:      1.44 (minimum version 1.24)
-    amazon-ebs:   Go version:       go1.25.8 X:nodwarf5
-    amazon-ebs:   Git commit:       d334795
-    amazon-ebs:   Built:            Tue Mar 24 00:00:00 2026
+    amazon-ebs:   Version:          29.6.1
+    amazon-ebs:   API version:      1.55 (minimum version 1.40)
+    amazon-ebs:   Go version:       go1.26.4
+    amazon-ebs:   Git commit:       8ec5ab3
+    amazon-ebs:   Built:            Fri Jun 26 11:40:26 2026
     amazon-ebs:   OS/Arch:          linux/amd64
     amazon-ebs:   Experimental:     false
     amazon-ebs:  containerd:
-    amazon-ebs:   Version:          2.2.1+unknown
-    amazon-ebs:   GitCommit:
+    amazon-ebs:   Version:          v2.2.5
+    amazon-ebs:   GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
     amazon-ebs:  runc:
-    amazon-ebs:   Version:          1.3.4
-    amazon-ebs:   GitCommit:        d6d73eb8c60246978da649ffe75ce5c8bca8f856
+    amazon-ebs:   Version:          1.3.6
+    amazon-ebs:   GitCommit:        v1.3.6-0-g491b69ba
     amazon-ebs:  docker-init:
     amazon-ebs:   Version:          0.19.0
     amazon-ebs:   GitCommit:        de40ad0
-    amazon-ebs:   UNIT                        LOAD   ACTIVE SUB     DESCRIPTION
-    amazon-ebs:   amazon-ecs-volume-plugin.sâ€¦ loaded active running Amazon Elastic Container Seâ€¦
-    amazon-ebs:   amazon-ssm-agent.service    loaded active running amazon-ssm-agent
-    amazon-ebs:   auditd.service              loaded active running Security Auditing Service
-    amazon-ebs:   chronyd.service             loaded active running NTP client/server
-    amazon-ebs:   containerd.service          loaded active running containerd container runtime
-    amazon-ebs:   dbus-broker.service         loaded active running D-Bus System Message Bus
-    amazon-ebs:   docker.service              loaded active running Docker Application Containeâ€¦
-    amazon-ebs:   ecs.service                 loaded active running Amazon Elastic Container Seâ€¦
-    amazon-ebs:   getty@tty1.service          loaded active running Getty on tty1
-    amazon-ebs:   gssproxy.service            loaded active running GSSAPI Proxy Daemon
-    amazon-ebs:   irqbalance.service          loaded active running irqbalance daemon
-    amazon-ebs:   serial-getty@ttyS0.service  loaded active running Serial Getty on ttyS0
-    amazon-ebs:   sshd.service                loaded active running OpenSSH server daemon
-    amazon-ebs:   systemd-homed.service       loaded active running Home Area Manager
-    amazon-ebs:   systemd-journald.service    loaded active running Journal Service
-    amazon-ebs:   systemd-logind.service      loaded active running User Login Management
-    amazon-ebs:   systemd-networkd.service    loaded active running Network Configuration
-    amazon-ebs:   systemd-resolved.service    loaded active running Network Name Resolution
-    amazon-ebs:   systemd-udevd.service       loaded active running Rule-based Manager for Deviâ€¦
-    amazon-ebs:   systemd-userdbd.service     loaded active running User Database Manager
-    amazon-ebs:   user@1000.service           loaded active running User Manager for UID 1000
+    amazon-ebs: docker-compose version 1.29.2, build 5becea4c
     amazon-ebs:
-    amazon-ebs: LOAD   = Reflects whether the unit definition was properly loaded.
-    amazon-ebs: ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
-    amazon-ebs: SUB    = The low-level unit activation state, values depend on unit type.
-    amazon-ebs: 21 loaded units listed.
-    amazon-ebs: ECS agent package: 1.102.2-1.amzn2023
-==> amazon-ebs: Stopping the source instance...
-    amazon-ebs: Stopping instance
-==> amazon-ebs: Waiting for the instance to stop...
-==> amazon-ebs: Creating AMI ecs-ami-3 from instance i-04bad54b96e532e2f
-    amazon-ebs: AMI: ami-004ffac83b95c5455
+    amazon-ebs: ******* Node and node modules version information *******
+    amazon-ebs: Node v18.17.1
+    amazon-ebs: Default: [0;32m18.17.1[0m
+    amazon-ebs:
+    amazon-ebs: ******* sbt version information *******
+    amazon-ebs: [info] [launcher] getting org.scala-sbt sbt 1.11.7  (this may take some time)...
+    amazon-ebs: [info] [launcher] getting Scala 2.12.20 (for sbt)...
+    amazon-ebs: [0m[[0m[0minfo[0m] [0m[0mUpdated file /tmp/project/build.properties: set sbt.version to 1.11.7[0m[0J
+    amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0mwelcome to sbt 1.11.7 (Private Build Java 1.8.0_492)[0m[0J
+    amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0mloading project definition from /tmp/project[0m[0J
+    amazon-ebs: [0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[2A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K  | => tmp-build / Compile / unmanagedSources / allInputPathsAndAttributes 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / dependencyPositions 0s
+    amazon-ebs: [2K[3A[1000D[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[0J[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / previousCompile 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 0s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 1s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 2s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 2s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 3s
+    amazon-ebs: [2K[3A[1000D[1000D
+    amazon-ebs: [2K
+    amazon-ebs: [2K[2K  | => tmp-build / update 3s
+    amazon-ebs: [2K[3A[1000D[0m[[0m[0minfo[0m] [0m[0mUpdating tmp-build[0m[0J
+    amazon-ebs: [0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 3s
+    amazon-ebs: [2K[2A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 4s
+    amazon-ebs: [2K[2A[1000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
+    amazon-ebs: [2K  100.0% [##########] 19.4 KiB (34.1 KiB / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.pom
+    amazon-ebs: [2K  100.0% [##########] 19.4 KiB (32.9 KiB / s)
+    amazon-ebs: [10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+    amazon-ebs: [2K  100.0% [##########] 6.4 KiB (51.7 KiB / s)
+    amazon-ebs: [10000D[0m[[0m[0minfo[0m] [0m[0mResolved tmp-build dependencies[0m[0J
+    amazon-ebs: [0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 4s
+    amazon-ebs: [2K[2A[1000D[0m[[0m[0minfo[0m] [0m[0mFetching artifacts of tmp-build[0m[0J
+    amazon-ebs: [0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 4s
+    amazon-ebs: [2K[2A[1000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar
+    amazon-ebs: [2K    0.0% [          ] 0B (0B / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar
+    amazon-ebs: [2K    9.7% [          ] 25.4 KiB (89.3 KiB / s)
+    amazon-ebs: [2A[10000D[2Khttps://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar
+    amazon-ebs: [2K   28.5% [##        ] 74.9 KiB (262.9 KiB / s)
+    amazon-ebs: [2A[10000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 5s
+    amazon-ebs: [2K[2A[1000D[2K[1B[2K[1B[2A[0m[[0m[0minfo[0m] [0m[0mFetched artifacts of tmp-build[0m[0J
+    amazon-ebs: [0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 5s
+    amazon-ebs: [2K[2A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / update 6s
+    amazon-ebs: [2K[2A[1000D[0J[0J[0J[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / compileIncremental 0s
+    amazon-ebs: [2K[2A[1000D[1000D
+    amazon-ebs: [2K[2K  | => tmp-build / Compile / compileIncremental 0s
+    amazon-ebs: [2K[2A[1000D[0J[0m[[0m[0minfo[0m] [0m[0mset current project to tmp (in build file:/tmp/)[0m[0J
+    amazon-ebs: [0J[0m[[0m[0minfo[0m] [0m[0m1.11.7[0m[0J
+    amazon-ebs: [0J[0J
+    amazon-ebs: ******* Terraform version information *******
+    amazon-ebs: Terraform v1.1.5
+    amazon-ebs: on linux_amd64
+    amazon-ebs:
+    amazon-ebs: Your version of Terraform is out of date! The latest version
+    amazon-ebs: is 1.15.7. You can update by downloading from https://www.terraform.io/downloads.html
+    amazon-ebs:
+    amazon-ebs: ******* Twine version information *******
+    amazon-ebs: /usr/lib/python3/dist-packages/requests/__init__.py:87: RequestsDependencyWarning: urllib3 (2.7.0) or chardet (4.0.0) doesn't match a supported version!
+    amazon-ebs:   warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+    amazon-ebs: twine version 6.2.0 (keyring: 23.5.0, packaging: 26.2, requests: 2.25.1,
+    amazon-ebs: requests-toolbelt: 1.0.0, urllib3: 2.7.0, id: 1.6.1)
+    amazon-ebs:
+    amazon-ebs: ******* Golang version information *******
+    amazon-ebs: go version go1.25.11 linux/amd64
+    amazon-ebs:
+    amazon-ebs:
+    amazon-ebs: **** Cleaning up /home/ubuntu on AMI ****
+==> amazon-ebs: Creating AMI jenkins-ami-63 from instance i-03f56959ecc77abcd
+    amazon-ebs: AMI: ami-051428cd53ad1b2dc
 ==> amazon-ebs: Waiting for AMI to become ready...
 ==> amazon-ebs: Skipping Enable AMI deprecation...
-==> amazon-ebs: Modifying attributes on AMI (ami-004ffac83b95c5455)...
+==> amazon-ebs: Modifying attributes on AMI (ami-051428cd53ad1b2dc)...
     amazon-ebs: Modifying: users
-==> amazon-ebs: Modifying attributes on snapshot (snap-03e87dbe817c65dcc)...
-==> amazon-ebs: Modifying attributes on snapshot (snap-0a14a3f535a3e419c)...
-==> amazon-ebs: Adding tags to AMI (ami-004ffac83b95c5455)...
-==> amazon-ebs: Tagging snapshot: snap-03e87dbe817c65dcc
-==> amazon-ebs: Tagging snapshot: snap-0a14a3f535a3e419c
+==> amazon-ebs: Modifying attributes on snapshot (snap-016b3c362b34748af)...
+    amazon-ebs: Modifying: users
+==> amazon-ebs: Adding tags to AMI (ami-051428cd53ad1b2dc)...
+==> amazon-ebs: Tagging snapshot: snap-016b3c362b34748af
 ==> amazon-ebs: Creating AMI tags
-    amazon-ebs: Adding tag: "Name": "ecs-ami-3"
+    amazon-ebs: Adding tag: "Name": "jenkins-ami-63"
 ==> amazon-ebs: Creating snapshot tags
 ==> amazon-ebs: Terminating the source AWS instance...
 ==> amazon-ebs: Cleaning up any extra volumes...
 ==> amazon-ebs: No volumes to clean up, skipping
 ==> amazon-ebs: Deleting temporary keypair...
-Build 'amazon-ebs' finished after 6 minutes 8 seconds.
+Build 'amazon-ebs' finished after 18 minutes 28 seconds.
 
-==> Wait completed after 6 minutes 8 seconds
+==> Wait completed after 18 minutes 28 seconds
 
 ==> Builds finished. The artifacts of successful builds are:
 --> amazon-ebs: AMIs were created:
-us-east-1: ami-004ffac83b95c5455
+us-east-1: ami-051428cd53ad1b2dc
 
